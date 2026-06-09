@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo se resuelve el caso — paso a paso visual</title>
+<style>
+  :root{
+    --azul:#1a4b8c; --amarillo:#ffe600; --gris:#f4f5f7; --texto:#2d3436;
+    --verde:#27ae60; --rojo:#e74c3c; --naranja:#f39c12;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Segoe UI',system-ui,sans-serif; color:var(--texto); background:#fff; line-height:1.55; max-width:880px; margin:0 auto; padding:24px;}
+  h1{font-size:26px; color:var(--azul); margin-bottom:4px;}
+  .sub{color:#777; margin-bottom:28px; font-size:15px;}
+  .paso{background:var(--gris); border-radius:14px; padding:22px 24px; margin-bottom:26px; border-left:6px solid var(--azul);}
+  .paso h2{font-size:19px; color:var(--azul); margin-bottom:4px;}
+  .paso .pregunta{font-style:italic; color:#666; font-size:14px; margin-bottom:14px;}
+  table{border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; font-size:14px;}
+  th,td{padding:6px 14px; text-align:right; border-bottom:1px solid #eee;}
+  th{background:var(--azul); color:#fff; text-align:left;}
+  td:first-child{text-align:left;}
+  .total td{font-weight:700; background:#fff9c4; border-top:2px solid var(--azul);}
+  .flecha{font-size:26px; color:var(--azul); text-align:center; margin:10px 0; font-weight:700;}
+  .bignum{font-size:30px; font-weight:800; color:var(--azul);}
+  .formula{background:#fff; border:2px dashed var(--azul); border-radius:10px; padding:12px 18px; font-family:Consolas,monospace; font-size:15px; margin:12px 0; display:inline-block;}
+  .pallets-visual{display:flex; flex-wrap:wrap; gap:3px; margin:12px 0; max-width:740px;}
+  .pallet{width:14px; height:14px; background:#c8a165; border:1px solid #9c7a45; border-radius:2px;}
+  .pallet.resto{background:var(--naranja); border-color:#c87f0a;}
+  .trucks{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0;}
+  .truck{background:#fff; border-radius:10px; padding:12px 14px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.08); min-width:104px;}
+  .truck .icon{font-size:30px;}
+  .truck .fill{height:10px; background:#e0e0e0; border-radius:5px; margin-top:8px; overflow:hidden;}
+  .truck .fill > div{height:100%; background:var(--verde); border-radius:5px;}
+  .truck .fill > div.warn{background:var(--naranja);}
+  .truck small{display:block; color:#777; margin-top:5px; font-size:12px;}
+  .timeline{position:relative; height:120px; background:#fff; border-radius:10px; margin:14px 0; padding:0;}
+  .tl-bar{position:absolute; top:52px; left:4%; right:4%; height:8px; background:linear-gradient(90deg,var(--azul),var(--verde)); border-radius:4px;}
+  .tl-punto{position:absolute; top:38px; width:36px; text-align:center; margin-left:-18px; font-size:26px;}
+  .tl-label{position:absolute; top:74px; width:170px; margin-left:-85px; text-align:center; font-size:13px; font-weight:600;}
+  .tl-top{position:absolute; top:8px; width:170px; margin-left:-85px; text-align:center; font-size:12px; color:#777;}
+  .dias{display:flex; align-items:flex-end; gap:8px; height:150px; margin:16px 0 4px;}
+  .dia{flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; height:100%;}
+  .dia .barra{width:100%; background:var(--azul); border-radius:6px 6px 0 0; position:relative;}
+  .dia .barra.min{background:#a8c4e8;}
+  .dia .barra.max{background:var(--naranja);}
+  .dia .v{font-size:11px; font-weight:700; text-align:center; margin-bottom:3px;}
+  .dia .n{font-size:12px; margin-top:5px; color:#555; font-weight:600;}
+  .callout{background:#fff3cd; border-left:5px solid var(--naranja); padding:12px 16px; border-radius:0 8px 8px 0; margin:14px 0; font-size:14px;}
+  .callout.verde{background:#d5f5e3; border-color:var(--verde);}
+  .callout.rojo{background:#fdedec; border-color:var(--rojo);}
+  .cadena{display:flex; flex-wrap:wrap; gap:0; align-items:center; justify-content:center; margin:18px 0;}
+  .cadena .nodo{background:var(--azul); color:#fff; border-radius:10px; padding:10px 14px; font-size:13px; font-weight:600; text-align:center; min-width:106px;}
+  .cadena .op{padding:0 10px; font-size:18px; font-weight:800; color:var(--naranja);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:12px 0;}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+  .card{background:#fff; border-radius:10px; padding:14px 16px; box-shadow:0 2px 6px rgba(0,0,0,.07);}
+  .card h3{font-size:14px; color:var(--azul); margin-bottom:6px;}
+</style>
+</head>
+<body>
+
+<h1>📦 Cómo se resuelve el caso, paso a paso</h1>
+<p class="sub">Siguiendo UNA ruta real de principio a fin: <b>Tepotzotlán → Villahermosa</b>, martes 20 de junio (el día pico de la semana). Todo el caso es repetir esta cadena 228 veces (una por ruta-día) y sumar.</p>
+
+<!-- CADENA RESUMEN -->
+<div class="cadena">
+  <div class="nodo">📦 Envíos<br>del día</div><div class="op">÷60</div>
+  <div class="nodo">🟫 Pallets</div><div class="op">÷28</div>
+  <div class="nodo">🚛 Camiones</div><div class="op">+🕐</div>
+  <div class="nodo">Hora de<br>llegada</div><div class="op">×km×$</div>
+  <div class="nodo">💰 Costo por<br>paquete</div>
+</div>
+
+<!-- PASO 1 -->
+<div class="paso">
+  <h2>Paso 1 · Consolidar: las filas del Excel NO son camiones</h2>
+  <p class="pregunta">El Excel separa el volumen por "proceso" (tipo de flujo dentro del almacén), pero todos viajan juntos en la misma salida nocturna.</p>
+  <table>
+    <tr><th>Proceso (así viene en el Excel)</th><th>Envíos</th></tr>
+    <tr><td>XD OUT V4 (cross-dock)</td><td>1</td></tr>
+    <tr><td>RETURNS XD OUT (devoluciones)</td><td>11</td></tr>
+    <tr><td>FULL OUT (inventario almacenado)</td><td>405</td></tr>
+    <tr><td>FULL OUT</td><td>464</td></tr>
+    <tr><td>XD OUT (cross-dock)</td><td>2,733</td></tr>
+    <tr><td>FULL OUT</td><td>3,662</td></tr>
+    <tr><td>XD OUT V4</td><td>3,683</td></tr>
+    <tr class="total"><td>TOTAL que sube a camiones esa noche</td><td>10,959</td></tr>
+  </table>
+  <div class="callout rojo">⚠️ <b>Error típico:</b> calcular camiones por cada fila (7 envíos de camiones distintos). Lo correcto: el FC consolida TODO lo del día hacia un destino en una sola salida.</div>
+</div>
+
+<!-- PASO 2 -->
+<div class="paso">
+  <h2>Paso 2 · De paquetes a pallets: ÷ 60</h2>
+  <p class="pregunta">El caso lo dice: "en cada pallet caben 60 paquetes". Los camiones no cargan paquetes sueltos, cargan tarimas.</p>
+  <div class="formula">10,959 paquetes ÷ 60 = 182.65 → se redondea ARRIBA → <b>183 pallets</b></div>
+  <div class="callout">El redondeo es hacia arriba porque el pallet #183 viaja aunque lleve solo 39 paquetes. Un pallet a medias ocupa el mismo espacio que uno lleno.</div>
+  <p>Cada cuadrito = 1 pallet (183 en total):</p>
+  <div class="pallets-visual" id="pallets"></div>
+</div>
+
+<!-- PASO 3 -->
+<div class="paso">
+  <h2>Paso 3 · De pallets a camiones: llenar trailers, decidir el remanente</h2>
+  <p class="pregunta">Supuestos estándar México: trailer 53' = 28 tarimas · torton = 14 tarimas.</p>
+  <div class="formula">183 pallets ÷ 28 = <b>6 trailers llenos</b> (168 tarimas) + <b>remanente de 15</b></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>¿Por qué llenar trailers primero?</h3>
+      Trailer lleno: $60/km ÷ 28 tarimas = <b>$2.14 por tarima-km</b><br>
+      Torton lleno: $40/km ÷ 14 tarimas = <b>$2.86 por tarima-km</b><br>
+      → El trailer lleno siempre es más barato por unidad.
+    </div>
+    <div class="card">
+      <h3>¿Y el remanente de 15 tarimas?</h3>
+      ¿Caben en un torton? No, solo caben 14.<br>
+      ¿Dos tortons? $40+$40 = $80/km.<br>
+      ¿Un trailer (al 54%)? <b>$60/km ← gana</b><br>
+      → Regla: remanente ≤14 → torton · remanente &gt;14 → trailer
+    </div>
+  </div>
+  <div class="trucks">
+    <div class="truck"><div class="icon">🚛</div>Trailer 1<div class="fill"><div style="width:100%"></div></div><small>28/28 · 100%</small></div>
+    <div class="truck"><div class="icon">🚛</div>Trailer 2<div class="fill"><div style="width:100%"></div></div><small>28/28 · 100%</small></div>
+    <div class="truck"><div class="icon">🚛</div>Trailer 3<div class="fill"><div style="width:100%"></div></div><small>28/28 · 100%</small></div>
+    <div class="truck"><div class="icon">🚛</div>Trailer 4<div class="fill"><div style="width:100%"></div></div><small>28/28 · 100%</small></div>
+    <div class="truck"><div class="icon">🚛</div>Trailer 5<div class="fill"><div style="width:100%"></div></div><small>28/28 · 100%</small></div>
+    <div class="truck"><div class="icon">🚛</div>Trailer 6<div class="fill"><div style="width:100%"></div></div><small>28/28 · 100%</small></div>
+    <div class="truck"><div class="icon">🚛</div>Trailer 7<div class="fill"><div class="warn" style="width:54%"></div></div><small>15/28 · 54%</small></div>
+  </div>
+  <div class="callout verde">✅ <b>Respuesta pregunta 2 (ocupación):</b> esta ruta-día usa 7 trailers con capacidad de 196 tarimas y carga 183 → <b>ocupación = 93.4%</b>. El indicador de toda la red se calcula igual: tarimas cargadas ÷ tarimas de capacidad desplegada.</div>
+</div>
+
+<!-- PASO 4 -->
+<div class="paso">
+  <h2>Paso 4 · El reloj: ¿a qué hora llegan? (pregunta 1 del caso)</h2>
+  <p class="pregunta">Pestaña 3 da la hora de salida del origen. Pestaña 2 da las horas de viaje. Llegada = salida + tránsito.</p>
+  <div class="timeline">
+    <div class="tl-bar"></div>
+    <div class="tl-punto" style="left:4%">🏭</div>
+    <div class="tl-top" style="left:4%">Martes 20</div>
+    <div class="tl-label" style="left:4%">Sale 22:30<br>Tepotzotlán</div>
+    <div class="tl-punto" style="left:50%">🌙</div>
+    <div class="tl-top" style="left:50%">+14.68 h de viaje</div>
+    <div class="tl-label" style="left:50%">rueda toda<br>la madrugada</div>
+    <div class="tl-punto" style="left:96%">📍</div>
+    <div class="tl-top" style="left:96%">Miércoles 21</div>
+    <div class="tl-label" style="left:96%"><b>Llega 13:10 (D+1)</b><br>Villahermosa</div>
+  </div>
+  <div class="formula">22:30 + 14.68 h = 13:10 del día siguiente → los 7 trailers llegan D+1 a las 13:10</div>
+  <div class="callout">💡 Este mismo cálculo en la ruta a Playa del Carmen da 20:30 + 28h = <b>00:30 de D+2</b>. Por eso la promesa de entrega rápida en la Riviera Maya depende del inventario en el hub de Mérida, no del camión desde CDMX.</div>
+</div>
+
+<!-- PASO 5 -->
+<div class="paso">
+  <h2>Paso 5 · El dinero (pregunta 3 del caso)</h2>
+  <p class="pregunta">El caso da $60/km (trailer) y $40/km (torton)… pero no da kilómetros. Solo da horas. Hay que asumir una velocidad.</p>
+  <div class="formula">km = 14.68 h × 60 km/h = <b>881 km</b></div>
+  <div class="formula">Costo = 7 trailers × $60/km × 881 km = <b>$369,936</b></div>
+  <div class="formula">$369,936 ÷ 10,959 paquetes = <b>$33.76 por paquete</b></div>
+  <div class="callout">📌 La velocidad de 60 km/h es un <b>supuesto que debes declarar</b>. Validación: Tepotzotlán–Mérida son ~1,310 km reales y el Excel dice 24.87h → ~53 km/h implícitos. El costo escala lineal con este supuesto: a 50 km/h el total baja ~17%, a 70 sube ~17%.</div>
+</div>
+
+<!-- PASO 6 -->
+<div class="paso">
+  <h2>Paso 6 · Repetir los 7 días: la demanda respira</h2>
+  <p class="pregunta">La misma ruta no necesita los mismos camiones cada día. Envíos diarios de TODA la red:</p>
+  <div class="dias">
+    <div class="dia"><div class="barra min" style="height:51%"><div class="v">18,055</div></div><div class="n">Dom</div></div>
+    <div class="dia"><div class="barra" style="height:85%"><div class="v">30,089</div></div><div class="n">Lun</div></div>
+    <div class="dia"><div class="barra max" style="height:100%"><div class="v">35,546</div></div><div class="n">Mar ⬅ pico</div></div>
+    <div class="dia"><div class="barra" style="height:94%"><div class="v">33,253</div></div><div class="n">Mié</div></div>
+    <div class="dia"><div class="barra" style="height:88%"><div class="v">31,217</div></div><div class="n">Jue</div></div>
+    <div class="dia"><div class="barra" style="height:81%"><div class="v">28,816</div></div><div class="n">Vie</div></div>
+    <div class="dia"><div class="barra min" style="height:66%"><div class="v">23,328</div></div><div class="n">Sáb</div></div>
+  </div>
+  <div class="callout">Misma ruta Tepotzotlán→Villahermosa: el domingo movió 5,561 envíos (93 pallets ≈ 4 camiones) y el martes 10,959 (183 pallets = 7 trailers). <b>La flota se dimensiona día por día, no con un promedio.</b> Esto es exactamente lo que un Demand Planner pronostica.</div>
+</div>
+
+<!-- PASO 7 -->
+<div class="paso">
+  <h2>Paso 7 · Sumar las 228 ruta-días = la respuesta del caso</h2>
+  <div class="grid2">
+    <div class="card"><h3>Pregunta 1 · Vehículos y horarios</h3>~17 trailers + ~26 tortons despachados por día. Llegadas concentradas en la madrugada y mediodía de D+1 (ej. Villahermosa 13:10, Tuxtla 11:19, Cancún 23:30).</div>
+    <div class="card"><h3>Pregunta 2 · Ocupación</h3>Red: 60% global. Troncales de Tepotzotlán: <b>83–94%</b> ✅ · Radiales de Mérida: 24–50% ⚠️ · Micro-rutas: ~7% 🔴</div>
+    <div class="card"><h3>Pregunta 3 · Costo</h3><span class="bignum">$9.75M</span>/semana<br>= <b>$48.66 por paquete</b></div>
+    <div class="card"><h3>El hallazgo "wow"</h3>341 paquetes en micro-rutas (0.17% del volumen) cuestan $624 mil (<b>6.4% del costo</b>). Consolidándolos: $45.55/paquete.</div>
+  </div>
+</div>
+
+<p style="text-align:center; color:#999; font-size:13px; margin-top:8px;">Caso: red media milla · Datos: semana 18–24 jun 2023 · Supuestos: 60 pqts/pallet (dado) · trailer 28 tarimas · torton 14 · 60 km/h</p>
+
+<script>
+  const cont = document.getElementById('pallets');
+  for(let i=0;i<183;i++){
+    const d=document.createElement('div');
+    d.className='pallet'+(i>=168?' resto':'');
+    cont.appendChild(d);
+  }
+</script>
+</body>
+</html>
