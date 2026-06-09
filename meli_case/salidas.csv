@@ -1,0 +1,39 @@
+origen,destino,hora_salida
+Cancun,Campeche,16:30
+Cancun,Cancun,16:30
+Cancun,Chetumal,16:30
+Cancun,Ciudad del Carmen,16:30
+Cancun,Mérida,16:30
+Cancun,Playa,16:30
+Cancun,Tuxtla Gutierrez,16:30
+Cancun,Villahermosa,16:30
+Mérida,Campeche,22:30
+Mérida,Cancun,22:30
+Mérida,Chetumal,22:30
+Mérida,Ciudad del Carmen,22:30
+Mérida,Mérida,22:30
+Mérida,Playa,22:30
+Mérida,Tuxtla Gutierrez,22:30
+Mérida,Villahermosa,22:30
+Tapachula,Mérida,21:00
+Tapachula,Tuxtla Gutierrez,21:00
+Tepotzotlan,Campeche,20:30
+Tepotzotlan,Cancun,20:30
+Tepotzotlan,Chetumal,20:30
+Tepotzotlan,Ciudad del Carmen,20:30
+Tepotzotlan,Mérida,20:30
+Tepotzotlan,Playa,20:30
+Tepotzotlan,Tuxtla Gutierrez,20:30
+Tepotzotlan,Villahermosa,22:30
+Tuxtla Gutierrez,Chetumal,23:00
+Tuxtla Gutierrez,Mérida,23:00
+Tuxtla Gutierrez,Tuxtla Gutierrez,23:00
+Tuxtla Gutierrez,Villahermosa,23:00
+Villahermosa,Campeche,5:00
+Villahermosa,Cancun,5:00
+Villahermosa,Chetumal,5:00
+Villahermosa,Ciudad del Carmen,5:00
+Villahermosa,Mérida,5:00
+Villahermosa,Playa,5:00
+Villahermosa,Tuxtla Gutierrez,5:00
+Villahermosa,Villahermosa,5:00

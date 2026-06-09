@@ -1,0 +1,605 @@
+fecha,proceso,origen,destino,envios
+18-Jun-23,FULL OUT,Mérida,Campeche,292
+18-Jun-23,XD OUT V3,Tepotzotlan,Campeche,12
+18-Jun-23,XD OUT,Tepotzotlan,Campeche,16
+18-Jun-23,FULL OUT,Tepotzotlan,Campeche,105
+18-Jun-23,FULL OUT,Tepotzotlan,Campeche,114
+18-Jun-23,FULL OUT,Tepotzotlan,Campeche,123
+18-Jun-23,XD OUT V4,Tepotzotlan,Campeche,225
+18-Jun-23,FULL OUT,Mérida,Cancun,1058
+18-Jun-23,RETURNS XD OUT,Tepotzotlan,Cancun,1
+18-Jun-23,XD OUT,Tepotzotlan,Cancun,35
+18-Jun-23,FULL OUT,Tepotzotlan,Cancun,160
+18-Jun-23,FULL OUT,Tepotzotlan,Cancun,183
+18-Jun-23,FULL OUT,Tepotzotlan,Cancun,304
+18-Jun-23,XD OUT V4,Tepotzotlan,Cancun,399
+18-Jun-23,FULL OUT,Mérida,Chetumal,263
+18-Jun-23,XD OUT,Tepotzotlan,Chetumal,20
+18-Jun-23,FULL OUT,Tepotzotlan,Chetumal,33
+18-Jun-23,FULL OUT,Tepotzotlan,Chetumal,56
+18-Jun-23,FULL OUT,Tepotzotlan,Chetumal,78
+18-Jun-23,XD OUT V4,Tepotzotlan,Chetumal,148
+18-Jun-23,FULL OUT,Mérida,Ciudad del Carmen,186
+18-Jun-23,XD OUT,Tepotzotlan,Ciudad del Carmen,24
+18-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,37
+18-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,47
+18-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,223
+18-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,247
+18-Jun-23,FULL OUT,Mérida,Mérida,1125
+18-Jun-23,RETURNS XD OUT,Tepotzotlan,Mérida,1
+18-Jun-23,XD OUT,Tepotzotlan,Mérida,32
+18-Jun-23,FULL OUT,Tepotzotlan,Mérida,131
+18-Jun-23,FULL OUT,Tepotzotlan,Mérida,163
+18-Jun-23,FULL OUT,Tepotzotlan,Mérida,260
+18-Jun-23,XD OUT V4,Tepotzotlan,Mérida,408
+18-Jun-23,FULL OUT,Mérida,Playa,253
+18-Jun-23,XD OUT,Tepotzotlan,Playa,33
+18-Jun-23,FULL OUT,Tepotzotlan,Playa,34
+18-Jun-23,FULL OUT,Tepotzotlan,Playa,102
+18-Jun-23,FULL OUT,Tepotzotlan,Playa,154
+18-Jun-23,XD OUT V4,Tepotzotlan,Playa,624
+18-Jun-23,FULL OUT,Mérida,Tuxtla Gutierrez,142
+18-Jun-23,RETURNS XD OUT,Tepotzotlan,Tuxtla Gutierrez,2
+18-Jun-23,XD OUT,Tepotzotlan,Tuxtla Gutierrez,129
+18-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,241
+18-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,412
+18-Jun-23,XD OUT V4,Tepotzotlan,Tuxtla Gutierrez,1477
+18-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,2140
+18-Jun-23,FULL OUT,Mérida,Villahermosa,242
+18-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Villahermosa,3
+18-Jun-23,XD OUT,Tepotzotlan,Villahermosa,150
+18-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,347
+18-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,411
+18-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,1705
+18-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,2945
+19-Jun-23,XD OUT,Cancun,Campeche,5
+19-Jun-23,XD OUT,Mérida,Campeche,9
+19-Jun-23,FULL OUT,Mérida,Campeche,347
+19-Jun-23,FULL OUT,Tepotzotlan,Campeche,55
+19-Jun-23,FULL OUT,Tepotzotlan,Campeche,84
+19-Jun-23,XD OUT V4,Tepotzotlan,Campeche,145
+19-Jun-23,FULL OUT,Tepotzotlan,Campeche,172
+19-Jun-23,XD OUT,Tepotzotlan,Campeche,468
+19-Jun-23,XD OUT,Villahermosa,Campeche,6
+19-Jun-23,XD OUT,Campeche,Cancun,7
+19-Jun-23,XD OUT,Cancun,Cancun,18
+19-Jun-23,RETURNS XD OUT,Mérida,Cancun,1
+19-Jun-23,XD OUT,Mérida,Cancun,82
+19-Jun-23,FULL OUT,Mérida,Cancun,250
+19-Jun-23,FULL OUT,Mérida,Cancun,1165
+19-Jun-23,RETURNS XD OUT,Tepotzotlan,Cancun,2
+19-Jun-23,FULL OUT,Tepotzotlan,Cancun,149
+19-Jun-23,FULL OUT,Tepotzotlan,Cancun,210
+19-Jun-23,XD OUT V4,Tepotzotlan,Cancun,348
+19-Jun-23,FULL OUT,Tepotzotlan,Cancun,431
+19-Jun-23,XD OUT,Tepotzotlan,Cancun,1416
+19-Jun-23,XD OUT,Cancun,Chetumal,6
+19-Jun-23,XD OUT,Mérida,Chetumal,27
+19-Jun-23,FULL OUT,Mérida,Chetumal,296
+19-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Chetumal,1
+19-Jun-23,RETURNS XD OUT,Tepotzotlan,Chetumal,1
+19-Jun-23,FULL OUT,Tepotzotlan,Chetumal,38
+19-Jun-23,FULL OUT,Tepotzotlan,Chetumal,50
+19-Jun-23,XD OUT V4,Tepotzotlan,Chetumal,87
+19-Jun-23,FULL OUT,Tepotzotlan,Chetumal,106
+19-Jun-23,XD OUT,Tepotzotlan,Chetumal,332
+19-Jun-23,XD OUT,Cancun,Ciudad del Carmen,2
+19-Jun-23,XD OUT,Mérida,Ciudad del Carmen,8
+19-Jun-23,FULL OUT,Mérida,Ciudad del Carmen,172
+19-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Ciudad del Carmen,1
+19-Jun-23,RETURNS XD OUT,Tepotzotlan,Ciudad del Carmen,1
+19-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,48
+19-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,59
+19-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,210
+19-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,291
+19-Jun-23,XD OUT,Tepotzotlan,Ciudad del Carmen,588
+19-Jun-23,RETURNS XD OUT,Campeche,Mérida,2
+19-Jun-23,XD OUT,Campeche,Mérida,9
+19-Jun-23,XD OUT,Cancun,Mérida,16
+19-Jun-23,RETURNS XD OUT,Mérida,Mérida,1
+19-Jun-23,XD OUT,Mérida,Mérida,83
+19-Jun-23,FULL OUT,Mérida,Mérida,350
+19-Jun-23,FULL OUT,Mérida,Mérida,1178
+19-Jun-23,RETURNS XD OUT,Tapachula,Mérida,1
+19-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Mérida,2
+19-Jun-23,RETURNS XD OUT,Tepotzotlan,Mérida,15
+19-Jun-23,FULL OUT,Tepotzotlan,Mérida,156
+19-Jun-23,FULL OUT,Tepotzotlan,Mérida,177
+19-Jun-23,FULL OUT,Tepotzotlan,Mérida,429
+19-Jun-23,XD OUT V4,Tepotzotlan,Mérida,430
+19-Jun-23,XD OUT,Tepotzotlan,Mérida,1306
+19-Jun-23,XD OUT,Campeche,Playa,6
+19-Jun-23,XD OUT,Cancun,Playa,15
+19-Jun-23,XD OUT,Mérida,Playa,59
+19-Jun-23,FULL OUT,Tepotzotlan,Playa,25
+19-Jun-23,FULL OUT,Tepotzotlan,Playa,68
+19-Jun-23,FULL OUT,Tepotzotlan,Playa,225
+19-Jun-23,XD OUT V4,Tepotzotlan,Playa,469
+19-Jun-23,XD OUT,Tepotzotlan,Playa,938
+19-Jun-23,RETURNS XD OUT,Campeche,Tuxtla Gutierrez,1
+19-Jun-23,XD OUT,Campeche,Tuxtla Gutierrez,3
+19-Jun-23,XD OUT,Cancun,Tuxtla Gutierrez,3
+19-Jun-23,RETURNS XD OUT,Mérida,Tuxtla Gutierrez,1
+19-Jun-23,XD OUT,Mérida,Tuxtla Gutierrez,25
+19-Jun-23,FULL OUT,Mérida,Tuxtla Gutierrez,138
+19-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Tuxtla Gutierrez,5
+19-Jun-23,RETURNS XD OUT,Tepotzotlan,Tuxtla Gutierrez,11
+19-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,230
+19-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,236
+19-Jun-23,XD OUT V4,Tepotzotlan,Tuxtla Gutierrez,1135
+19-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,2277
+19-Jun-23,XD OUT,Tepotzotlan,Tuxtla Gutierrez,2744
+19-Jun-23,XD OUT,Campeche,Villahermosa,9
+19-Jun-23,RETURNS XD OUT,Cancun,Villahermosa,2
+19-Jun-23,XD OUT,Mérida,Villahermosa,32
+19-Jun-23,FULL OUT,Mérida,Villahermosa,254
+19-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Villahermosa,4
+19-Jun-23,RETURNS XD OUT,Tepotzotlan,Villahermosa,5
+19-Jun-23,XD OUT V3,Tepotzotlan,Villahermosa,48
+19-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,367
+19-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,388
+19-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,1366
+19-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,3172
+19-Jun-23,XD OUT,Tepotzotlan,Villahermosa,3955
+19-Jun-23,XD OUT,Villahermosa,Villahermosa,24
+20-Jun-23,XD OUT,Campeche,Campeche,1
+20-Jun-23,XD OUT,Cancun,Campeche,3
+20-Jun-23,XD OUT,Mérida,Campeche,8
+20-Jun-23,FULL OUT,Mérida,Campeche,370
+20-Jun-23,XD OUT V4,Tepotzotlan,Campeche,1
+20-Jun-23,FULL OUT,Tepotzotlan,Campeche,63
+20-Jun-23,FULL OUT,Tepotzotlan,Campeche,98
+20-Jun-23,FULL OUT,Tepotzotlan,Campeche,278
+20-Jun-23,XD OUT,Tepotzotlan,Campeche,330
+20-Jun-23,XD OUT V4,Tepotzotlan,Campeche,391
+20-Jun-23,XD OUT,Villahermosa,Campeche,1
+20-Jun-23,XD OUT,Campeche,Cancun,3
+20-Jun-23,XD OUT,Cancun,Cancun,8
+20-Jun-23,XD OUT,Mérida,Cancun,50
+20-Jun-23,FULL OUT,Mérida,Cancun,225
+20-Jun-23,FULL OUT,Mérida,Cancun,990
+20-Jun-23,RETURNS XD OUT,Tepotzotlan,Cancun,3
+20-Jun-23,FULL OUT,Tepotzotlan,Cancun,225
+20-Jun-23,FULL OUT,Tepotzotlan,Cancun,250
+20-Jun-23,FULL OUT,Tepotzotlan,Cancun,727
+20-Jun-23,XD OUT,Tepotzotlan,Cancun,942
+20-Jun-23,XD OUT V4,Tepotzotlan,Cancun,1087
+20-Jun-23,RETURNS XD OUT,Villahermosa,Cancun,1
+20-Jun-23,XD OUT,Villahermosa,Cancun,18
+20-Jun-23,XD OUT,Cancun,Chetumal,1
+20-Jun-23,XD OUT,Mérida,Chetumal,12
+20-Jun-23,FULL OUT,Mérida,Chetumal,322
+20-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Chetumal,1
+20-Jun-23,RETURNS XD OUT,Tepotzotlan,Chetumal,2
+20-Jun-23,FULL OUT,Tepotzotlan,Chetumal,59
+20-Jun-23,FULL OUT,Tepotzotlan,Chetumal,61
+20-Jun-23,FULL OUT,Tepotzotlan,Chetumal,197
+20-Jun-23,XD OUT,Tepotzotlan,Chetumal,247
+20-Jun-23,XD OUT V4,Tepotzotlan,Chetumal,282
+20-Jun-23,XD OUT,Villahermosa,Chetumal,3
+20-Jun-23,XD OUT,Cancun,Ciudad del Carmen,2
+20-Jun-23,XD OUT,Mérida,Ciudad del Carmen,3
+20-Jun-23,FULL OUT,Mérida,Ciudad del Carmen,225
+20-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,1
+20-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,39
+20-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,52
+20-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,298
+20-Jun-23,XD OUT,Tepotzotlan,Ciudad del Carmen,396
+20-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,571
+20-Jun-23,XD OUT,Villahermosa,Ciudad del Carmen,5
+20-Jun-23,XD OUT,Campeche,Mérida,4
+20-Jun-23,RETURNS XD OUT,Cancun,Mérida,5
+20-Jun-23,XD OUT,Cancun,Mérida,9
+20-Jun-23,RETURNS XD OUT,Mérida,Mérida,4
+20-Jun-23,XD OUT,Mérida,Mérida,53
+20-Jun-23,FULL OUT,Mérida,Mérida,350
+20-Jun-23,FULL OUT,Mérida,Mérida,1141
+20-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Mérida,1
+20-Jun-23,XD OUT V4,Tepotzotlan,Mérida,1
+20-Jun-23,RETURNS XD OUT,Tepotzotlan,Mérida,12
+20-Jun-23,FULL OUT,Tepotzotlan,Mérida,226
+20-Jun-23,FULL OUT,Tepotzotlan,Mérida,232
+20-Jun-23,FULL OUT,Tepotzotlan,Mérida,766
+20-Jun-23,XD OUT,Tepotzotlan,Mérida,975
+20-Jun-23,XD OUT V4,Tepotzotlan,Mérida,1208
+20-Jun-23,RETURNS XD OUT,Tuxtla Gutierrez,Mérida,2
+20-Jun-23,RETURNS XD OUT,Villahermosa,Mérida,3
+20-Jun-23,XD OUT,Villahermosa,Mérida,14
+20-Jun-23,XD OUT,Campeche,Playa,2
+20-Jun-23,XD OUT,Cancun,Playa,9
+20-Jun-23,XD OUT,Mérida,Playa,44
+20-Jun-23,FULL OUT,Mérida,Playa,158
+20-Jun-23,XD OUT V4,Tepotzotlan,Playa,1
+20-Jun-23,FULL OUT,Tepotzotlan,Playa,25
+20-Jun-23,FULL OUT,Tepotzotlan,Playa,94
+20-Jun-23,FULL OUT,Tepotzotlan,Playa,245
+20-Jun-23,XD OUT,Tepotzotlan,Playa,677
+20-Jun-23,XD OUT V4,Tepotzotlan,Playa,1079
+20-Jun-23,XD OUT,Villahermosa,Playa,5
+20-Jun-23,XD OUT,Campeche,Tuxtla Gutierrez,1
+20-Jun-23,XD OUT,Cancun,Tuxtla Gutierrez,3
+20-Jun-23,XD OUT,Mérida,Tuxtla Gutierrez,13
+20-Jun-23,FULL OUT,Mérida,Tuxtla Gutierrez,167
+20-Jun-23,RETURNS XD OUT,Tepotzotlan,Tuxtla Gutierrez,5
+20-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,313
+20-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,365
+20-Jun-23,XD OUT,Tepotzotlan,Tuxtla Gutierrez,1915
+20-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,2622
+20-Jun-23,XD OUT V4,Tepotzotlan,Tuxtla Gutierrez,2634
+20-Jun-23,RETURNS XD OUT,Tuxtla Gutierrez,Tuxtla Gutierrez,1
+20-Jun-23,RETURNS XD OUT,Villahermosa,Tuxtla Gutierrez,1
+20-Jun-23,XD OUT,Villahermosa,Tuxtla Gutierrez,12
+20-Jun-23,XD OUT,Campeche,Villahermosa,3
+20-Jun-23,XD OUT,Cancun,Villahermosa,3
+20-Jun-23,XD OUT,Mérida,Villahermosa,11
+20-Jun-23,FULL OUT,Mérida,Villahermosa,309
+20-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,1
+20-Jun-23,RETURNS XD OUT,Tepotzotlan,Villahermosa,11
+20-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,405
+20-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,464
+20-Jun-23,XD OUT,Tepotzotlan,Villahermosa,2733
+20-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,3662
+20-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,3683
+20-Jun-23,XD OUT,Villahermosa,Villahermosa,12
+21-Jun-23,XD OUT,Campeche,Campeche,1
+21-Jun-23,XD OUT,Cancun,Campeche,4
+21-Jun-23,RETURNS XD OUT,Mérida,Campeche,1
+21-Jun-23,XD OUT,Mérida,Campeche,7
+21-Jun-23,FULL OUT,Mérida,Campeche,401
+21-Jun-23,XD OUT V4,Tepotzotlan,Campeche,1
+21-Jun-23,XD OUT V3,Tepotzotlan,Campeche,18
+21-Jun-23,FULL OUT,Tepotzotlan,Campeche,74
+21-Jun-23,FULL OUT,Tepotzotlan,Campeche,88
+21-Jun-23,FULL OUT,Tepotzotlan,Campeche,164
+21-Jun-23,XD OUT,Tepotzotlan,Campeche,291
+21-Jun-23,XD OUT V4,Tepotzotlan,Campeche,342
+21-Jun-23,XD OUT,Villahermosa,Campeche,2
+21-Jun-23,XD OUT,Cancun,Cancun,10
+21-Jun-23,XD OUT,Mérida,Cancun,53
+21-Jun-23,FULL OUT,Mérida,Cancun,224
+21-Jun-23,FULL OUT,Mérida,Cancun,1076
+21-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Cancun,1
+21-Jun-23,XD OUT V4,Tepotzotlan,Cancun,1
+21-Jun-23,FULL OUT,Tepotzotlan,Cancun,230
+21-Jun-23,FULL OUT,Tepotzotlan,Cancun,248
+21-Jun-23,FULL OUT,Tepotzotlan,Cancun,509
+21-Jun-23,XD OUT,Tepotzotlan,Cancun,811
+21-Jun-23,XD OUT V4,Tepotzotlan,Cancun,963
+21-Jun-23,RETURNS XD OUT,Villahermosa,Cancun,2
+21-Jun-23,XD OUT,Villahermosa,Cancun,8
+21-Jun-23,XD OUT,Cancun,Chetumal,4
+21-Jun-23,XD OUT,Mérida,Chetumal,12
+21-Jun-23,FULL OUT,Mérida,Chetumal,353
+21-Jun-23,FULL OUT,Tepotzotlan,Chetumal,46
+21-Jun-23,FULL OUT,Tepotzotlan,Chetumal,59
+21-Jun-23,FULL OUT,Tepotzotlan,Chetumal,92
+21-Jun-23,XD OUT,Tepotzotlan,Chetumal,199
+21-Jun-23,XD OUT V4,Tepotzotlan,Chetumal,228
+21-Jun-23,XD OUT,Villahermosa,Chetumal,2
+21-Jun-23,XD OUT,Campeche,Ciudad del Carmen,1
+21-Jun-23,XD OUT,Cancun,Ciudad del Carmen,2
+21-Jun-23,XD OUT,Mérida,Ciudad del Carmen,6
+21-Jun-23,FULL OUT,Mérida,Ciudad del Carmen,221
+21-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,45
+21-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,54
+21-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,341
+21-Jun-23,XD OUT,Tepotzotlan,Ciudad del Carmen,382
+21-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,501
+21-Jun-23,XD OUT,Villahermosa,Ciudad del Carmen,5
+21-Jun-23,RETURNS XD OUT,Campeche,Mérida,1
+21-Jun-23,XD OUT,Campeche,Mérida,3
+21-Jun-23,RETURNS XD OUT,Cancun,Mérida,1
+21-Jun-23,XD OUT,Cancun,Mérida,17
+21-Jun-23,RETURNS XD OUT,Mérida,Mérida,4
+21-Jun-23,XD OUT,Mérida,Mérida,52
+21-Jun-23,FULL OUT,Mérida,Mérida,350
+21-Jun-23,FULL OUT,Mérida,Mérida,1155
+21-Jun-23,RETURNS XD OUT,Tepotzotlan,Mérida,10
+21-Jun-23,FULL OUT,Tepotzotlan,Mérida,190
+21-Jun-23,FULL OUT,Tepotzotlan,Mérida,195
+21-Jun-23,FULL OUT,Tepotzotlan,Mérida,483
+21-Jun-23,XD OUT,Tepotzotlan,Mérida,868
+21-Jun-23,XD OUT V4,Tepotzotlan,Mérida,1009
+21-Jun-23,RETURNS XD OUT,Tuxtla Gutierrez,Mérida,1
+21-Jun-23,XD OUT,Villahermosa,Mérida,13
+21-Jun-23,XD OUT,Cancun,Playa,8
+21-Jun-23,XD OUT,Mérida,Playa,39
+21-Jun-23,FULL OUT,Mérida,Playa,134
+21-Jun-23,RETURNS XD OUT,Tepotzotlan,Playa,2
+21-Jun-23,FULL OUT,Tepotzotlan,Playa,40
+21-Jun-23,FULL OUT,Tepotzotlan,Playa,83
+21-Jun-23,FULL OUT,Tepotzotlan,Playa,177
+21-Jun-23,XD OUT,Tepotzotlan,Playa,591
+21-Jun-23,XD OUT V4,Tepotzotlan,Playa,984
+21-Jun-23,XD OUT,Villahermosa,Playa,5
+21-Jun-23,XD OUT,Campeche,Tuxtla Gutierrez,3
+21-Jun-23,XD OUT,Mérida,Tuxtla Gutierrez,5
+21-Jun-23,FULL OUT,Mérida,Tuxtla Gutierrez,212
+21-Jun-23,RETURNS XD OUT,Tepotzotlan,Tuxtla Gutierrez,7
+21-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,296
+21-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,386
+21-Jun-23,XD OUT,Tepotzotlan,Tuxtla Gutierrez,1654
+21-Jun-23,XD OUT V4,Tepotzotlan,Tuxtla Gutierrez,2654
+21-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,2693
+21-Jun-23,RETURNS XD OUT,Tuxtla Gutierrez,Tuxtla Gutierrez,1
+21-Jun-23,XD OUT,Villahermosa,Tuxtla Gutierrez,7
+21-Jun-23,XD OUT,Campeche,Villahermosa,3
+21-Jun-23,XD OUT,Cancun,Villahermosa,2
+21-Jun-23,XD OUT,Mérida,Villahermosa,12
+21-Jun-23,FULL OUT,Mérida,Villahermosa,325
+21-Jun-23,RETURNS XD OUT,Tepotzotlan,Villahermosa,1
+21-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,5
+21-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,441
+21-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,468
+21-Jun-23,XD OUT,Tepotzotlan,Villahermosa,2413
+21-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,3339
+21-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,3816
+21-Jun-23,XD OUT,Villahermosa,Villahermosa,12
+22-Jun-23,XD OUT,Cancun,Campeche,4
+22-Jun-23,XD OUT,Mérida,Campeche,9
+22-Jun-23,FULL OUT,Mérida,Campeche,433
+22-Jun-23,RETURNS XD OUT,Tepotzotlan,Campeche,1
+22-Jun-23,XD OUT V3,Tepotzotlan,Campeche,2
+22-Jun-23,FULL OUT,Tepotzotlan,Campeche,57
+22-Jun-23,FULL OUT,Tepotzotlan,Campeche,84
+22-Jun-23,FULL OUT,Tepotzotlan,Campeche,113
+22-Jun-23,XD OUT,Tepotzotlan,Campeche,279
+22-Jun-23,XD OUT V4,Tepotzotlan,Campeche,308
+22-Jun-23,XD OUT,Villahermosa,Campeche,1
+22-Jun-23,XD OUT,Campeche,Cancun,1
+22-Jun-23,XD OUT,Cancun,Cancun,8
+22-Jun-23,RETURNS XD OUT,Mérida,Cancun,1
+22-Jun-23,XD OUT,Mérida,Cancun,41
+22-Jun-23,FULL OUT,Mérida,Cancun,242
+22-Jun-23,FULL OUT,Mérida,Cancun,1081
+22-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Cancun,1
+22-Jun-23,RETURNS XD OUT,Tepotzotlan,Cancun,4
+22-Jun-23,FULL OUT,Tepotzotlan,Cancun,206
+22-Jun-23,FULL OUT,Tepotzotlan,Cancun,215
+22-Jun-23,FULL OUT,Tepotzotlan,Cancun,337
+22-Jun-23,XD OUT,Tepotzotlan,Cancun,727
+22-Jun-23,XD OUT V4,Tepotzotlan,Cancun,893
+22-Jun-23,XD OUT,Villahermosa,Cancun,8
+22-Jun-23,XD OUT,Mérida,Chetumal,11
+22-Jun-23,FULL OUT,Mérida,Chetumal,335
+22-Jun-23,RETURNS XD OUT,Tepotzotlan,Chetumal,1
+22-Jun-23,FULL OUT,Tepotzotlan,Chetumal,51
+22-Jun-23,FULL OUT,Tepotzotlan,Chetumal,64
+22-Jun-23,FULL OUT,Tepotzotlan,Chetumal,83
+22-Jun-23,XD OUT,Tepotzotlan,Chetumal,183
+22-Jun-23,XD OUT V4,Tepotzotlan,Chetumal,263
+22-Jun-23,RETURNS XD OUT,Tuxtla Gutierrez,Chetumal,1
+22-Jun-23,XD OUT,Campeche,Ciudad del Carmen,2
+22-Jun-23,XD OUT,Cancun,Ciudad del Carmen,1
+22-Jun-23,FULL OUT,Mérida,Ciudad del Carmen,228
+22-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,47
+22-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,63
+22-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,269
+22-Jun-23,XD OUT,Tepotzotlan,Ciudad del Carmen,355
+22-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,546
+22-Jun-23,XD OUT,Villahermosa,Ciudad del Carmen,2
+22-Jun-23,XD OUT,Campeche,Mérida,2
+22-Jun-23,RETURNS XD OUT,Cancun,Mérida,2
+22-Jun-23,XD OUT,Cancun,Mérida,10
+22-Jun-23,RETURNS XD OUT,Mérida,Mérida,1
+22-Jun-23,XD OUT,Mérida,Mérida,29
+22-Jun-23,FULL OUT,Mérida,Mérida,350
+22-Jun-23,FULL OUT,Mérida,Mérida,1148
+22-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Mérida,2
+22-Jun-23,RETURNS XD OUT,Tepotzotlan,Mérida,19
+22-Jun-23,FULL OUT,Tepotzotlan,Mérida,187
+22-Jun-23,FULL OUT,Tepotzotlan,Mérida,239
+22-Jun-23,FULL OUT,Tepotzotlan,Mérida,289
+22-Jun-23,XD OUT,Tepotzotlan,Mérida,737
+22-Jun-23,XD OUT V4,Tepotzotlan,Mérida,996
+22-Jun-23,RETURNS XD OUT,Villahermosa,Mérida,1
+22-Jun-23,XD OUT,Villahermosa,Mérida,10
+22-Jun-23,XD OUT,Campeche,Playa,2
+22-Jun-23,XD OUT,Cancun,Playa,10
+22-Jun-23,XD OUT,Mérida,Playa,32
+22-Jun-23,FULL OUT,Mérida,Playa,168
+22-Jun-23,RETURNS XD OUT,Tepotzotlan,Playa,3
+22-Jun-23,FULL OUT,Tepotzotlan,Playa,34
+22-Jun-23,XD OUT V3,Tepotzotlan,Playa,37
+22-Jun-23,FULL OUT,Tepotzotlan,Playa,54
+22-Jun-23,FULL OUT,Tepotzotlan,Playa,117
+22-Jun-23,XD OUT,Tepotzotlan,Playa,537
+22-Jun-23,XD OUT V4,Tepotzotlan,Playa,856
+22-Jun-23,XD OUT,Villahermosa,Playa,2
+22-Jun-23,XD OUT,Campeche,Tuxtla Gutierrez,3
+22-Jun-23,XD OUT,Cancun,Tuxtla Gutierrez,3
+22-Jun-23,FULL OUT,Mérida,Tuxtla Gutierrez,193
+22-Jun-23,RETURNS XD OUT,Tapachula,Tuxtla Gutierrez,1
+22-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Tuxtla Gutierrez,1
+22-Jun-23,RETURNS XD OUT,Tepotzotlan,Tuxtla Gutierrez,8
+22-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,270
+22-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,313
+22-Jun-23,XD OUT,Tepotzotlan,Tuxtla Gutierrez,1492
+22-Jun-23,XD OUT V4,Tepotzotlan,Tuxtla Gutierrez,2479
+22-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,2519
+22-Jun-23,RETURNS XD OUT,Tuxtla Gutierrez,Tuxtla Gutierrez,3
+22-Jun-23,XD OUT,Villahermosa,Tuxtla Gutierrez,11
+22-Jun-23,XD OUT,Campeche,Villahermosa,6
+22-Jun-23,FULL OUT,Mérida,Villahermosa,337
+22-Jun-23,RETURNS XD OUT,Tepotzotlan,Villahermosa,1
+22-Jun-23,RETURNS FULL OUT?,Tepotzotlan,Villahermosa,2
+22-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,440
+22-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,476
+22-Jun-23,XD OUT,Tepotzotlan,Villahermosa,2205
+22-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,3336
+22-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,3676
+22-Jun-23,RETURNS XD OUT,Tuxtla Gutierrez,Villahermosa,1
+22-Jun-23,XD OUT,Villahermosa,Villahermosa,6
+23-Jun-23,XD OUT,Campeche,Campeche,3
+23-Jun-23,XD OUT,Cancun,Campeche,5
+23-Jun-23,XD OUT,Mérida,Campeche,2
+23-Jun-23,FULL OUT,Mérida,Campeche,454
+23-Jun-23,RETURNS XD OUT,Tepotzotlan,Campeche,1
+23-Jun-23,XD OUT V3,Tepotzotlan,Campeche,5
+23-Jun-23,FULL OUT,Tepotzotlan,Campeche,36
+23-Jun-23,FULL OUT,Tepotzotlan,Campeche,89
+23-Jun-23,FULL OUT,Tepotzotlan,Campeche,92
+23-Jun-23,XD OUT,Tepotzotlan,Campeche,272
+23-Jun-23,XD OUT V4,Tepotzotlan,Campeche,294
+23-Jun-23,XD OUT,Villahermosa,Campeche,1
+23-Jun-23,XD OUT,Campeche,Cancun,1
+23-Jun-23,XD OUT,Cancun,Cancun,7
+23-Jun-23,RETURNS XD OUT,Mérida,Cancun,1
+23-Jun-23,XD OUT,Mérida,Cancun,25
+23-Jun-23,FULL OUT,Mérida,Cancun,202
+23-Jun-23,FULL OUT,Mérida,Cancun,1121
+23-Jun-23,RETURNS XD OUT,Tepotzotlan,Cancun,1
+23-Jun-23,FULL OUT,Tepotzotlan,Cancun,165
+23-Jun-23,FULL OUT,Tepotzotlan,Cancun,200
+23-Jun-23,FULL OUT,Tepotzotlan,Cancun,291
+23-Jun-23,XD OUT,Tepotzotlan,Cancun,667
+23-Jun-23,XD OUT V4,Tepotzotlan,Cancun,723
+23-Jun-23,XD OUT,Villahermosa,Cancun,3
+23-Jun-23,XD OUT,Mérida,Chetumal,7
+23-Jun-23,FULL OUT,Mérida,Chetumal,381
+23-Jun-23,RETURNS XD OUT,Tepotzotlan,Chetumal,1
+23-Jun-23,FULL OUT,Tepotzotlan,Chetumal,32
+23-Jun-23,FULL OUT,Tepotzotlan,Chetumal,50
+23-Jun-23,FULL OUT,Tepotzotlan,Chetumal,74
+23-Jun-23,XD OUT,Tepotzotlan,Chetumal,206
+23-Jun-23,XD OUT V4,Tepotzotlan,Chetumal,257
+23-Jun-23,XD OUT,Villahermosa,Chetumal,2
+23-Jun-23,XD OUT,Campeche,Ciudad del Carmen,2
+23-Jun-23,XD OUT,Mérida,Ciudad del Carmen,12
+23-Jun-23,FULL OUT,Mérida,Ciudad del Carmen,271
+23-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,1
+23-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,45
+23-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,59
+23-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,251
+23-Jun-23,XD OUT,Tepotzotlan,Ciudad del Carmen,346
+23-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,469
+23-Jun-23,XD OUT,Villahermosa,Ciudad del Carmen,2
+23-Jun-23,XD OUT,Cancun,Mérida,5
+23-Jun-23,RETURNS XD OUT,Mérida,Mérida,2
+23-Jun-23,XD OUT,Mérida,Mérida,24
+23-Jun-23,FULL OUT,Mérida,Mérida,350
+23-Jun-23,FULL OUT,Mérida,Mérida,1291
+23-Jun-23,RETURNS XD OUT,Tepotzotlan,Mérida,6
+23-Jun-23,FULL OUT,Tepotzotlan,Mérida,169
+23-Jun-23,FULL OUT,Tepotzotlan,Mérida,171
+23-Jun-23,FULL OUT,Tepotzotlan,Mérida,292
+23-Jun-23,XD OUT,Tepotzotlan,Mérida,842
+23-Jun-23,XD OUT V4,Tepotzotlan,Mérida,873
+23-Jun-23,XD OUT,Villahermosa,Mérida,9
+23-Jun-23,XD OUT,Cancun,Playa,8
+23-Jun-23,XD OUT,Mérida,Playa,24
+23-Jun-23,FULL OUT,Mérida,Playa,139
+23-Jun-23,RETURNS XD OUT,Tepotzotlan,Playa,1
+23-Jun-23,FULL OUT,Tepotzotlan,Playa,38
+23-Jun-23,FULL OUT,Tepotzotlan,Playa,60
+23-Jun-23,FULL OUT,Tepotzotlan,Playa,142
+23-Jun-23,XD OUT,Tepotzotlan,Playa,565
+23-Jun-23,XD OUT V4,Tepotzotlan,Playa,835
+23-Jun-23,XD OUT,Villahermosa,Playa,7
+23-Jun-23,RETURNS XD OUT,Cancun,Tuxtla Gutierrez,1
+23-Jun-23,XD OUT,Cancun,Tuxtla Gutierrez,4
+23-Jun-23,RETURNS XD OUT,Mérida,Tuxtla Gutierrez,1
+23-Jun-23,XD OUT,Mérida,Tuxtla Gutierrez,26
+23-Jun-23,FULL OUT,Mérida,Tuxtla Gutierrez,211
+23-Jun-23,RETURNS XD OUT,Tepotzotlan,Tuxtla Gutierrez,3
+23-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,258
+23-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,303
+23-Jun-23,XD OUT,Tepotzotlan,Tuxtla Gutierrez,1509
+23-Jun-23,XD OUT V4,Tepotzotlan,Tuxtla Gutierrez,1903
+23-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,2243
+23-Jun-23,XD OUT,Villahermosa,Tuxtla Gutierrez,12
+23-Jun-23,XD OUT,Campeche,Villahermosa,4
+23-Jun-23,XD OUT,Cancun,Villahermosa,5
+23-Jun-23,XD OUT,Mérida,Villahermosa,42
+23-Jun-23,FULL OUT,Mérida,Villahermosa,277
+23-Jun-23,RETURNS XD OUT,Tepotzotlan,Villahermosa,6
+23-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,401
+23-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,431
+23-Jun-23,XD OUT,Tepotzotlan,Villahermosa,2158
+23-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,2718
+23-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,3307
+23-Jun-23,XD OUT,Villahermosa,Villahermosa,11
+24-Jun-23,XD OUT,Cancun,Campeche,1
+24-Jun-23,XD OUT,Mérida,Campeche,2
+24-Jun-23,FULL OUT,Mérida,Campeche,425
+24-Jun-23,RETURNS XD OUT,Tepotzotlan,Campeche,1
+24-Jun-23,XD OUT V3,Tepotzotlan,Campeche,9
+24-Jun-23,FULL OUT,Tepotzotlan,Campeche,65
+24-Jun-23,FULL OUT,Tepotzotlan,Campeche,75
+24-Jun-23,XD OUT,Tepotzotlan,Campeche,81
+24-Jun-23,FULL OUT,Tepotzotlan,Campeche,160
+24-Jun-23,XD OUT V4,Tepotzotlan,Campeche,300
+24-Jun-23,XD OUT,Cancun,Cancun,2
+24-Jun-23,XD OUT,Mérida,Cancun,13
+24-Jun-23,FULL OUT,Mérida,Cancun,208
+24-Jun-23,FULL OUT,Mérida,Cancun,1013
+24-Jun-23,RETURNS XD OUT,Tepotzotlan,Cancun,1
+24-Jun-23,FULL OUT,Tepotzotlan,Cancun,199
+24-Jun-23,FULL OUT,Tepotzotlan,Cancun,222
+24-Jun-23,XD OUT,Tepotzotlan,Cancun,261
+24-Jun-23,FULL OUT,Tepotzotlan,Cancun,449
+24-Jun-23,XD OUT V4,Tepotzotlan,Cancun,867
+24-Jun-23,RETURNS XD OUT,Villahermosa,Cancun,1
+24-Jun-23,XD OUT,Villahermosa,Cancun,5
+24-Jun-23,XD OUT,Mérida,Chetumal,5
+24-Jun-23,FULL OUT,Mérida,Chetumal,323
+24-Jun-23,FULL OUT,Tepotzotlan,Chetumal,38
+24-Jun-23,FULL OUT,Tepotzotlan,Chetumal,45
+24-Jun-23,XD OUT,Tepotzotlan,Chetumal,75
+24-Jun-23,FULL OUT,Tepotzotlan,Chetumal,92
+24-Jun-23,XD OUT V4,Tepotzotlan,Chetumal,244
+24-Jun-23,XD OUT,Villahermosa,Chetumal,1
+24-Jun-23,XD OUT,Mérida,Ciudad del Carmen,3
+24-Jun-23,FULL OUT,Mérida,Ciudad del Carmen,211
+24-Jun-23,RETURNS XD OUT,Tepotzotlan,Ciudad del Carmen,1
+24-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,36
+24-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,58
+24-Jun-23,XD OUT,Tepotzotlan,Ciudad del Carmen,126
+24-Jun-23,FULL OUT,Tepotzotlan,Ciudad del Carmen,245
+24-Jun-23,XD OUT V4,Tepotzotlan,Ciudad del Carmen,422
+24-Jun-23,XD OUT,Villahermosa,Ciudad del Carmen,1
+24-Jun-23,RETURNS XD OUT,Cancun,Mérida,1
+24-Jun-23,XD OUT,Cancun,Mérida,7
+24-Jun-23,RETURNS XD OUT,Mérida,Mérida,2
+24-Jun-23,XD OUT,Mérida,Mérida,10
+24-Jun-23,FULL OUT,Mérida,Mérida,350
+24-Jun-23,FULL OUT,Mérida,Mérida,1020
+24-Jun-23,RETURNS XD OUT,Tapachula,Mérida,1
+24-Jun-23,RETURNS XD OUT,Tepotzotlan,Mérida,8
+24-Jun-23,FULL OUT,Tepotzotlan,Mérida,187
+24-Jun-23,FULL OUT,Tepotzotlan,Mérida,213
+24-Jun-23,XD OUT,Tepotzotlan,Mérida,288
+24-Jun-23,FULL OUT,Tepotzotlan,Mérida,412
+24-Jun-23,XD OUT V4,Tepotzotlan,Mérida,990
+24-Jun-23,XD OUT,Villahermosa,Mérida,6
+24-Jun-23,XD OUT,Cancun,Playa,3
+24-Jun-23,XD OUT,Mérida,Playa,6
+24-Jun-23,FULL OUT,Mérida,Playa,122
+24-Jun-23,RETURNS XD OUT,Tepotzotlan,Playa,1
+24-Jun-23,FULL OUT,Tepotzotlan,Playa,49
+24-Jun-23,FULL OUT,Tepotzotlan,Playa,106
+24-Jun-23,XD OUT,Tepotzotlan,Playa,222
+24-Jun-23,FULL OUT,Tepotzotlan,Playa,225
+24-Jun-23,XD OUT V4,Tepotzotlan,Playa,1020
+24-Jun-23,XD OUT,Villahermosa,Playa,4
+24-Jun-23,XD OUT,Cancun,Tuxtla Gutierrez,1
+24-Jun-23,XD OUT,Mérida,Tuxtla Gutierrez,3
+24-Jun-23,FULL OUT,Mérida,Tuxtla Gutierrez,188
+24-Jun-23,RETURNS XD OUT,Tepotzotlan,Tuxtla Gutierrez,4
+24-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,252
+24-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,317
+24-Jun-23,XD OUT,Tepotzotlan,Tuxtla Gutierrez,623
+24-Jun-23,FULL OUT,Tepotzotlan,Tuxtla Gutierrez,1854
+24-Jun-23,XD OUT V4,Tepotzotlan,Tuxtla Gutierrez,2178
+24-Jun-23,XD OUT,Villahermosa,Tuxtla Gutierrez,7
+24-Jun-23,XD OUT,Cancun,Villahermosa,1
+24-Jun-23,RETURNS XD OUT,Mérida,Villahermosa,1
+24-Jun-23,XD OUT,Mérida,Villahermosa,3
+24-Jun-23,FULL OUT,Mérida,Villahermosa,187
+24-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,1
+24-Jun-23,RETURNS XD OUT,Tepotzotlan,Villahermosa,4
+24-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,276
+24-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,335
+24-Jun-23,XD OUT,Tepotzotlan,Villahermosa,825
+24-Jun-23,FULL OUT,Tepotzotlan,Villahermosa,1986
+24-Jun-23,XD OUT V4,Tepotzotlan,Villahermosa,2743

@@ -1,0 +1,229 @@
+fecha,origen,destino,envios,pallets,trailers,tortons,ocupacion,salida,llegada,km,costo
+18-Jun-23,Mérida,Campeche,292,5,0,1,0.357,22:30,01:25 (D+1),175.0,7008.0
+18-Jun-23,Mérida,Cancun,1058,18,1,0,0.643,22:30,04:37 (D+1),368.0,22068.0
+18-Jun-23,Mérida,Chetumal,263,5,0,1,0.357,22:30,05:00 (D+1),390.0,15600.0
+18-Jun-23,Mérida,Ciudad del Carmen,186,4,0,1,0.286,22:30,05:30 (D+1),420.0,16800.0
+18-Jun-23,Mérida,Mérida,1125,19,1,0,0.679,22:30,23:10 (D+0),40.0,2412.0
+18-Jun-23,Mérida,Playa,253,5,0,1,0.357,22:30,05:30 (D+1),420.0,16800.0
+18-Jun-23,Mérida,Tuxtla Gutierrez,142,3,0,1,0.214,22:30,12:30 (D+1),840.0,33600.0
+18-Jun-23,Mérida,Villahermosa,242,5,0,1,0.357,22:30,07:30 (D+1),540.0,21600.0
+18-Jun-23,Tepotzotlan,Campeche,595,10,0,1,0.714,20:30,17:30 (D+1),1260.0,50400.0
+18-Jun-23,Tepotzotlan,Cancun,1082,19,1,0,0.679,20:30,23:30 (D+1),1620.0,97200.0
+18-Jun-23,Tepotzotlan,Chetumal,335,6,0,1,0.429,20:30,22:30 (D+1),1560.0,62400.0
+18-Jun-23,Tepotzotlan,Ciudad del Carmen,578,10,0,1,0.714,20:30,14:18 (D+1),1068.0,42720.0
+18-Jun-23,Tepotzotlan,Mérida,995,17,1,0,0.607,20:30,21:22 (D+1),1492.0,89532.0
+18-Jun-23,Tepotzotlan,Playa,947,16,1,0,0.571,20:30,00:30 (D+2),1680.0,100800.0
+18-Jun-23,Tepotzotlan,Tuxtla Gutierrez,4401,74,3,0,0.881,20:30,11:19 (D+1),890.0,160164.0
+18-Jun-23,Tepotzotlan,Villahermosa,5561,93,3,1,0.949,22:30,13:10 (D+1),881.0,193776.0
+19-Jun-23,Campeche,Cancun,7,1,0,1,0.071,,,,
+19-Jun-23,Campeche,Mérida,11,1,0,1,0.071,,,240.0,9600.0
+19-Jun-23,Campeche,Playa,6,1,0,1,0.071,,,,
+19-Jun-23,Campeche,Tuxtla Gutierrez,4,1,0,1,0.071,,,,
+19-Jun-23,Campeche,Villahermosa,9,1,0,1,0.071,,,435.0,17400.0
+19-Jun-23,Cancun,Campeche,5,1,0,1,0.071,16:30,01:00 (D+1),510.0,20400.0
+19-Jun-23,Cancun,Cancun,18,1,0,1,0.071,16:30,17:30 (D+0),60.0,2400.0
+19-Jun-23,Cancun,Chetumal,6,1,0,1,0.071,16:30,,,
+19-Jun-23,Cancun,Ciudad del Carmen,2,1,0,1,0.071,16:30,,,
+19-Jun-23,Cancun,Mérida,16,1,0,1,0.071,16:30,21:10 (D+0),280.0,11208.0
+19-Jun-23,Cancun,Playa,15,1,0,1,0.071,16:30,,,
+19-Jun-23,Cancun,Tuxtla Gutierrez,3,1,0,1,0.071,16:30,,,
+19-Jun-23,Cancun,Villahermosa,2,1,0,1,0.071,16:30,,,
+19-Jun-23,Mérida,Campeche,356,6,0,1,0.429,22:30,01:25 (D+1),175.0,7008.0
+19-Jun-23,Mérida,Cancun,1498,25,1,0,0.893,22:30,04:37 (D+1),368.0,22068.0
+19-Jun-23,Mérida,Chetumal,323,6,0,1,0.429,22:30,05:00 (D+1),390.0,15600.0
+19-Jun-23,Mérida,Ciudad del Carmen,180,3,0,1,0.214,22:30,05:30 (D+1),420.0,16800.0
+19-Jun-23,Mérida,Mérida,1612,27,1,0,0.964,22:30,23:10 (D+0),40.0,2412.0
+19-Jun-23,Mérida,Playa,59,1,0,1,0.071,22:30,05:30 (D+1),420.0,16800.0
+19-Jun-23,Mérida,Tuxtla Gutierrez,164,3,0,1,0.214,22:30,12:30 (D+1),840.0,33600.0
+19-Jun-23,Mérida,Villahermosa,286,5,0,1,0.357,22:30,07:30 (D+1),540.0,21600.0
+19-Jun-23,Tapachula,Mérida,1,1,0,1,0.071,21:00,,,
+19-Jun-23,Tepotzotlan,Campeche,924,16,1,0,0.571,20:30,17:30 (D+1),1260.0,75600.0
+19-Jun-23,Tepotzotlan,Cancun,2556,43,2,0,0.768,20:30,23:30 (D+1),1620.0,194400.0
+19-Jun-23,Tepotzotlan,Chetumal,615,11,0,1,0.786,20:30,22:30 (D+1),1560.0,62400.0
+19-Jun-23,Tepotzotlan,Ciudad del Carmen,1198,20,1,0,0.714,20:30,14:18 (D+1),1068.0,64080.0
+19-Jun-23,Tepotzotlan,Mérida,2515,42,1,1,1.0,20:30,21:22 (D+1),1492.0,149220.0
+19-Jun-23,Tepotzotlan,Playa,1725,29,1,1,0.69,20:30,00:30 (D+2),1680.0,168000.0
+19-Jun-23,Tepotzotlan,Tuxtla Gutierrez,6638,111,4,0,0.991,20:30,11:19 (D+1),890.0,213552.0
+19-Jun-23,Tepotzotlan,Villahermosa,9305,156,6,0,0.929,22:30,13:10 (D+1),881.0,317088.0
+19-Jun-23,Villahermosa,Campeche,6,1,0,1,0.071,5:00,12:00 (D+0),420.0,16800.0
+19-Jun-23,Villahermosa,Villahermosa,24,1,0,1,0.071,5:00,,,
+20-Jun-23,Campeche,Campeche,1,1,0,1,0.071,,,,
+20-Jun-23,Campeche,Cancun,3,1,0,1,0.071,,,,
+20-Jun-23,Campeche,Mérida,4,1,0,1,0.071,,,240.0,9600.0
+20-Jun-23,Campeche,Playa,2,1,0,1,0.071,,,,
+20-Jun-23,Campeche,Tuxtla Gutierrez,1,1,0,1,0.071,,,,
+20-Jun-23,Campeche,Villahermosa,3,1,0,1,0.071,,,435.0,17400.0
+20-Jun-23,Cancun,Campeche,3,1,0,1,0.071,16:30,01:00 (D+1),510.0,20400.0
+20-Jun-23,Cancun,Cancun,8,1,0,1,0.071,16:30,17:30 (D+0),60.0,2400.0
+20-Jun-23,Cancun,Chetumal,1,1,0,1,0.071,16:30,,,
+20-Jun-23,Cancun,Ciudad del Carmen,2,1,0,1,0.071,16:30,,,
+20-Jun-23,Cancun,Mérida,14,1,0,1,0.071,16:30,21:10 (D+0),280.0,11208.0
+20-Jun-23,Cancun,Playa,9,1,0,1,0.071,16:30,,,
+20-Jun-23,Cancun,Tuxtla Gutierrez,3,1,0,1,0.071,16:30,,,
+20-Jun-23,Cancun,Villahermosa,3,1,0,1,0.071,16:30,,,
+20-Jun-23,Mérida,Campeche,378,7,0,1,0.5,22:30,01:25 (D+1),175.0,7008.0
+20-Jun-23,Mérida,Cancun,1265,22,1,0,0.786,22:30,04:37 (D+1),368.0,22068.0
+20-Jun-23,Mérida,Chetumal,334,6,0,1,0.429,22:30,05:00 (D+1),390.0,15600.0
+20-Jun-23,Mérida,Ciudad del Carmen,228,4,0,1,0.286,22:30,05:30 (D+1),420.0,16800.0
+20-Jun-23,Mérida,Mérida,1548,26,1,0,0.929,22:30,23:10 (D+0),40.0,2412.0
+20-Jun-23,Mérida,Playa,202,4,0,1,0.286,22:30,05:30 (D+1),420.0,16800.0
+20-Jun-23,Mérida,Tuxtla Gutierrez,180,3,0,1,0.214,22:30,12:30 (D+1),840.0,33600.0
+20-Jun-23,Mérida,Villahermosa,320,6,0,1,0.429,22:30,07:30 (D+1),540.0,21600.0
+20-Jun-23,Tepotzotlan,Campeche,1161,20,1,0,0.714,20:30,17:30 (D+1),1260.0,75600.0
+20-Jun-23,Tepotzotlan,Cancun,3234,54,2,0,0.964,20:30,23:30 (D+1),1620.0,194400.0
+20-Jun-23,Tepotzotlan,Chetumal,849,15,1,0,0.536,20:30,22:30 (D+1),1560.0,93600.0
+20-Jun-23,Tepotzotlan,Ciudad del Carmen,1357,23,1,0,0.821,20:30,14:18 (D+1),1068.0,64080.0
+20-Jun-23,Tepotzotlan,Mérida,3421,58,2,1,0.829,20:30,21:22 (D+1),1492.0,238752.0
+20-Jun-23,Tepotzotlan,Playa,2121,36,1,1,0.857,20:30,00:30 (D+2),1680.0,168000.0
+20-Jun-23,Tepotzotlan,Tuxtla Gutierrez,7854,131,5,0,0.936,20:30,11:19 (D+1),890.0,266940.0
+20-Jun-23,Tepotzotlan,Villahermosa,10959,183,7,0,0.934,22:30,13:10 (D+1),881.0,369936.0
+20-Jun-23,Tuxtla Gutierrez,Mérida,2,1,0,1,0.071,23:00,,,
+20-Jun-23,Tuxtla Gutierrez,Tuxtla Gutierrez,1,1,0,1,0.071,23:00,04:00 (D+1),300.0,12000.0
+20-Jun-23,Villahermosa,Campeche,1,1,0,1,0.071,5:00,12:00 (D+0),420.0,16800.0
+20-Jun-23,Villahermosa,Cancun,19,1,0,1,0.071,5:00,,,
+20-Jun-23,Villahermosa,Chetumal,3,1,0,1,0.071,5:00,,,
+20-Jun-23,Villahermosa,Ciudad del Carmen,5,1,0,1,0.071,5:00,08:30 (D+0),210.0,8400.0
+20-Jun-23,Villahermosa,Mérida,17,1,0,1,0.071,5:00,,,
+20-Jun-23,Villahermosa,Playa,5,1,0,1,0.071,5:00,,,
+20-Jun-23,Villahermosa,Tuxtla Gutierrez,13,1,0,1,0.071,5:00,10:30 (D+0),330.0,13200.0
+20-Jun-23,Villahermosa,Villahermosa,12,1,0,1,0.071,5:00,,,
+21-Jun-23,Campeche,Campeche,1,1,0,1,0.071,,,,
+21-Jun-23,Campeche,Ciudad del Carmen,1,1,0,1,0.071,,,218.0,8712.0
+21-Jun-23,Campeche,Mérida,4,1,0,1,0.071,,,240.0,9600.0
+21-Jun-23,Campeche,Tuxtla Gutierrez,3,1,0,1,0.071,,,,
+21-Jun-23,Campeche,Villahermosa,3,1,0,1,0.071,,,435.0,17400.0
+21-Jun-23,Cancun,Campeche,4,1,0,1,0.071,16:30,01:00 (D+1),510.0,20400.0
+21-Jun-23,Cancun,Cancun,10,1,0,1,0.071,16:30,17:30 (D+0),60.0,2400.0
+21-Jun-23,Cancun,Chetumal,4,1,0,1,0.071,16:30,,,
+21-Jun-23,Cancun,Ciudad del Carmen,2,1,0,1,0.071,16:30,,,
+21-Jun-23,Cancun,Mérida,18,1,0,1,0.071,16:30,21:10 (D+0),280.0,11208.0
+21-Jun-23,Cancun,Playa,8,1,0,1,0.071,16:30,,,
+21-Jun-23,Cancun,Villahermosa,2,1,0,1,0.071,16:30,,,
+21-Jun-23,Mérida,Campeche,409,7,0,1,0.5,22:30,01:25 (D+1),175.0,7008.0
+21-Jun-23,Mérida,Cancun,1353,23,1,0,0.821,22:30,04:37 (D+1),368.0,22068.0
+21-Jun-23,Mérida,Chetumal,365,7,0,1,0.5,22:30,05:00 (D+1),390.0,15600.0
+21-Jun-23,Mérida,Ciudad del Carmen,227,4,0,1,0.286,22:30,05:30 (D+1),420.0,16800.0
+21-Jun-23,Mérida,Mérida,1561,27,1,0,0.964,22:30,23:10 (D+0),40.0,2412.0
+21-Jun-23,Mérida,Playa,173,3,0,1,0.214,22:30,05:30 (D+1),420.0,16800.0
+21-Jun-23,Mérida,Tuxtla Gutierrez,217,4,0,1,0.286,22:30,12:30 (D+1),840.0,33600.0
+21-Jun-23,Mérida,Villahermosa,337,6,0,1,0.429,22:30,07:30 (D+1),540.0,21600.0
+21-Jun-23,Tepotzotlan,Campeche,978,17,1,0,0.607,20:30,17:30 (D+1),1260.0,75600.0
+21-Jun-23,Tepotzotlan,Cancun,2763,47,2,0,0.839,20:30,23:30 (D+1),1620.0,194400.0
+21-Jun-23,Tepotzotlan,Chetumal,624,11,0,1,0.786,20:30,22:30 (D+1),1560.0,62400.0
+21-Jun-23,Tepotzotlan,Ciudad del Carmen,1323,23,1,0,0.821,20:30,14:18 (D+1),1068.0,64080.0
+21-Jun-23,Tepotzotlan,Mérida,2755,46,2,0,0.821,20:30,21:22 (D+1),1492.0,179064.0
+21-Jun-23,Tepotzotlan,Playa,1877,32,1,1,0.762,20:30,00:30 (D+2),1680.0,168000.0
+21-Jun-23,Tepotzotlan,Tuxtla Gutierrez,7690,129,5,0,0.921,20:30,11:19 (D+1),890.0,266940.0
+21-Jun-23,Tepotzotlan,Villahermosa,10483,175,6,1,0.962,22:30,13:10 (D+1),881.0,352320.0
+21-Jun-23,Tuxtla Gutierrez,Mérida,1,1,0,1,0.071,23:00,,,
+21-Jun-23,Tuxtla Gutierrez,Tuxtla Gutierrez,1,1,0,1,0.071,23:00,04:00 (D+1),300.0,12000.0
+21-Jun-23,Villahermosa,Campeche,2,1,0,1,0.071,5:00,12:00 (D+0),420.0,16800.0
+21-Jun-23,Villahermosa,Cancun,10,1,0,1,0.071,5:00,,,
+21-Jun-23,Villahermosa,Chetumal,2,1,0,1,0.071,5:00,,,
+21-Jun-23,Villahermosa,Ciudad del Carmen,5,1,0,1,0.071,5:00,08:30 (D+0),210.0,8400.0
+21-Jun-23,Villahermosa,Mérida,13,1,0,1,0.071,5:00,,,
+21-Jun-23,Villahermosa,Playa,5,1,0,1,0.071,5:00,,,
+21-Jun-23,Villahermosa,Tuxtla Gutierrez,7,1,0,1,0.071,5:00,10:30 (D+0),330.0,13200.0
+21-Jun-23,Villahermosa,Villahermosa,12,1,0,1,0.071,5:00,,,
+22-Jun-23,Campeche,Cancun,1,1,0,1,0.071,,,,
+22-Jun-23,Campeche,Ciudad del Carmen,2,1,0,1,0.071,,,218.0,8712.0
+22-Jun-23,Campeche,Mérida,2,1,0,1,0.071,,,240.0,9600.0
+22-Jun-23,Campeche,Playa,2,1,0,1,0.071,,,,
+22-Jun-23,Campeche,Tuxtla Gutierrez,3,1,0,1,0.071,,,,
+22-Jun-23,Campeche,Villahermosa,6,1,0,1,0.071,,,435.0,17400.0
+22-Jun-23,Cancun,Campeche,4,1,0,1,0.071,16:30,01:00 (D+1),510.0,20400.0
+22-Jun-23,Cancun,Cancun,8,1,0,1,0.071,16:30,17:30 (D+0),60.0,2400.0
+22-Jun-23,Cancun,Ciudad del Carmen,1,1,0,1,0.071,16:30,,,
+22-Jun-23,Cancun,Mérida,12,1,0,1,0.071,16:30,21:10 (D+0),280.0,11208.0
+22-Jun-23,Cancun,Playa,10,1,0,1,0.071,16:30,,,
+22-Jun-23,Cancun,Tuxtla Gutierrez,3,1,0,1,0.071,16:30,,,
+22-Jun-23,Mérida,Campeche,442,8,0,1,0.571,22:30,01:25 (D+1),175.0,7008.0
+22-Jun-23,Mérida,Cancun,1365,23,1,0,0.821,22:30,04:37 (D+1),368.0,22068.0
+22-Jun-23,Mérida,Chetumal,346,6,0,1,0.429,22:30,05:00 (D+1),390.0,15600.0
+22-Jun-23,Mérida,Ciudad del Carmen,228,4,0,1,0.286,22:30,05:30 (D+1),420.0,16800.0
+22-Jun-23,Mérida,Mérida,1528,26,1,0,0.929,22:30,23:10 (D+0),40.0,2412.0
+22-Jun-23,Mérida,Playa,200,4,0,1,0.286,22:30,05:30 (D+1),420.0,16800.0
+22-Jun-23,Mérida,Tuxtla Gutierrez,193,4,0,1,0.286,22:30,12:30 (D+1),840.0,33600.0
+22-Jun-23,Mérida,Villahermosa,337,6,0,1,0.429,22:30,07:30 (D+1),540.0,21600.0
+22-Jun-23,Tapachula,Tuxtla Gutierrez,1,1,0,1,0.071,21:00,02:00 (D+1),300.0,12000.0
+22-Jun-23,Tepotzotlan,Campeche,844,15,1,0,0.536,20:30,17:30 (D+1),1260.0,75600.0
+22-Jun-23,Tepotzotlan,Cancun,2383,40,1,1,0.952,20:30,23:30 (D+1),1620.0,162000.0
+22-Jun-23,Tepotzotlan,Chetumal,645,11,0,1,0.786,20:30,22:30 (D+1),1560.0,62400.0
+22-Jun-23,Tepotzotlan,Ciudad del Carmen,1280,22,1,0,0.786,20:30,14:18 (D+1),1068.0,64080.0
+22-Jun-23,Tepotzotlan,Mérida,2469,42,1,1,1.0,20:30,21:22 (D+1),1492.0,149220.0
+22-Jun-23,Tepotzotlan,Playa,1638,28,1,0,1.0,20:30,00:30 (D+2),1680.0,100800.0
+22-Jun-23,Tepotzotlan,Tuxtla Gutierrez,7082,119,4,1,0.944,20:30,11:19 (D+1),890.0,249144.0
+22-Jun-23,Tepotzotlan,Villahermosa,10136,169,6,1,0.929,22:30,13:10 (D+1),881.0,352320.0
+22-Jun-23,Tuxtla Gutierrez,Chetumal,1,1,0,1,0.071,23:00,,,
+22-Jun-23,Tuxtla Gutierrez,Tuxtla Gutierrez,3,1,0,1,0.071,23:00,04:00 (D+1),300.0,12000.0
+22-Jun-23,Tuxtla Gutierrez,Villahermosa,1,1,0,1,0.071,23:00,04:00 (D+1),300.0,12000.0
+22-Jun-23,Villahermosa,Campeche,1,1,0,1,0.071,5:00,12:00 (D+0),420.0,16800.0
+22-Jun-23,Villahermosa,Cancun,8,1,0,1,0.071,5:00,,,
+22-Jun-23,Villahermosa,Ciudad del Carmen,2,1,0,1,0.071,5:00,08:30 (D+0),210.0,8400.0
+22-Jun-23,Villahermosa,Mérida,11,1,0,1,0.071,5:00,,,
+22-Jun-23,Villahermosa,Playa,2,1,0,1,0.071,5:00,,,
+22-Jun-23,Villahermosa,Tuxtla Gutierrez,11,1,0,1,0.071,5:00,10:30 (D+0),330.0,13200.0
+22-Jun-23,Villahermosa,Villahermosa,6,1,0,1,0.071,5:00,,,
+23-Jun-23,Campeche,Campeche,3,1,0,1,0.071,,,,
+23-Jun-23,Campeche,Cancun,1,1,0,1,0.071,,,,
+23-Jun-23,Campeche,Ciudad del Carmen,2,1,0,1,0.071,,,218.0,8712.0
+23-Jun-23,Campeche,Villahermosa,4,1,0,1,0.071,,,435.0,17400.0
+23-Jun-23,Cancun,Campeche,5,1,0,1,0.071,16:30,01:00 (D+1),510.0,20400.0
+23-Jun-23,Cancun,Cancun,7,1,0,1,0.071,16:30,17:30 (D+0),60.0,2400.0
+23-Jun-23,Cancun,Mérida,5,1,0,1,0.071,16:30,21:10 (D+0),280.0,11208.0
+23-Jun-23,Cancun,Playa,8,1,0,1,0.071,16:30,,,
+23-Jun-23,Cancun,Tuxtla Gutierrez,5,1,0,1,0.071,16:30,,,
+23-Jun-23,Cancun,Villahermosa,5,1,0,1,0.071,16:30,,,
+23-Jun-23,Mérida,Campeche,456,8,0,1,0.571,22:30,01:25 (D+1),175.0,7008.0
+23-Jun-23,Mérida,Cancun,1349,23,1,0,0.821,22:30,04:37 (D+1),368.0,22068.0
+23-Jun-23,Mérida,Chetumal,388,7,0,1,0.5,22:30,05:00 (D+1),390.0,15600.0
+23-Jun-23,Mérida,Ciudad del Carmen,283,5,0,1,0.357,22:30,05:30 (D+1),420.0,16800.0
+23-Jun-23,Mérida,Mérida,1667,28,1,0,1.0,22:30,23:10 (D+0),40.0,2412.0
+23-Jun-23,Mérida,Playa,163,3,0,1,0.214,22:30,05:30 (D+1),420.0,16800.0
+23-Jun-23,Mérida,Tuxtla Gutierrez,238,4,0,1,0.286,22:30,12:30 (D+1),840.0,33600.0
+23-Jun-23,Mérida,Villahermosa,319,6,0,1,0.429,22:30,07:30 (D+1),540.0,21600.0
+23-Jun-23,Tepotzotlan,Campeche,789,14,0,1,1.0,20:30,17:30 (D+1),1260.0,50400.0
+23-Jun-23,Tepotzotlan,Cancun,2047,35,1,1,0.833,20:30,23:30 (D+1),1620.0,162000.0
+23-Jun-23,Tepotzotlan,Chetumal,620,11,0,1,0.786,20:30,22:30 (D+1),1560.0,62400.0
+23-Jun-23,Tepotzotlan,Ciudad del Carmen,1171,20,1,0,0.714,20:30,14:18 (D+1),1068.0,64080.0
+23-Jun-23,Tepotzotlan,Mérida,2353,40,1,1,0.952,20:30,21:22 (D+1),1492.0,149220.0
+23-Jun-23,Tepotzotlan,Playa,1641,28,1,0,1.0,20:30,00:30 (D+2),1680.0,100800.0
+23-Jun-23,Tepotzotlan,Tuxtla Gutierrez,6219,104,4,0,0.929,20:30,11:19 (D+1),890.0,213552.0
+23-Jun-23,Tepotzotlan,Villahermosa,9021,151,5,1,0.981,22:30,13:10 (D+1),881.0,299472.0
+23-Jun-23,Villahermosa,Campeche,1,1,0,1,0.071,5:00,12:00 (D+0),420.0,16800.0
+23-Jun-23,Villahermosa,Cancun,3,1,0,1,0.071,5:00,,,
+23-Jun-23,Villahermosa,Chetumal,2,1,0,1,0.071,5:00,,,
+23-Jun-23,Villahermosa,Ciudad del Carmen,2,1,0,1,0.071,5:00,08:30 (D+0),210.0,8400.0
+23-Jun-23,Villahermosa,Mérida,9,1,0,1,0.071,5:00,,,
+23-Jun-23,Villahermosa,Playa,7,1,0,1,0.071,5:00,,,
+23-Jun-23,Villahermosa,Tuxtla Gutierrez,12,1,0,1,0.071,5:00,10:30 (D+0),330.0,13200.0
+23-Jun-23,Villahermosa,Villahermosa,11,1,0,1,0.071,5:00,,,
+24-Jun-23,Cancun,Campeche,1,1,0,1,0.071,16:30,01:00 (D+1),510.0,20400.0
+24-Jun-23,Cancun,Cancun,2,1,0,1,0.071,16:30,17:30 (D+0),60.0,2400.0
+24-Jun-23,Cancun,Mérida,8,1,0,1,0.071,16:30,21:10 (D+0),280.0,11208.0
+24-Jun-23,Cancun,Playa,3,1,0,1,0.071,16:30,,,
+24-Jun-23,Cancun,Tuxtla Gutierrez,1,1,0,1,0.071,16:30,,,
+24-Jun-23,Cancun,Villahermosa,1,1,0,1,0.071,16:30,,,
+24-Jun-23,Mérida,Campeche,427,8,0,1,0.571,22:30,01:25 (D+1),175.0,7008.0
+24-Jun-23,Mérida,Cancun,1234,21,1,0,0.75,22:30,04:37 (D+1),368.0,22068.0
+24-Jun-23,Mérida,Chetumal,328,6,0,1,0.429,22:30,05:00 (D+1),390.0,15600.0
+24-Jun-23,Mérida,Ciudad del Carmen,214,4,0,1,0.286,22:30,05:30 (D+1),420.0,16800.0
+24-Jun-23,Mérida,Mérida,1382,24,1,0,0.857,22:30,23:10 (D+0),40.0,2412.0
+24-Jun-23,Mérida,Playa,128,3,0,1,0.214,22:30,05:30 (D+1),420.0,16800.0
+24-Jun-23,Mérida,Tuxtla Gutierrez,191,4,0,1,0.286,22:30,12:30 (D+1),840.0,33600.0
+24-Jun-23,Mérida,Villahermosa,191,4,0,1,0.286,22:30,07:30 (D+1),540.0,21600.0
+24-Jun-23,Tapachula,Mérida,1,1,0,1,0.071,21:00,,,
+24-Jun-23,Tepotzotlan,Campeche,691,12,0,1,0.857,20:30,17:30 (D+1),1260.0,50400.0
+24-Jun-23,Tepotzotlan,Cancun,1999,34,1,1,0.81,20:30,23:30 (D+1),1620.0,162000.0
+24-Jun-23,Tepotzotlan,Chetumal,494,9,0,1,0.643,20:30,22:30 (D+1),1560.0,62400.0
+24-Jun-23,Tepotzotlan,Ciudad del Carmen,888,15,1,0,0.536,20:30,14:18 (D+1),1068.0,64080.0
+24-Jun-23,Tepotzotlan,Mérida,2098,35,1,1,0.833,20:30,21:22 (D+1),1492.0,149220.0
+24-Jun-23,Tepotzotlan,Playa,1623,28,1,0,1.0,20:30,00:30 (D+2),1680.0,100800.0
+24-Jun-23,Tepotzotlan,Tuxtla Gutierrez,5228,88,3,1,0.898,20:30,11:19 (D+1),890.0,195756.0
+24-Jun-23,Tepotzotlan,Villahermosa,6170,103,4,0,0.92,22:30,13:10 (D+1),881.0,211392.0
+24-Jun-23,Villahermosa,Cancun,6,1,0,1,0.071,5:00,,,
+24-Jun-23,Villahermosa,Chetumal,1,1,0,1,0.071,5:00,,,
+24-Jun-23,Villahermosa,Ciudad del Carmen,1,1,0,1,0.071,5:00,08:30 (D+0),210.0,8400.0
+24-Jun-23,Villahermosa,Mérida,6,1,0,1,0.071,5:00,,,
+24-Jun-23,Villahermosa,Playa,4,1,0,1,0.071,5:00,,,
+24-Jun-23,Villahermosa,Tuxtla Gutierrez,7,1,0,1,0.071,5:00,10:30 (D+0),330.0,13200.0
