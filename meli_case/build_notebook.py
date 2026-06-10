@@ -473,7 +473,14 @@ supuestos: 60 pqts/pallet · trailer 28 tarimas ($60/km) · torton 14 ($40/km)</
 with open("dashboard_meli.html", "w") as fh:
     fh.write(html)
 print("dashboard_meli.html generado")
-subir_a_drive("dashboard_meli.html")   # -> carpeta "Business Case MELI" en tu Drive\
+
+# Mostrar directo en Colab (no depende de Drive para verlo)
+from IPython.display import display, IFrame, HTML
+display(HTML("<h3 style='color:#1a4b8c'>✅ Dashboard renderizado abajo ↓</h3>"))
+display(HTML(html))
+
+# También subir a Drive como respaldo
+subir_a_drive("dashboard_meli.html")\
 """))
 
 cells.append(md("""\
