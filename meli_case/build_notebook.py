@@ -23,7 +23,7 @@ hora de salida + tránsito → hora de llegada
 vehículos × km × tarifa → costo → ÷ envíos → costo por paquete
 ```
 
-**Cómo usar este notebook:** Runtime → Run all. Lee el Google Sheet directo, construye el modelo y genera un dashboard HTML interactivo al final.\
+**Cómo usar este notebook:** Runtime → Run all. Se autentica con tu cuenta de Google (popup una vez), lee el Google Sheet privado, construye el modelo y al final **sube el dashboard HTML a tu carpeta de Drive** *"Business Case MELI"*. Nada se descarga a tu equipo.\
 """))
 
 cells.append(md("""\
@@ -66,36 +66,57 @@ cells.append(md("## 1 · Carga del Google Sheet"))
 cells.append(code("""\
 import io, os, requests
 
-FILE_ID = "1RdHfK4C3CGkBBNLqdykKPLfXCWc_gQ2ZBUPtw5wO8_8"  # Google Sheet "WS- Planning LH Sup"
+FILE_ID   = "1RdHfK4C3CGkBBNLqdykKPLfXCWc_gQ2ZBUPtw5wO8_8"   # Google Sheet "WS- Planning LH Sup"
+FOLDER_ID = "12VkDhTyzCKv9agIATHENAPL_PDdeDNl8"               # carpeta de Drive "Business Case MELI"
 XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+# Autenticación con tu cuenta de Google: lee el Sheet privado y permite subir a Drive.
+# Muestra un popup de permiso una sola vez por sesión.
+drive = None
+try:
+    from google.colab import auth
+    auth.authenticate_user()
+    from googleapiclient.discovery import build
+    drive = build("drive", "v3")
+    print("Autenticado con Google Drive ✓")
+except Exception as e:
+    print(f"Sin auth de Colab ({e}). Usaré modo público / subida manual.")
 
 def cargar_xlsx(file_id):
     if os.path.exists("caso_real.xlsx"):                       # copia local (para re-runs)
         return open("caso_real.xlsx", "rb").read()
-
-    # 1) Si el Sheet es público ("cualquiera con el enlace"), basta el export directo
-    try:
+    if drive is not None:                                      # 1) API de Drive (tu cuenta)
+        return drive.files().export(fileId=file_id, mimeType=XLSX_MIME).execute()
+    try:                                                       # 2) export público (si lo compartes)
         r = requests.get(f"https://docs.google.com/spreadsheets/d/{file_id}/export?format=xlsx",
                          timeout=60)
-        if r.ok and r.content[:2] == b"PK":                    # firma de un xlsx válido
+        if r.ok and r.content[:2] == b"PK":
             return r.content
     except requests.RequestException:
         pass
-
-    # 2) Sheet privado: autenticarse con tu cuenta de Google (pide permiso una vez)
-    try:
-        from google.colab import auth
-        auth.authenticate_user()
-        from googleapiclient.discovery import build
-        drive = build("drive", "v3")
-        return drive.files().export(fileId=file_id, mimeType=XLSX_MIME).execute()
-    except Exception as e:
-        print(f"Auth de Colab no disponible ({e}).")
-
-    # 3) Último recurso: subir el archivo a mano (Archivo -> Descargar -> .xlsx)
-    from google.colab import files
+    from google.colab import files                            # 3) subida manual
     print("Sube el caso manualmente (.xlsx):")
     return list(files.upload().values())[0]
+
+def subir_a_drive(ruta_local, folder_id=FOLDER_ID, mime="text/html"):
+    \"\"\"Sube (o actualiza si ya existe) un archivo a la carpeta de Drive.\"\"\"
+    if drive is None:
+        print(f"Sin Drive: '{ruta_local}' quedó solo en el runtime de Colab.")
+        return None
+    from googleapiclient.http import MediaFileUpload
+    nombre = os.path.basename(ruta_local)
+    media = MediaFileUpload(ruta_local, mimetype=mime, resumable=False)
+    previos = drive.files().list(
+        q=f"name='{nombre}' and '{folder_id}' in parents and trashed=false",
+        fields="files(id)").execute().get("files", [])
+    if previos:                                                # actualizar -> no duplica en re-runs
+        f = drive.files().update(fileId=previos[0]["id"], media_body=media,
+                                 fields="id,webViewLink").execute()
+    else:                                                      # crear nuevo
+        f = drive.files().create(media_body=media, fields="id,webViewLink",
+                                 body={"name": nombre, "parents": [folder_id]}).execute()
+    print(f"✅ {nombre} en Drive: {f.get('webViewLink')}")
+    return f
 
 raw = cargar_xlsx(FILE_ID)
 open("caso_real.xlsx", "wb").write(raw)                        # cache para re-runs
@@ -353,13 +374,8 @@ supuestos: 60 pqts/pallet · trailer 28 tarimas ($60/km) · torton 14 ($40/km)</
 
 with open("dashboard_meli.html", "w") as fh:
     fh.write(html)
-print("✅ dashboard_meli.html generado")
-
-try:
-    from google.colab import files
-    files.download("dashboard_meli.html")
-except ImportError:
-    pass\
+print("dashboard_meli.html generado")
+subir_a_drive("dashboard_meli.html")   # -> carpeta "Business Case MELI" en tu Drive\
 """))
 
 cells.append(md("""\
