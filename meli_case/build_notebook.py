@@ -67,23 +67,38 @@ cells.append(code("""\
 import io, os, requests
 
 FILE_ID = "1RdHfK4C3CGkBBNLqdykKPLfXCWc_gQ2ZBUPtw5wO8_8"  # Google Sheet "WS- Planning LH Sup"
+XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
 def cargar_xlsx(file_id):
     if os.path.exists("caso_real.xlsx"):                       # copia local (para re-runs)
         return open("caso_real.xlsx", "rb").read()
-    for url in (f"https://docs.google.com/spreadsheets/d/{file_id}/export?format=xlsx",
-                f"https://drive.google.com/uc?id={file_id}&export=download"):
-        try:
-            r = requests.get(url, timeout=60)
-            if r.ok and r.content[:2] == b"PK":                # firma de un xlsx válido
-                return r.content
-        except requests.RequestException:
-            pass
-    from google.colab import files                             # último recurso: subir a mano
-    print("No pude descargar el Sheet. Súbelo manualmente (.xlsx):")
+
+    # 1) Si el Sheet es público ("cualquiera con el enlace"), basta el export directo
+    try:
+        r = requests.get(f"https://docs.google.com/spreadsheets/d/{file_id}/export?format=xlsx",
+                         timeout=60)
+        if r.ok and r.content[:2] == b"PK":                    # firma de un xlsx válido
+            return r.content
+    except requests.RequestException:
+        pass
+
+    # 2) Sheet privado: autenticarse con tu cuenta de Google (pide permiso una vez)
+    try:
+        from google.colab import auth
+        auth.authenticate_user()
+        from googleapiclient.discovery import build
+        drive = build("drive", "v3")
+        return drive.files().export(fileId=file_id, mimeType=XLSX_MIME).execute()
+    except Exception as e:
+        print(f"Auth de Colab no disponible ({e}).")
+
+    # 3) Último recurso: subir el archivo a mano (Archivo -> Descargar -> .xlsx)
+    from google.colab import files
+    print("Sube el caso manualmente (.xlsx):")
     return list(files.upload().values())[0]
 
 raw = cargar_xlsx(FILE_ID)
+open("caso_real.xlsx", "wb").write(raw)                        # cache para re-runs
 tabs = pd.read_excel(io.BytesIO(raw), sheet_name=None)
 print("Pestañas:", {n: df.shape for n, df in tabs.items()})\
 """))
