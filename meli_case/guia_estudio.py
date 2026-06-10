@@ -66,12 +66,12 @@ html = """<!DOCTYPE html>
 
   <div class="kpi-grid">
     <div class="kpi"><div class="val">200,304</div><div class="lbl">Envíos / semana</div><div class="sub">18–24 Jun 2023</div></div>
-    <div class="kpi yellow"><div class="val">$53.71</div><div class="lbl">Costo / paquete (as-is)</div><div class="sub">con km reales</div></div>
+    <div class="kpi yellow"><div class="val">$53.74</div><div class="lbl">Costo / paquete (as-is)</div><div class="sub">con km reales</div></div>
     <div class="kpi green"><div class="val">$43.27</div><div class="lbl">Costo / paquete (co-load)</div><div class="sub">−19% optimizado</div></div>
     <div class="kpi"><div class="val">43</div><div class="lbl">Vehículos / día</div><div class="sub">17 trailers + 26 tortons</div></div>
     <div class="kpi red"><div class="val">$10.76M</div><div class="lbl">Costo total / semana</div><div class="sub">MXN</div></div>
     <div class="kpi red"><div class="val">0.34%</div><div class="lbl">Volumen en micro-rutas</div><div class="sub">682 paqutes</div></div>
-    <div class="kpi red"><div class="val">19.4%</div><div class="lbl">Costo de micro-rutas</div><div class="sub">$2.09M/sem</div></div>
+    <div class="kpi red"><div class="val">19.5%</div><div class="lbl">Costo de micro-rutas</div><div class="sub">$2.10M/sem</div></div>
     <div class="kpi"><div class="val">60%</div><div class="lbl">Ocupación global</div><div class="sub">3,500 pal / 5,838 cap</div></div>
   </div>
 
@@ -199,7 +199,7 @@ html = """<!DOCTYPE html>
     <div>
       <div class="card">
         <h3>Slide 1 — Resumen ejecutivo</h3>
-        <p style="font-size:13px;line-height:1.8">200K pqts/sem a <strong>$53.71</strong>. 84% sale eficiente de Tepotzotlán. Pero 0.34% del volumen consume 19% del costo → co-load lo baja −19%.</p>
+        <p style="font-size:13px;line-height:1.8">200K pqts/sem a <strong>$53.74</strong>. 84% sale eficiente de Tepotzotlán. Pero 0.34% del volumen consume 19% del costo → co-load lo baja −19%.</p>
         <p style="font-size:13px;color:#777;margin-top:6px"><em>Activa los 3 mensajes en una frase.</em></p>
       </div>
       <div class="card">
@@ -256,8 +256,8 @@ html = """<!DOCTYPE html>
   </div>
 
   <div class="qa">
-    <div class="q">¿Por qué llegaste a $53.71/pqt y otro candidato llegó a $43.30?</div>
-    <div class="a"><strong>Los dos son correctos — difieren en supuesto, no en error.</strong> $53.71 es el costo as-is: cada ruta-día despacha su propio vehículo, incluyendo tortons casi vacíos. $43.27 es el escenario optimizado con co-load: elimino los 33 vehículos dedicados de micro-rutas y los absorbo en salidas troncales existentes. Siempre declaro el supuesto antes de dar el número.</div>
+    <div class="q">¿Por qué llegaste a $53.74/pqt y otro candidato llegó a $43.27?</div>
+    <div class="a"><strong>Los dos son correctos — difieren en supuesto, no en error.</strong> $53.74 es el costo as-is: cada ruta-día despacha su propio vehículo, incluyendo tortons casi vacíos. $43.27 es el escenario optimizado con co-load: elimino los 33 vehículos dedicados de micro-rutas y los absorbo en salidas troncales existentes. Siempre declaro el supuesto antes de dar el número.</div>
   </div>
 
   <div class="qa">
@@ -272,7 +272,7 @@ html = """<!DOCTYPE html>
 
   <div class="qa">
     <div class="q">Tu modelo asume tarifas lineales de $60/km y $40/km. ¿Por qué es un problema?</div>
-    <div class="a">En la realidad las tarifas tienen componente fijo + variable y mínimos por viaje. Si el torton de Villahermosa→Campeche está en un contrato mensual dedicado, cancelarlo no ahorra nada a corto plazo. Además, rutas largas como Tep→Cancún (27h) pueden requerir doble operador bajo NOM-087 (+15-30%). El $53.71, el −19% de co-load, todo fluye por esa asunción. El primer dato que pediría al carrier es el tarifario real.</div>
+    <div class="a">En la realidad las tarifas tienen componente fijo + variable y mínimos por viaje. Si el torton de Villahermosa→Campeche está en un contrato mensual dedicado, cancelarlo no ahorra nada a corto plazo. Además, rutas largas como Tep→Cancún (27h) pueden requerir doble operador bajo NOM-087 (+15-30%). El $53.74, el −19% de co-load, todo fluye por esa asunción. El primer dato que pediría al carrier es el tarifario real.</div>
   </div>
 
   <div class="qa">
@@ -297,7 +297,7 @@ html = """<!DOCTYPE html>
 
   <div class="danger">
     <strong>❌ Dar un solo número de costo sin declarar el supuesto</strong><br>
-    $53.71 (as-is) y $43.27 (co-load) no son el mismo número. Si dices uno, el panel pregunta qué supuso. Siempre di: "bajo el supuesto de [X], el costo es [Y]."
+    $53.74 (as-is) y $43.27 (co-load) no son el mismo número. Si dices uno, el panel pregunta qué supuso. Siempre di: "bajo el supuesto de [X], el costo es [Y]."
   </div>
 
   <div class="danger">
