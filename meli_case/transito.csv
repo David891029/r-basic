@@ -1,43 +1,50 @@
 origen,destino,horas_transito
-Campeche,Ciudad del Carmen,3.63
-Campeche,Mérida,4.00
+Campeche,Ciudad del Carmen,3.625
+Campeche,Mérida,4.0
 Campeche,Villahermosa,7.25
-Cancun,Campeche,8.50
-Cancun,Cancun,1.00
-Cancun,Mérida,4.67
-Cancun,Tepotzotlan,26.50
-Chetumal,Mérida,5.50
-Ciudad del Carmen,Campeche,4.00
-Ciudad del Carmen,Mérida,7.00
-Ciudad del Carmen,Tepotzotlan,15.00
-Ciudad del Carmen,Villahermosa,3.50
-Mérida,Campeche,2.92
-Mérida,Cancun,6.13
-Mérida,Chetumal,6.50
-Mérida,Ciudad del Carmen,7.00
-Mérida,Mérida,0.67
-Mérida,Tepotzotlan,24.45
-Mérida,Villahermosa,9.00
-Playa del Carmen,Cancun,2.50
-Playa del Carmen,Mérida,12.00
-Tapachula,Tepotzotlan,21.00
-Tapachula,Tuxtla Gutierrez,5.00
-Tepatitlan,Tuxtla Gutierrez,6.00
-Tepotzotlan,Campeche,21.00
-Tepotzotlan,Cancun,27.00
-Tepotzotlan,Ciudad del Carmen,17.80
-Tepotzotlan,Mérida,24.87
+Cancun,Campeche,8.5
+Cancun,Cancun,1.0
+Cancun,Mérida,4.66666666666667
+Cancun,Tepotzotlan,26.5
+Chetumal,Mérida,5.5
+Ciudad del Carmen,Campeche,4.0
+Ciudad del Carmen,Mérida,7.0
+Ciudad del Carmen,Tepotzotlan,15.0
+Ciudad del Carmen,Villahermosa,3.5
+Mérida,Campeche,2.91666666666667
+Mérida,Cancun,6.125
+Mérida,Chetumal,6.5
+Mérida,Ciudad del Carmen,7.0
+Mérida,Mérida,0.666666666666667
+Mérida,Tepotzotlan,24.4523428571429
+Mérida,Villahermosa,9.0
+Playa,Cancun,2.5
+Playa,Mérida,12.0
+Tapachula,Tepotzotlan,21.0
+Tapachula,Tuxtla Gutierrez,5.0
+Tepatitlan,Tuxtla Gutierrez,6.0
+Tepotzotlan,Campeche,21.0
+Tepotzotlan,Cancun,27.0
+Tepotzotlan,Ciudad del Carmen,17.8
+Tepotzotlan,Mérida,24.86664
 Tepotzotlan,Tapachula,20.25
-Tepotzotlan,Tepatitlan,21.83
-Tepotzotlan,Tepotzotlan,1.40
-Tepotzotlan,Tuxtla Gutierrez,14.83
-Tepotzotlan,Villahermosa,14.68
+Tepotzotlan,Tepatitlan,21.8333333333333
+Tepotzotlan,Tepotzotlan,1.3995375
+Tepotzotlan,Tuxtla Gutierrez,14.8333333333333
+Tepotzotlan,Villahermosa,14.6837777777778
 Tuxtla Gutierrez,Tapachula,3.25
-Tuxtla Gutierrez,Tepatitlan,4.50
-Tuxtla Gutierrez,Tepotzotlan,14.00
-Tuxtla Gutierrez,Tuxtla Gutierrez,5.00
-Tuxtla Gutierrez,Villahermosa,5.00
-Villahermosa,Campeche,7.00
-Villahermosa,Ciudad del Carmen,3.50
-Villahermosa,Tepotzotlan,14.00
-Villahermosa,Tuxtla Gutierrez,5.50
+Tuxtla Gutierrez,Tepatitlan,4.5
+Tuxtla Gutierrez,Tepotzotlan,14.0
+Tuxtla Gutierrez,Tuxtla Gutierrez,5.0
+Tuxtla Gutierrez,Villahermosa,5.0
+Villahermosa,Campeche,7.0
+Villahermosa,Ciudad del Carmen,3.5
+Villahermosa,Tepotzotlan,14.0
+Villahermosa,Tuxtla Gutierrez,5.5
+Tepotzotlan,Playa,28.0
+Tepotzotlan,Chetumal,26.0
+Mérida,Playa,7.0
+Mérida,Tuxtla Gutierrez,14.0
+Cancun,Playa,2.5
+Campeche,Playa,7.0
+Villahermosa,Playa,14.0

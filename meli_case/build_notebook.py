@@ -58,6 +58,9 @@ TRANSITOS_FALTANTES = {
     ("Tepotzotlan", "Chetumal"): 26.0,     # vía Escárcega
     ("Mérida", "Playa"): 7.0,              # Mérida→Cancún 6.13h + ~1h
     ("Mérida", "Tuxtla Gutierrez"): 14.0,  # Mérida→Vhsa 9h + Vhsa→Tuxtla 5h
+    ("Cancun", "Playa"): 2.5,              # ruta inversa: Playa del Carmen→Cancún 2.5h (pestaña 2)
+    ("Campeche", "Playa"): 7.0,            # manejo 5.4h (Sheet3) + paradas
+    ("Villahermosa", "Playa"): 14.0,       # manejo 11.8h (Sheet3) + paradas
 }\
 """))
 
@@ -135,8 +138,13 @@ cells.append(md("""\
 ## 2 · Limpieza
 
 Lo que hay que corregir antes de calcular (esto es parte del análisis — el dataset trae trampas):
-- `"Playa"` (volumen) vs `"Playa del Carmen"` (tránsito): misma ciudad, dos nombres → un JOIN ciego pierde 12,836 envíos.
-- 4 rutas con volumen alto **no tienen tiempo de tránsito** → se triangulan.
+- **La pestaña 2 no tiene NINGÚN tránsito hacia Playa** (bajo ningún nombre). "Playa del Carmen"
+  solo aparece como *origen* (→Cancún 2.5h, →Mérida 12h) y ningún volumen sale de Playa.
+  Sin corrección, los 12,836 envíos hacia Playa se quedan **sin hora de llegada** (el costo no
+  se afecta: usa km de Sheet3). Se triangulan 7 tránsitos — incluyendo Cancún→Playa con la
+  **ruta inversa** de la pestaña 2 (Playa del Carmen→Cancún 2.5h).
+- La normalización "Playa del Carmen"→"Playa" es defensiva: unifica el nombre entre pestañas
+  por si algún cruce lo necesita (en este dataset las filas afectadas no se usan en joins).
 - `Sheet1` duplica todo el volumen (no usarla). `Sheet3` trae **kilómetros reales** por ruta → mejor que asumir velocidad.
 - Horas de salida llegan como `datetime.time`, fechas como `Timestamp`.\
 """))
