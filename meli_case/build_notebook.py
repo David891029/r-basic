@@ -66,7 +66,7 @@ cells.append(md("## 1 · Carga del Google Sheet"))
 cells.append(code("""\
 import io, os, requests
 
-FILE_ID = "1AEeRFhhVxmhCHUM83rcwFxyixvYLDnp_"
+FILE_ID = "1RdHfK4C3CGkBBNLqdykKPLfXCWc_gQ2ZBUPtw5wO8_8"  # Google Sheet "WS- Planning LH Sup"
 
 def cargar_xlsx(file_id):
     if os.path.exists("caso_real.xlsx"):                       # copia local (para re-runs)
