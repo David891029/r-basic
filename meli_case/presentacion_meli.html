@@ -1162,12 +1162,8 @@
     progress.style.width = ((current + 1) / TOTAL * 100) + '%';
     btnPrev.disabled = current === 0;
     btnNext.disabled = current === TOTAL - 1;
-    // Force Plotly to repaint charts that become visible
-    requestAnimationFrame(() => {
-      slides[current].querySelectorAll('.plotly-chart').forEach(div => {
-        if (window.Plotly && div._fullLayout) Plotly.Plots.resize(div);
-      });
-    });
+    // Render charts lazily the first time their slide becomes visible
+    requestAnimationFrame(() => renderChartsFor(current));
   }
 
   function changeSlide(dir) { goTo(current + dir); }
@@ -1185,7 +1181,15 @@
   };
   var CFG = { displayModeBar: false, responsive: true };
 
-  function initCharts() {
+  var chartsRendered = {};
+
+  function renderChartsFor(slideIdx) {
+    if (!window.Plotly) return;
+    if (slideIdx === 3 && !chartsRendered.s4) { chartsRendered.s4 = true; renderSlide4(); }
+    if (slideIdx === 4 && !chartsRendered.s5) { chartsRendered.s5 = true; renderSlide5(); }
+  }
+
+  function renderSlide4() {
 
     // ── Slide 4 — Troncales (horizontal bars) ──
     Plotly.newPlot('chart-trunk', [{
@@ -1222,54 +1226,56 @@
       margin: { l: 150, r: 105, t: 8, b: 32 },
       height: 215,
     }), CFG);
+  }
 
-    // ── Slide 5 — Hallazgo: Volumen % vs Costo % por segmento ──
+  function renderSlide5() {
+
+    // ── Slide 5 — Hallazgo: Volumen % vs Costo % por segmento (horizontal) ──
+    var segs = ['Micro-rutas (cola)', 'Mérida — radiales', 'Tepotzotlán — troncales'];
     Plotly.newPlot('chart-hallazgo', [
       {
-        name: 'Volumen (%)',
-        type: 'bar',
-        x: ['Tep Troncales', 'Mérida Radiales', 'Micro-rutas (Cola)'],
-        y: [84.3, 15.3, 0.34],
-        text: ['84.3%', '15.3%', '0.34%'],
+        name: '% del volumen',
+        type: 'bar', orientation: 'h',
+        y: segs,
+        x: [0.34, 15.3, 84.3],
+        text: ['0.34%', '15.3%', '84.3%'],
         textposition: 'outside',
-        textfont: { color: '#3483FA', size: 11 },
-        marker: { color: '#3483FA', opacity: 0.82 },
-        hovertemplate: '<b>%{x}</b><br>Volumen: %{y}%<extra></extra>',
+        textfont: { color: '#3483FA', size: 11.5 },
+        marker: { color: '#3483FA', opacity: 0.85 },
+        hovertemplate: '<b>%{y}</b><br>Volumen: %{x}%<extra></extra>',
       },
       {
-        name: 'Costo (%)',
-        type: 'bar',
-        x: ['Tep Troncales', 'Mérida Radiales', 'Micro-rutas (Cola)'],
-        y: [72.5, 8.1, 19.5],
-        text: ['72.5%', '8.1%', '19.5%'],
+        name: '% del costo',
+        type: 'bar', orientation: 'h',
+        y: segs,
+        x: [19.5, 8.1, 72.5],
+        text: ['19.5%', '8.1%', '72.5%'],
         textposition: 'outside',
-        textfont: { color: '#FF3D3D', size: 11 },
-        marker: { color: '#FF3D3D', opacity: 0.82 },
-        hovertemplate: '<b>%{x}</b><br>Costo: %{y}%<extra></extra>',
+        textfont: { color: '#FF3D3D', size: 11.5 },
+        marker: { color: '#FF3D3D', opacity: 0.85 },
+        hovertemplate: '<b>%{y}</b><br>Costo: %{x}%<extra></extra>',
       },
     ], Object.assign({}, DARK, {
       barmode: 'group',
-      xaxis: { showgrid: false, zeroline: false, color: '#8899AA',
-               tickfont: { size: 11 } },
-      yaxis: { showgrid: true, gridcolor: 'rgba(255,255,255,0.06)',
-               zeroline: false, color: '#8899AA',
-               ticksuffix: '%', range: [0, 105] },
-      legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: 1.15,
-                font: { color: '#E0E0E0', size: 11 } },
-      margin: { l: 42, r: 20, t: 36, b: 42 },
+      bargap: 0.25, bargroupgap: 0.08,
+      xaxis: { range: [0, 100], showgrid: true, gridcolor: 'rgba(255,255,255,0.06)',
+               zeroline: false, color: '#8899AA', ticksuffix: '%' },
+      yaxis: { showgrid: false, zeroline: false, color: '#E0E0E0',
+               automargin: true, tickfont: { size: 12 } },
+      legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: 1.18,
+                font: { color: '#E0E0E0', size: 11.5 } },
+      margin: { l: 170, r: 60, t: 30, b: 32 },
       height: 195,
       annotations: [{
-        x: 'Micro-rutas (Cola)', y: 27,
-        text: '<b>0.34% vol → 19.5% costo</b>',
-        showarrow: true, arrowhead: 2, arrowcolor: '#FFE600', arrowsize: 1.2,
+        x: 19.5, y: 'Micro-rutas (cola)',
+        text: '<b>57× su peso en volumen</b>',
+        showarrow: true, arrowhead: 2, arrowcolor: '#FFE600', arrowsize: 1.1,
         font: { color: '#FFE600', size: 11 },
-        ax: 40, ay: -28,
-        bgcolor: 'rgba(0,0,0,0.4)', borderpad: 4,
+        ax: 70, ay: 0,
+        bgcolor: 'rgba(0,0,0,0.45)', borderpad: 4,
       }],
     }), CFG);
   }
-
-  window.addEventListener('load', initCharts);
 
   // Init
   goTo(0);
