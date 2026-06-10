@@ -581,6 +581,7 @@
     #nav, #progress-bar, #slide-counter { display: none; }
   }
 </style>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
 </head>
 <body>
 
@@ -838,43 +839,7 @@
             Troncales Tepotzotlán
             <span>CV bajo · ocupación alta</span>
           </div>
-
-          <!-- Tep → Villahermosa 94.3% -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Tep → Villahermosa</span>
-              <span><span class="bar-pct acc-green">94.3%</span> &nbsp;<span class="bar-cv">CV 15%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width:94.3%"></div></div>
-          </div>
-
-          <!-- Tep → Tuxtla 93.1% -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Tep → Tuxtla Gutiérrez</span>
-              <span><span class="bar-pct acc-green">93.1%</span> &nbsp;<span class="bar-cv">CV 12%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width:93.1%"></div></div>
-          </div>
-
-          <!-- Tep → Mérida 87.0% -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Tep → Mérida</span>
-              <span><span class="bar-pct acc-green">87.0%</span> &nbsp;<span class="bar-cv">CV 18%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width:87%"></div></div>
-          </div>
-
-          <!-- Tep → Cancún 84.5% -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Tep → Cancún</span>
-              <span><span class="bar-pct acc-green">84.5%</span> &nbsp;<span class="bar-cv">CV 14%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width:84.5%"></div></div>
-          </div>
-
+          <div id="chart-trunk" class="plotly-chart" style="height:215px;"></div>
           <div class="regime-label regime-green">Predecibles · Flota fija T-48h</div>
         </div>
 
@@ -882,45 +847,9 @@
         <div class="card">
           <div class="col-card-head">
             Cola de nodos secundarios
-            <span>CV alto · ocupación 7.1% promedio</span>
+            <span>CV alto · ocupación promedio 7.1%</span>
           </div>
-
-          <!-- Villahermosa → Campeche CV 98.5% -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Villahermosa → Campeche</span>
-              <span><span class="bar-pct acc-red">7.1%</span> &nbsp;<span class="bar-cv">CV 98.5%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill red" style="width:7.1%"></div></div>
-          </div>
-
-          <!-- Campeche → Cancún CV 94.3% -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Campeche → Cancún</span>
-              <span><span class="bar-pct acc-red">5.4%</span> &nbsp;<span class="bar-cv">CV 94.3%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill red" style="width:5.4%"></div></div>
-          </div>
-
-          <!-- Villahermosa → Cancún CV 65.8% -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Villahermosa → Cancún</span>
-              <span><span class="bar-pct" style="color:var(--orange);">12.3%</span> &nbsp;<span class="bar-cv">CV 65.8%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill orange" style="width:12.3%"></div></div>
-          </div>
-
-          <!-- placeholder -->
-          <div class="bar-row">
-            <div class="bar-label-row">
-              <span class="bar-dest">Mérida → Cd. del Carmen</span>
-              <span><span class="bar-pct acc-red">4.2%</span> &nbsp;<span class="bar-cv">CV 87.1%</span></span>
-            </div>
-            <div class="bar-track"><div class="bar-fill red" style="width:4.2%"></div></div>
-          </div>
-
+          <div id="chart-cola" class="plotly-chart" style="height:215px;"></div>
           <div class="regime-label regime-red">Caóticas · 1 paquete en torton de 14 tarimas</div>
         </div>
 
@@ -959,45 +888,10 @@
         </div>
       </div>
 
-      <!-- Cost breakdown table -->
-      <div class="card" style="margin-bottom:16px;">
-        <div class="section-head">Desglose de costo por segmento de red</div>
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Segmento</th>
-              <th>Envíos</th>
-              <th>Costo / semana</th>
-              <th>$ / paquete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Tepotzotlán — troncales</td>
-              <td class="num">168,948 <span style="color:var(--muted);font-size:11px;">(84.3%)</span></td>
-              <td class="num">$7,809,202</td>
-              <td class="num green-val">$46.22</td>
-            </tr>
-            <tr>
-              <td>Mérida — radiales</td>
-              <td class="num">30,733 <span style="color:var(--muted);font-size:11px;">(15.3%)</span></td>
-              <td class="num">$870,436</td>
-              <td class="num green-val">$28.32</td>
-            </tr>
-            <tr>
-              <td>Micro-rutas — cola caótica</td>
-              <td class="num acc-red">682 <span style="color:var(--muted);font-size:11px;">(0.34%)</span></td>
-              <td class="num acc-red">$2,096,632</td>
-              <td class="num red-val">$3,064</td>
-            </tr>
-            <tr class="total-row">
-              <td><strong>RED TOTAL</strong></td>
-              <td class="num"><strong>200,304</strong></td>
-              <td class="num highlight">$10,764,758</td>
-              <td class="num highlight">$53.74</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Hallazgo chart -->
+      <div class="card" style="margin-bottom:16px;padding:14px 16px 6px;">
+        <div class="section-head">Volumen vs. Costo por segmento de red</div>
+        <div id="chart-hallazgo" class="plotly-chart" style="height:195px;"></div>
       </div>
 
       <!-- Solution callout -->
@@ -1241,7 +1135,7 @@
 
 <script>
   const TOTAL = 8;
-  let current = 0; // 0-indexed
+  let current = 0;
 
   const slides   = document.querySelectorAll('.slide');
   const counter  = document.getElementById('slide-counter');
@@ -1264,22 +1158,118 @@
     current = Math.max(0, Math.min(TOTAL - 1, n));
     slides[current].classList.add('active');
     dotsEl.children[current].classList.add('active');
-    // Update counter
     counter.textContent = (current + 1) + ' / ' + TOTAL;
-    // Update progress bar
     progress.style.width = ((current + 1) / TOTAL * 100) + '%';
-    // Buttons
     btnPrev.disabled = current === 0;
     btnNext.disabled = current === TOTAL - 1;
+    // Force Plotly to repaint charts that become visible
+    requestAnimationFrame(() => {
+      slides[current].querySelectorAll('.plotly-chart').forEach(div => {
+        if (window.Plotly && div._fullLayout) Plotly.Plots.resize(div);
+      });
+    });
   }
 
   function changeSlide(dir) { goTo(current + dir); }
 
-  // Keyboard navigation
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
     if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
   });
+
+  // ── Plotly chart definitions ───────────────────────────────────
+  var DARK = {
+    paper_bgcolor: 'transparent',
+    plot_bgcolor:  'transparent',
+    font: { color: '#E0E0E0', family: 'Segoe UI, system-ui, sans-serif', size: 11 },
+  };
+  var CFG = { displayModeBar: false, responsive: true };
+
+  function initCharts() {
+
+    // ── Slide 4 — Troncales (horizontal bars) ──
+    Plotly.newPlot('chart-trunk', [{
+      type: 'bar', orientation: 'h',
+      y: ['Tep → Cancún', 'Tep → Mérida', 'Tep → Tuxtla Gtz.', 'Tep → Villahermosa'],
+      x: [84.5, 87.0, 93.1, 94.3],
+      text: ['84.5% · CV 14%', '87.0% · CV 18%', '93.1% · CV 12%', '94.3% · CV 15%'],
+      textposition: 'outside',
+      textfont: { color: '#E0E0E0', size: 10.5 },
+      marker: { color: '#00C853', opacity: 0.82 },
+      hoverinfo: 'none',
+    }], Object.assign({}, DARK, {
+      xaxis: { range: [0, 130], showgrid: false, zeroline: false,
+               ticksuffix: '%', color: '#8899AA', showticklabels: true },
+      yaxis: { showgrid: false, zeroline: false, color: '#E0E0E0', automargin: true },
+      margin: { l: 145, r: 95, t: 8, b: 32 },
+      height: 215,
+    }), CFG);
+
+    // ── Slide 4 — Cola secundaria (horizontal bars) ──
+    Plotly.newPlot('chart-cola', [{
+      type: 'bar', orientation: 'h',
+      y: ['Mér → Cd.Carmen', 'Vhsa → Cancún', 'Campeche → Cancún', 'Vhsa → Campeche'],
+      x: [4.2, 12.3, 5.4, 7.1],
+      text: ['4.2% · CV 87%', '12.3% · CV 66%', '5.4% · CV 94%', '7.1% · CV 99%'],
+      textposition: 'outside',
+      textfont: { color: '#E0E0E0', size: 10.5 },
+      marker: { color: ['#FF3D3D', '#FF9800', '#FF3D3D', '#FF3D3D'], opacity: 0.85 },
+      hoverinfo: 'none',
+    }], Object.assign({}, DARK, {
+      xaxis: { range: [0, 30], showgrid: false, zeroline: false,
+               ticksuffix: '%', color: '#8899AA' },
+      yaxis: { showgrid: false, zeroline: false, color: '#E0E0E0', automargin: true },
+      margin: { l: 150, r: 105, t: 8, b: 32 },
+      height: 215,
+    }), CFG);
+
+    // ── Slide 5 — Hallazgo: Volumen % vs Costo % por segmento ──
+    Plotly.newPlot('chart-hallazgo', [
+      {
+        name: 'Volumen (%)',
+        type: 'bar',
+        x: ['Tep Troncales', 'Mérida Radiales', 'Micro-rutas (Cola)'],
+        y: [84.3, 15.3, 0.34],
+        text: ['84.3%', '15.3%', '0.34%'],
+        textposition: 'outside',
+        textfont: { color: '#3483FA', size: 11 },
+        marker: { color: '#3483FA', opacity: 0.82 },
+        hovertemplate: '<b>%{x}</b><br>Volumen: %{y}%<extra></extra>',
+      },
+      {
+        name: 'Costo (%)',
+        type: 'bar',
+        x: ['Tep Troncales', 'Mérida Radiales', 'Micro-rutas (Cola)'],
+        y: [72.5, 8.1, 19.5],
+        text: ['72.5%', '8.1%', '19.5%'],
+        textposition: 'outside',
+        textfont: { color: '#FF3D3D', size: 11 },
+        marker: { color: '#FF3D3D', opacity: 0.82 },
+        hovertemplate: '<b>%{x}</b><br>Costo: %{y}%<extra></extra>',
+      },
+    ], Object.assign({}, DARK, {
+      barmode: 'group',
+      xaxis: { showgrid: false, zeroline: false, color: '#8899AA',
+               tickfont: { size: 11 } },
+      yaxis: { showgrid: true, gridcolor: 'rgba(255,255,255,0.06)',
+               zeroline: false, color: '#8899AA',
+               ticksuffix: '%', range: [0, 105] },
+      legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: 1.15,
+                font: { color: '#E0E0E0', size: 11 } },
+      margin: { l: 42, r: 20, t: 36, b: 42 },
+      height: 195,
+      annotations: [{
+        x: 'Micro-rutas (Cola)', y: 27,
+        text: '<b>0.34% vol → 19.5% costo</b>',
+        showarrow: true, arrowhead: 2, arrowcolor: '#FFE600', arrowsize: 1.2,
+        font: { color: '#FFE600', size: 11 },
+        ax: 40, ay: -28,
+        bgcolor: 'rgba(0,0,0,0.4)', borderpad: 4,
+      }],
+    }), CFG);
+  }
+
+  window.addEventListener('load', initCharts);
 
   // Init
   goTo(0);
