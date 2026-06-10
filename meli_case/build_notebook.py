@@ -104,18 +104,25 @@ def subir_a_drive(ruta_local, folder_id=FOLDER_ID, mime="text/html"):
         print(f"Sin Drive: '{ruta_local}' quedó solo en el runtime de Colab.")
         return None
     from googleapiclient.http import MediaFileUpload
+    from IPython.display import display, HTML
     nombre = os.path.basename(ruta_local)
     media = MediaFileUpload(ruta_local, mimetype=mime, resumable=False)
     previos = drive.files().list(
         q=f"name='{nombre}' and '{folder_id}' in parents and trashed=false",
         fields="files(id)").execute().get("files", [])
-    if previos:                                                # actualizar -> no duplica en re-runs
-        f = drive.files().update(fileId=previos[0]["id"], media_body=media,
-                                 fields="id,webViewLink").execute()
-    else:                                                      # crear nuevo
-        f = drive.files().create(media_body=media, fields="id,webViewLink",
+    if previos:
+        fid = previos[0]["id"]
+        drive.files().update(fileId=fid, media_body=media).execute()
+        f = drive.files().get(fileId=fid, fields="id,webViewLink,name").execute()
+    else:
+        f = drive.files().create(media_body=media, fields="id,webViewLink,name",
                                  body={"name": nombre, "parents": [folder_id]}).execute()
-    print(f"✅ {nombre} en Drive: {f.get('webViewLink')}")
+    fid = f.get("id", "")
+    link = f.get("webViewLink") or f"https://drive.google.com/file/d/{fid}/view"
+    print(f"✅ {nombre} subido a Drive")
+    display(HTML(f'<a href="{link}" target="_blank" style="font-size:15px;'
+                 f'background:#1a73e8;color:#fff;padding:8px 16px;border-radius:6px;'
+                 f'text-decoration:none">🔗 Abrir {nombre} en Drive</a>'))
     return f
 
 raw = cargar_xlsx(FILE_ID)
