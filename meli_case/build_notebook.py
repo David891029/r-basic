@@ -443,12 +443,33 @@ f.update_layout(title=(f"Hallazgo · {micro['envios'].sum():,} paquetes ({micro[
                 yaxis_title="%", barmode="group")
 figs.append(f)
 
+# 7. CV por ruta
+cv_top = cv.sort_values("cv", ascending=True).tail(20)
+f = px.bar(cv_top, x="cv", y="ruta", orientation="h", text_auto=".0f",
+           color="riesgo",
+           color_discrete_map={"Bajo (<20%)": VERDE, "Medio (20-50%)": NARANJA, "Alto (>50%)": ROJO},
+           title="CV por ruta — variabilidad del volumen diario (forecast difficulty)")
+f.update_xaxes(title="CV (%)")
+figs.append(f)
+
+# 8. Estacionalidad
+f = px.bar(x=[DOW_ES[d] for d in DOW_ORDER], y=season_idx.values,
+           text=[f"{v:.2f}x" for v in season_idx.values],
+           title="Estacionalidad semanal — martes pico 1.24x, domingo valle 0.63x")
+f.update_traces(marker_color=[ROJO if v < 0.80 else (VERDE if v > 1.15 else AZUL)
+                              for v in season_idx.values], textposition="outside")
+f.add_hline(y=1.0, line_dash="dash", line_color="gray", annotation_text="promedio")
+f.update_yaxes(title="índice", range=[0, 1.5])
+figs.append(f)
+
 kpis = [("Envíos / semana", f"{total_env:,}"),
-        ("Flota / día", f"{m['trailers'].sum()/dias_n:.0f} trailers + {m['tortons'].sum()/dias_n:.0f} tortons"),
+        ("Flota / día", f"{m['trailers'].sum()/dias_n:.0f} T + {m['tortons'].sum()/dias_n:.0f} t"),
         ("Ocupación de red", f"{ocup_red:.0%}"),
         ("Costo / semana", f"${total_costo/1e6:.2f}M"),
         ("Costo por paquete", f"${cpp_red:.2f}"),
-        ("Ahorro identificado", f"−{c_micro/total_costo:.0%}")]
+        ("Ahorro co-load", f"−{c_micro/total_costo:.0%}"),
+        ("CV promedio red", f"{cv['cv'].mean():.0f}%"),
+        ("Pico / Valle", f"Mar {season_idx['Tuesday']:.2f}x / Dom {season_idx['Sunday']:.2f}x")]
 cards = "".join(
     f'<div style="background:#fff;border-radius:12px;padding:14px 20px;'
     f'box-shadow:0 2px 8px rgba(0,0,0,.08);text-align:center;min-width:150px">'
