@@ -50,18 +50,44 @@ CAP_TRAILER    = 28       # tarimas, trailer 53'
 CAP_TORTON     = 14       # tarimas, torton
 TARIFA_TRAILER = 60       # $/km, dado
 TARIFA_TORTON  = 40       # $/km, dado
-VEL_PROMEDIO   = 60       # km/h — solo para rutas sin km real (intra-ciudad)
+VEL_OP         = 55.6     # km/h operativa — mediana de rutas con km real y tránsito en pestaña 2
 
-# Tránsitos que faltan en la pestaña 2, triangulados con rutas conocidas
-TRANSITOS_FALTANTES = {
-    ("Tepotzotlan", "Playa"): 28.0,        # Tep→Cancún 27h + ~1h
-    ("Tepotzotlan", "Chetumal"): 26.0,     # vía Escárcega
-    ("Mérida", "Playa"): 7.0,              # Mérida→Cancún 6.13h + ~1h
-    ("Mérida", "Tuxtla Gutierrez"): 14.0,  # Mérida→Vhsa 9h + Vhsa→Tuxtla 5h
-    ("Cancun", "Playa"): 2.5,              # ruta inversa: Playa del Carmen→Cancún 2.5h (pestaña 2)
-    ("Campeche", "Playa"): 7.0,            # manejo 5.4h (Sheet3) + paradas
-    ("Villahermosa", "Playa"): 14.0,       # manejo 11.8h (Sheet3) + paradas
-}\
+# Grupo A: triangulados con rutas conocidas o ruta inversa de pestaña 2
+TRANSITOS_TRIANGULADOS = {
+    ("Tepotzotlan", "Playa"): 28.0,
+    ("Tepotzotlan", "Chetumal"): 26.0,
+    ("Mérida", "Playa"): 7.0,
+    ("Mérida", "Tuxtla Gutierrez"): 14.0,
+    ("Cancun", "Playa"): 2.5,
+    ("Campeche", "Playa"): 7.0,
+    ("Villahermosa", "Playa"): 14.0,
+}
+# Grupo B: tienen km real en Sheet3, tránsito = km / VEL_OP
+TRANSITOS_INFERIDOS = {
+    ("Campeche","Cancun"):            round(476.6/VEL_OP,1),
+    ("Campeche","Tuxtla Gutierrez"):  round(625.4/VEL_OP,1),
+    ("Cancun","Chetumal"):            round(384.6/VEL_OP,1),
+    ("Cancun","Ciudad del Carmen"):   round(682.3/VEL_OP,1),
+    ("Cancun","Tuxtla Gutierrez"):    round(1101.4/VEL_OP,1),
+    ("Cancun","Villahermosa"):        round(859.6/VEL_OP,1),
+    ("Tapachula","Mérida"):           round(1119.4/VEL_OP,1),
+    ("Tuxtla Gutierrez","Chetumal"):  round(817.3/VEL_OP,1),
+    ("Tuxtla Gutierrez","Mérida"):    round(802.2/VEL_OP,1),
+    ("Villahermosa","Cancun"):        round(857.3/VEL_OP,1),
+    ("Villahermosa","Chetumal"):      round(575.9/VEL_OP,1),
+    ("Villahermosa","Mérida"):        round(559.5/VEL_OP,1),
+}
+# Grupo C: intra-ciudad — distribución local declarada
+INTRACIUDAD_TRA = {("Campeche","Campeche"):1.0, ("Villahermosa","Villahermosa"):1.0}
+INTRACIUDAD_KM  = {
+    ("Campeche","Campeche"):30.0, ("Villahermosa","Villahermosa"):30.0,
+    ("Cancun","Cancun"):60.0, ("Mérida","Mérida"):40.0,
+    ("Tuxtla Gutierrez","Tuxtla Gutierrez"):278.0,
+}
+TRANSITOS_FALTANTES = {**TRANSITOS_TRIANGULADOS, **TRANSITOS_INFERIDOS, **INTRACIUDAD_TRA}
+
+# Hora de salida de Campeche: no está en pestaña 3 — inferida como hub regional (22:00)
+SALIDA_CAMPECHE = "22:00"\
 """))
 
 cells.append(md("## 1 · Carga del Google Sheet"))
@@ -163,25 +189,33 @@ def limpiar(vol, tra, sal):
     tra["horas_transito"] = tra["horas_transito"].astype(float)
     sal["hora_salida"] = sal["hora_salida"].apply(
         lambda v: v.strftime("%H:%M") if hasattr(v, "strftime") else str(v).strip()[:5])
+    # Agregar todos los tránsitos faltantes (3 grupos: triangulados, inferidos, intra-ciudad)
     faltantes = pd.DataFrame([{"origen": o, "destino": d, "horas_transito": h}
                               for (o, d), h in TRANSITOS_FALTANTES.items()])
     tra = pd.concat([tra, faltantes], ignore_index=True)
-    tra = tra.drop_duplicates(["origen", "destino"], keep="first")  # el dato del Excel manda
+    tra = tra.drop_duplicates(["origen", "destino"], keep="first")
+    # Campeche no tiene hora de salida en pestaña 3 — inferida como hub regional (22:00)
+    for dest in vol[vol["origen"]=="Campeche"]["destino"].unique():
+        if not ((sal["origen"]=="Campeche") & (sal["destino"]==dest)).any():
+            sal = pd.concat([sal, pd.DataFrame([{"origen":"Campeche","destino":dest,
+                                                  "hora_salida":SALIDA_CAMPECHE}])], ignore_index=True)
     return vol, tra, sal
 
 vol, tra, sal = limpiar(tabs["1.- Volumen"].copy(),
                         tabs["2.- Tiempos Tránsito"].copy(),
                         tabs["3.- Horas de Salida"].copy())
 
-# km reales por ruta (pestaña Sheet3) — consistentes por ruta, 40 de 45 rutas
+# km reales de Sheet3 + km declarados para intra-ciudad (sin datos en ninguna pestaña)
 km_real = (tabs["Sheet3"].dropna(subset=["Kilometros"])
            .groupby(["Origen_cd", "Destino_cd"])["Kilometros"].first()
            .rename("km_real").reset_index())
 km_real.columns = ["origen", "destino", "km_real"]
 km_real["destino"] = km_real["destino"].replace({"Playa del Carmen": "Playa"})
+km_intra = pd.DataFrame([{"origen":o,"destino":d,"km_real":k} for (o,d),k in INTRACIUDAD_KM.items()])
+km_real = pd.concat([km_real, km_intra], ignore_index=True).drop_duplicates(["origen","destino"], keep="first")
 
 print(f"{len(vol)} filas de volumen · {vol['envios'].sum():,} envíos · "
-      f"{vol['fecha'].dt.date.nunique()} días · {len(km_real)} rutas con km real")\
+      f"{vol['fecha'].dt.date.nunique()} días · {len(km_real)} rutas con km")\
 """))
 
 cells.append(md("## 3 · El modelo: la cadena completa"))
@@ -217,14 +251,17 @@ llegada = (m["fecha"]
 m["llegada_hora"] = llegada.dt.strftime("%H:%M")
 m["llegada_dia"] = (llegada.dt.normalize() - m["fecha"]).dt.days.astype("Int64")  # 0=D+0, 1=D+1
 
-# Paso 5: el dinero — km reales; fallback tránsito x velocidad (solo intra-ciudad)
+# Paso 5: el dinero — km reales o declarados (modelo completo, cero fallbacks)
 m = m.merge(km_real, on=["origen", "destino"], how="left")
-m["km"] = m["km_real"].fillna(m["horas_transito"] * VEL_PROMEDIO)
+m["km"] = m["km_real"]
 m["costo"] = (m["trailers"] * TARIFA_TRAILER + m["tortons"] * TARIFA_TORTON) * m["km"]
 m["costo_por_pqt"] = m["costo"] / m["envios"]
 
+sin_lleg = m["llegada_hora"].isna().sum()
+sin_km   = m["km"].isna().sum()
 print(f"{len(m)} ruta-días · {m['pallets'].sum():,} pallets · "
-      f"{m['trailers'].sum()} trailers + {m['tortons'].sum()} tortons en la semana")
+      f"{m['trailers'].sum()} trailers + {m['tortons'].sum()} tortons")
+print(f"sin llegada: {sin_lleg} · sin km: {sin_km} · {'✅ modelo completo' if sin_lleg+sin_km==0 else '⚠️ gaps'}")
 m.head(8)\
 """))
 
