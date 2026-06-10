@@ -1,0 +1,41 @@
+Origen_cd,Destino_cd,km_real
+Campeche,Cancun,476.6
+Campeche,Ciudad del Carmen,206.3
+Campeche,Mérida,178.8
+Campeche,Playa,461.0
+Campeche,Tuxtla Gutierrez,625.4
+Campeche,Villahermosa,383.6
+Cancun,Campeche,475.8
+Cancun,Chetumal,384.6
+Cancun,Ciudad del Carmen,682.3
+Cancun,Mérida,303.2
+Cancun,Playa,68.2
+Cancun,Tuxtla Gutierrez,1101.4
+Cancun,Villahermosa,859.6
+Mérida,Campeche,176.5
+Mérida,Cancun,303.4
+Mérida,Chetumal,383.9
+Mérida,Ciudad del Carmen,383.0
+Mérida,Playa,287.8
+Mérida,Tuxtla Gutierrez,802.1
+Mérida,Villahermosa,560.3
+Tapachula,Mérida,1119.4
+Tapachula,Tuxtla Gutierrez,371.2
+Tepotzotlan,Campeche,1187.8
+Tepotzotlan,Cancun,1663.2
+Tepotzotlan,Chetumal,1380.4
+Tepotzotlan,Ciudad del Carmen,982.9
+Tepotzotlan,Mérida,1365.4
+Tepotzotlan,Playa,1647.6
+Tepotzotlan,Tuxtla Gutierrez,887.5
+Tepotzotlan,Villahermosa,804.5
+Tuxtla Gutierrez,Chetumal,817.3
+Tuxtla Gutierrez,Mérida,802.2
+Tuxtla Gutierrez,Villahermosa,241.4
+Villahermosa,Campeche,381.9
+Villahermosa,Cancun,857.3
+Villahermosa,Chetumal,575.9
+Villahermosa,Ciudad del Carmen,177.1
+Villahermosa,Mérida,559.5
+Villahermosa,Playa,841.7
+Villahermosa,Tuxtla Gutierrez,243.1
