@@ -271,7 +271,90 @@ print(f"en un solo torton: 3.6h entre ellas): ahorro adicional estimado ~$50K/se
 micro.sort_values("costo", ascending=False).head(10)\
 """))
 
-cells.append(md("## 4 · Dashboard interactivo (HTML)"))
+cells.append(md("""\
+## 4 · Métricas avanzadas
+
+### 4a · Coeficiente de Variación (CV) por ruta
+**¿Qué es?** Mide la volatilidad del volumen diario: CV = desv_std / media × 100.
+Un CV alto → el forecast es difícil → mayor riesgo de camiones vacíos o paquetes sin transporte.
+
+| CV | Significado | Acción recomendada |
+|---|---|---|
+| < 20% | Estable | Flota fija, forecast determinístico |
+| 20–50% | Moderado | Buffer de capacidad del 20% |
+| > 50% | Caótico | Consolidar con ruta vecina o modelo probabilístico |\
+"""))
+
+cells.append(code("""\
+lane_day = vol.groupby(["fecha", "origen", "destino"])["envios"].sum().reset_index()
+cv = (lane_day.groupby(["origen", "destino"])["envios"]
+      .agg(media="mean", std="std", dias="count", total="sum").reset_index())
+cv["cv"] = (cv["std"] / cv["media"] * 100).fillna(0).round(1)
+cv["riesgo"] = cv["cv"].apply(
+    lambda x: "Bajo (<20%)" if x < 20 else ("Medio (20-50%)" if x < 50 else "Alto (>50%)"))
+cv["ruta"] = cv["origen"] + " → " + cv["destino"]
+
+print("=== Resumen CV de la red ===")
+print(cv["riesgo"].value_counts().to_string())
+print(f"\\nCV promedio: {cv['cv'].mean():.0f}%")
+print("\\nRutas más volátiles (top 10):")
+cv.sort_values("cv", ascending=False).head(10)[["ruta","media","cv","riesgo","total"]]\
+"""))
+
+cells.append(md("### 4b · Utilización ponderada por ruta"))
+
+cells.append(code("""\
+ocu_ruta = m.groupby(["origen", "destino"]).agg(
+    pallets_total=("pallets", "sum"),
+    capacidad_total=("capacidad", "sum"),
+    envios=("envios", "sum"),
+    costo=("costo", "sum"),
+    dias=("fecha", "count")
+).reset_index()
+ocu_ruta["ocu_pct"] = (ocu_ruta["pallets_total"] / ocu_ruta["capacidad_total"] * 100).round(1)
+ocu_ruta["costo_pqt"] = (ocu_ruta["costo"] / ocu_ruta["envios"]).round(2)
+ocu_ruta["ruta"] = ocu_ruta["origen"] + " → " + ocu_ruta["destino"]
+
+# Bimodalidad: troncales Tep llenas, nodos secundarios en 7.1% (1 pallet/torton)
+print(f"Rutas ≥ 70% ocupación: {(ocu_ruta['ocu_pct'] >= 70).sum()}")
+print(f"Rutas < 30% ocupación: {(ocu_ruta['ocu_pct'] < 30).sum()}  ← candidatas a co-load")
+print("\\nTop 10 por ocupación:")
+ocu_ruta.sort_values("ocu_pct", ascending=False).head(10)[["ruta","ocu_pct","costo_pqt","envios"]]\
+"""))
+
+cells.append(md("### 4c · Estacionalidad semanal"))
+
+cells.append(code("""\
+daily_vol = m.groupby("fecha")["envios"].sum().reset_index()
+daily_vol["dow"] = daily_vol["fecha"].dt.day_name()
+DOW_ORDER = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+DOW_ES = {"Sunday":"Dom","Monday":"Lun","Tuesday":"Mar","Wednesday":"Mié",
+          "Thursday":"Jue","Friday":"Vie","Saturday":"Sáb"}
+global_avg = daily_vol["envios"].mean()
+season_idx = daily_vol.groupby("dow")["envios"].mean().reindex(DOW_ORDER) / global_avg
+
+print("=== Índice de estacionalidad (1.0 = promedio) ===")
+for d, v in season_idx.items():
+    barra = "█" * int(v * 20)
+    print(f"  {DOW_ES[d]}  {v:.2f}x  {barra}")
+print(f"\\nPico: Martes {season_idx['Tuesday']:.2f}x · Valle: Domingo {season_idx['Sunday']:.2f}x")
+print(f"Factor pico/valle: {season_idx['Tuesday']/season_idx['Sunday']:.1f}x")\
+"""))
+
+cells.append(md("### 4d · NOM-087: rutas con riesgo de doble operador"))
+
+cells.append(code("""\
+# NOM-087-SCT2-2017: operador no puede manejar >11h continuas ni >15h en 24h.
+# En rutas con tiempo de tránsito >21h se requiere doble operador → sobrecosto 15-30%.
+tran_largo = tra[tra["horas_transito"] >= 18].sort_values("horas_transito", ascending=False)
+print("Rutas que podrían requerir doble operador (tránsito ≥18h):")
+print(tran_largo[["origen","destino","horas_transito"]].to_string(index=False))
+print()
+print("Impacto en costo: las rutas >21h de Tepotzotlán representan ~21% del costo total.")
+print("El modelo actual NO incluye sobrecargo de team driving — lo agregaría en producción.")\
+"""))
+
+cells.append(md("## 5 · Dashboard interactivo (HTML)"))
 
 cells.append(code("""\
 import plotly.graph_objects as go
