@@ -356,6 +356,96 @@ fig_rec.update_layout(
     margin=dict(l=20, r=120, t=50, b=30), height=320
 )
 
+# ── Mapa de red: rutas por CV y rutas críticas ────────────────────────────────
+COORDS = {
+    "Tepotzotlan":       (19.716, -99.224),
+    "Mérida":            (20.967, -89.624),
+    "Cancun":            (21.161, -86.851),
+    "Playa":             (20.629, -87.074),
+    "Chetumal":          (18.500, -88.296),
+    "Campeche":          (19.846, -90.523),
+    "Ciudad del Carmen": (18.645, -91.808),
+    "Villahermosa":      (17.989, -92.947),
+    "Tuxtla Gutierrez":  (16.752, -93.116),
+    "Tapachula":         (14.903, -92.257),
+}
+RIESGO_COLOR = {"Bajo (<20%)": C_GRN, "Medio (20-50%)": C_ORG, "Alto (>50%)": C_RED}
+RIESGO_ORDEN = ["Bajo (<20%)", "Medio (20-50%)", "Alto (>50%)"]
+
+map_lanes = cv.merge(ocu_ruta[['ruta', 'ocu_pct', 'costo_pqt', 'envios']], on='ruta', how='left')
+map_lanes = map_lanes[map_lanes['origen'] != map_lanes['destino']]  # flujos locales no se mapean
+map_lanes['riesgo'] = pd.Categorical(map_lanes['riesgo'], categories=RIESGO_ORDEN, ordered=True)
+map_lanes = map_lanes.sort_values('riesgo').reset_index(drop=True)  # rojas se dibujan al final (encima)
+
+fig_map = go.Figure()
+legend_seen = set()
+mid_lat, mid_lon, mid_color, mid_cd = [], [], [], []
+for i, r in map_lanes.iterrows():
+    (lat_a, lon_a), (lat_b, lon_b) = COORDS[r['origen']], COORDS[r['destino']]
+    # arco bezier con curvatura alterna para separar corredores encimados
+    dlat, dlon = lat_b - lat_a, lon_b - lon_a
+    dist = (dlat**2 + dlon**2) ** 0.5
+    k = 0.10 * dist * (1 if i % 2 == 0 else -1)
+    clat = (lat_a + lat_b) / 2 - k * dlon / dist
+    clon = (lon_a + lon_b) / 2 + k * dlat / dist
+    t = np.linspace(0, 1, 20)
+    lats = (1-t)**2 * lat_a + 2*t*(1-t) * clat + t**2 * lat_b
+    lons = (1-t)**2 * lon_a + 2*t*(1-t) * clon + t**2 * lon_b
+    col = RIESGO_COLOR[str(r['riesgo'])]
+    env = r['envios'] if pd.notna(r['envios']) else r['total']
+    critica = pd.notna(r['ocu_pct']) and r['ocu_pct'] < 30
+    fig_map.add_trace(go.Scattergeo(
+        lat=lats, lon=lons, mode='lines',
+        line=dict(width=max(1.4, min(9, env / 6000)), color=col,
+                  dash='dot' if critica else 'solid'),
+        opacity=0.6 if critica else 0.9,
+        legendgroup=str(r['riesgo']), showlegend=str(r['riesgo']) not in legend_seen,
+        name=f"CV {r['riesgo']}", hoverinfo='skip'))
+    legend_seen.add(str(r['riesgo']))
+    mid_lat.append(lats[10]); mid_lon.append(lons[10]); mid_color.append(col)
+    mid_cd.append([r['ruta'], f"{r['cv']:.0f}",
+                   f"{r['ocu_pct']:.0f}" if pd.notna(r['ocu_pct']) else "—",
+                   f"{r['costo_pqt']:,.0f}" if pd.notna(r['costo_pqt']) else "—",
+                   f"{env:,.0f}", "CRÍTICA (ocup <30%)" if critica else ""])
+
+# puntos de hover a mitad de cada arco
+fig_map.add_trace(go.Scattergeo(
+    lat=mid_lat, lon=mid_lon, mode='markers',
+    marker=dict(size=7, color=mid_color, line=dict(color='white', width=0.5)),
+    customdata=mid_cd, showlegend=False,
+    hovertemplate='<b>%{customdata[0]}</b><br>CV: %{customdata[1]}%'
+                  '<br>Ocupación: %{customdata[2]}%<br>$/pqt: $%{customdata[3]}'
+                  '<br>Envíos/sem: %{customdata[4]}<br>%{customdata[5]}<extra></extra>'))
+
+# nodos: tamaño = volumen total que manejan
+nodos = pd.DataFrame({
+    'salen': mod.groupby('origen')['envios'].sum(),
+    'llegan': mod.groupby('destino')['envios'].sum()}).fillna(0)
+nodos['total'] = nodos['salen'] + nodos['llegan']
+fig_map.add_trace(go.Scattergeo(
+    lat=[COORDS[c][0] for c in nodos.index], lon=[COORDS[c][1] for c in nodos.index],
+    mode='markers+text', text=nodos.index, textposition='top center',
+    textfont=dict(color=C_TEXT, size=11),
+    marker=dict(size=8 + np.sqrt(nodos['total']) / 12, color=C_MELI,
+                line=dict(color='#0F3460', width=1.5)),
+    customdata=nodos[['salen', 'llegan']].values, showlegend=False,
+    hovertemplate='<b>%{text}</b><br>Salen: %{customdata[0]:,.0f} pqts/sem'
+                  '<br>Llegan: %{customdata[1]:,.0f} pqts/sem<extra></extra>'))
+
+fig_map.update_layout(
+    title=dict(text="Mapa de red — color = CV · grosor = volumen · punteado = ruta crítica (ocup <30%)",
+               font=dict(color=C_TEXT, size=16)),
+    geo=dict(scope='north america', fitbounds='locations',
+             bgcolor=C_CARD, showland=True, landcolor='#22304F',
+             showcountries=True, countrycolor='#2A2A4A',
+             showlakes=False, showocean=True, oceancolor='#121226',
+             resolution=50),
+    legend=dict(font=dict(color=C_TEXT), orientation='h', y=0.02, x=0.02,
+                bgcolor='rgba(15,52,96,0.6)'),
+    paper_bgcolor=C_CARD, plot_bgcolor=C_CARD,
+    margin=dict(l=10, r=10, t=50, b=10), height=620
+)
+
 # ── Serializar charts ─────────────────────────────────────────────────────────
 def fig2json(fig):
     return fig.to_json()
@@ -369,6 +459,7 @@ charts = {
     'dia':     fig2json(fig_dia),
     'heat':    fig2json(fig_heat),
     'rec':     fig2json(fig_rec),
+    'map':     fig2json(fig_map),
 }
 
 # Tabla peores ruta-día
@@ -567,6 +658,17 @@ html = f"""<!DOCTYPE html>
     CV = desviación estándar / media × 100. Un CV alto significa que el volumen varía mucho día a día
     → el forecast es más difícil → mayor riesgo de subutilización o camiones extra.
     En demand planning, CV &lt;20% es estable, CV &gt;50% requiere buffers o modelos más sofisticados.
+  </div>
+
+  <div class="chart-box">
+    <div id="chart-map"></div>
+    <div class="insight-box" style="margin-top:14px">
+      <strong>Cómo leerlo:</strong> las troncales gruesas y verdes/naranjas de Tepotzotlán al sureste son
+      el corazón estable de la red. La telaraña delgada y roja entre nodos del sureste son las rutas de
+      CV alto (66–99%) — volúmenes de 1–2 pallets que aparecen y desaparecen día a día. Las
+      <strong>punteadas</strong> son críticas: ocupación &lt;30%, candidatas inmediatas a co-load.
+      Las líneas son geodésicas (rectas), no el trazo carretero real.
+    </div>
   </div>
 
   <div class="chart-box">
@@ -1031,7 +1133,7 @@ const rendered = new Set();
 function renderCharts(page) {{
   const map = {{
     'resumen':    [['chart-orig','orig']],
-    'forecast':   [['chart-cv','cv']],
+    'forecast':   [['chart-map','map'],['chart-cv','cv']],
     'flota':      [['chart-ocu','ocu']],
     'coload':     [['chart-coload','coload']],
     'estacional': [['chart-sea','sea']],
