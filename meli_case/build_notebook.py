@@ -406,6 +406,47 @@ print("Impacto en costo: las rutas >21h de Tepotzotlán representan ~21% del cos
 print("El modelo actual NO incluye sobrecargo de team driving — lo agregaría en producción.")\
 """))
 
+cells.append(md("### 4e · Vista día a día — flota, volumen y los peores ruta-día"))
+
+cells.append(code("""\
+DOW_NUM = {6:"Dom",0:"Lun",1:"Mar",2:"Mié",3:"Jue",4:"Vie",5:"Sáb"}
+m["dia_lbl"] = m["fecha"].dt.dayofweek.map(DOW_NUM) + " " + m["fecha"].dt.day.astype(str)
+
+por_dia = m.groupby(["fecha","dia_lbl"], as_index=False).agg(
+    envios=("envios","sum"), trailers=("trailers","sum"), tortons=("tortons","sum"),
+    costo=("costo","sum")).sort_values("fecha")
+por_dia["veh"] = por_dia.trailers + por_dia.tortons
+por_dia["cpp"] = por_dia.costo / por_dia.envios
+
+print("=== LA SEMANA COMPLETA ===")
+for r in por_dia.itertuples():
+    print(f"  {r.dia_lbl:7s} {r.envios:>7,} env · {r.veh:>2} veh ({r.trailers}T+{r.tortons}t) · ${r.cpp:.1f}/pqt")
+print(f"\\nOscilación de flota: {por_dia.veh.min()} → {por_dia.veh.max()} vehículos "
+      f"({por_dia.veh.max()/por_dia.veh.min():.1f}x intra-semana)")
+print("La planeación es POR DÍA DE SEMANA, no por promedio.")
+
+print("\\n=== TRONCALES TEP: FLOTA DÍA A DÍA ===")
+for dest in ["Villahermosa","Tuxtla Gutierrez","Mérida","Cancun","Playa"]:
+    sub = m[(m.origen=="Tepotzotlan") & (m.destino==dest)].sort_values("fecha")
+    fila = " | ".join(f"{int(r.trailers)}T+{int(r.tortons)}t {r.ocupacion:.0%}" for r in sub.itertuples())
+    print(f"  → {dest:18s} {fila}")
+
+print("\\n=== PEORES RUTA-DÍA ($/pqt) ===")
+peores = m.nlargest(5, "costo_por_pqt")
+for r in peores.itertuples():
+    print(f"  {r.dia_lbl:7s} {r.origen} → {r.destino}: {r.envios} pqt · "
+          f"{r.km:,.0f} km · ${r.costo:,.0f} → ${r.costo_por_pqt:,.0f}/pqt")
+
+print("\\n=== CV TRONCALES: EFECTO DOMINGO ===")
+sin_dom = m[m.fecha.dt.dayofweek != 6]
+for dest in ["Villahermosa","Tuxtla Gutierrez","Mérida","Cancun"]:
+    f7 = m[(m.origen=="Tepotzotlan") & (m.destino==dest)]["envios"]
+    f6 = sin_dom[(sin_dom.origen=="Tepotzotlan") & (sin_dom.destino==dest)]["envios"]
+    print(f"  Tep → {dest:18s} CV 7d: {f7.std()/f7.mean()*100:.0f}%  ·  sin domingo: {f6.std()/f6.mean()*100:.0f}%")
+print("\\nEl valle del domingo (0.63x) infla el CV troncal — es patrón semanal, no ruido.")
+print("Excluyéndolo, todas las troncales quedan bajo 20% → flota fija con calendario por día.")\
+"""))
+
 cells.append(md("## 5 · Dashboard interactivo (HTML)"))
 
 cells.append(code("""\
@@ -497,6 +538,40 @@ f.update_traces(marker_color=[ROJO if v < 0.80 else (VERDE if v > 1.15 else AZUL
                               for v in season_idx.values], textposition="outside")
 f.add_hline(y=1.0, line_dash="dash", line_color="gray", annotation_text="promedio")
 f.update_yaxes(title="índice", range=[0, 1.5])
+figs.append(f)
+
+# 9. Volumen + flota por día (doble eje)
+from plotly.subplots import make_subplots
+f = make_subplots(specs=[[{"secondary_y": True}]])
+f.add_trace(go.Bar(x=por_dia["dia_lbl"], y=por_dia["envios"], name="Envíos",
+                   marker_color=AZUL, text=[f"{v/1000:.1f}K" for v in por_dia["envios"]],
+                   textposition="outside"), secondary_y=False)
+f.add_trace(go.Scatter(x=por_dia["dia_lbl"], y=por_dia["veh"], name="Vehículos",
+                       mode="lines+markers+text", line=dict(color=NARANJA, width=3),
+                       text=por_dia["veh"], textposition="top center"), secondary_y=True)
+f.update_layout(title=(f"Día a día — la flota oscila {por_dia.veh.max()/por_dia.veh.min():.1f}x "
+                       f"({por_dia.veh.min()} → {por_dia.veh.max()} vehículos)"),
+                legend=dict(orientation="h", y=1.12))
+f.update_yaxes(title_text="envíos/día", secondary_y=False, range=[0, por_dia.envios.max()*1.25])
+f.update_yaxes(title_text="vehículos/día", secondary_y=True, showgrid=False,
+               range=[0, por_dia.veh.max()*1.35])
+figs.append(f)
+
+# 10. Heatmap ocupación ruta × día (top rutas)
+m["ruta"] = m["origen"] + " → " + m["destino"]
+vol_r = m.groupby("ruta")["envios"].sum()
+ocu_r = m.groupby("ruta")["ocupacion"].mean()
+top_r = vol_r.nlargest(10).index.tolist() + ocu_r[vol_r >= 10].nsmallest(4).index.tolist()
+heat = (m[m["ruta"].isin(top_r)]
+        .pivot_table(index="ruta", columns="dia_lbl", values="ocupacion", aggfunc="first") * 100)
+heat = heat.reindex(index=top_r, columns=por_dia["dia_lbl"].tolist())
+f = go.Figure(go.Heatmap(
+    z=heat.values, x=heat.columns.tolist(), y=heat.index.tolist(),
+    colorscale=[[0, ROJO], [0.5, NARANJA], [1, VERDE]], zmin=0, zmax=100,
+    text=[[f"{v:.0f}%" if pd.notna(v) else "—" for v in row] for row in heat.values],
+    texttemplate="%{text}", colorbar=dict(title="ocup %")))
+f.update_layout(title="Ocupación ruta × día — la troncal respira, la cola nunca despega",
+                yaxis=dict(autorange="reversed"), xaxis=dict(side="top"))
 figs.append(f)
 
 kpis = [("Envíos / semana", f"{total_env:,}"),

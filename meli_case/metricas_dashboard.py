@@ -52,6 +52,44 @@ global_avg = daily_vol['envios'].mean()
 season = daily_vol.groupby('dow')['envios'].mean().reindex(DOW_ORDER)
 season_idx = (season / global_avg).round(3)
 
+# ── Vista día a día ───────────────────────────────────────────────────────────
+por_dia = mod.groupby('fecha_dt').agg(
+    envios=('envios','sum'), trailers=('trailers','sum'), tortons=('tortons','sum'),
+    costo=('costo_real','sum')).reset_index()
+por_dia['veh'] = por_dia['trailers'] + por_dia['tortons']
+por_dia['cpp'] = (por_dia['costo'] / por_dia['envios']).round(2)
+por_dia['dia_lbl'] = por_dia['fecha_dt'].dt.day_name().map(DOW_ES) + " " + por_dia['fecha_dt'].dt.day.astype(str)
+
+# Heatmap ocupación: top rutas por volumen × día
+mod['ruta'] = mod['origen'] + " → " + mod['destino']
+mod['dia_lbl'] = mod['fecha_dt'].dt.day_name().map(DOW_ES) + " " + mod['fecha_dt'].dt.day.astype(str)
+vol_ruta = mod.groupby('ruta')['envios'].sum()
+ocu_media = mod.groupby('ruta')['ocupacion'].mean()
+top_rutas = (vol_ruta.nlargest(10).index.tolist()
+             + ocu_media[vol_ruta >= 10].nsmallest(4).index.tolist())  # contraste: 4 de la cola
+heat = (mod[mod['ruta'].isin(top_rutas)]
+        .pivot_table(index='ruta', columns='dia_lbl', values='ocupacion', aggfunc='first') * 100)
+heat = heat.reindex(index=top_rutas, columns=por_dia['dia_lbl'].tolist()).round(0)
+
+# Vehículos por ruta-día (para hover del heatmap)
+heat_veh = (mod[mod['ruta'].isin(top_rutas)]
+            .assign(flota=lambda d: d['trailers'].astype(str)+"T+"+d['tortons'].astype(str)+"t")
+            .pivot_table(index='ruta', columns='dia_lbl', values='flota', aggfunc='first')
+            .reindex(index=top_rutas, columns=por_dia['dia_lbl'].tolist()))
+
+# Peores ruta-día
+peores = mod.nlargest(8, 'costo_por_pqt')[
+    ['dia_lbl','ruta','envios','tortons','km_final','costo_real','costo_por_pqt']]
+
+# CV con/sin domingo (troncales Tep)
+sin_dom = mod[mod['fecha_dt'].dt.dayofweek != 6]
+cv_comp = []
+for dest in ['Villahermosa','Tuxtla Gutierrez','Mérida','Cancun']:
+    full = mod[(mod.origen=='Tepotzotlan') & (mod.destino==dest)]['envios']
+    part = sin_dom[(sin_dom.origen=='Tepotzotlan') & (sin_dom.destino==dest)]['envios']
+    cv_comp.append((f"Tep → {dest}",
+                    round(full.std()/full.mean()*100), round(part.std()/part.mean()*100)))
+
 # ── Co-load: rutas con ocu < 50% ordenadas por costo ─────────────────────────
 coload = ocu_ruta[ocu_ruta['ocu_pct'] < 50].sort_values('costo', ascending=False).head(15)
 
@@ -144,6 +182,53 @@ fig_sea.update_layout(
     margin=dict(l=40,r=40,t=50,b=20), height=340
 )
 
+# 3b. Día a día: envíos (barras) + vehículos (línea, eje secundario)
+fig_dia = make_subplots(specs=[[{"secondary_y": True}]])
+fig_dia.add_trace(go.Bar(
+    x=por_dia['dia_lbl'], y=por_dia['envios'], name="Envíos",
+    marker_color=C_MELI2, opacity=0.85,
+    text=por_dia['envios'].apply(lambda x: f"{x/1000:.1f}K"), textposition='outside',
+    hovertemplate='<b>%{x}</b><br>Envíos: %{y:,.0f}<extra></extra>'), secondary_y=False)
+fig_dia.add_trace(go.Scatter(
+    x=por_dia['dia_lbl'], y=por_dia['veh'], name="Vehículos",
+    mode='lines+markers+text', line=dict(color=C_MELI, width=3),
+    marker=dict(size=9), text=por_dia['veh'], textposition='top center',
+    textfont=dict(color=C_MELI, size=11),
+    hovertemplate='<b>%{x}</b><br>Vehículos: %{y}<extra></extra>'), secondary_y=True)
+fig_dia.update_layout(
+    title=dict(text="Volumen y Flota por Día", font=dict(color=C_TEXT, size=16)),
+    xaxis=dict(color=C_TEXT),
+    paper_bgcolor=C_CARD, plot_bgcolor=C_CARD,
+    legend=dict(font=dict(color=C_TEXT), orientation='h', y=1.12),
+    margin=dict(l=50,r=50,t=70,b=20), height=380
+)
+fig_dia.update_yaxes(title_text="Envíos/día", color=C_TEXT, gridcolor="#2A2A4A",
+                     secondary_y=False, range=[0, por_dia['envios'].max()*1.25])
+fig_dia.update_yaxes(title_text="Vehículos/día", color=C_MELI, showgrid=False,
+                     secondary_y=True, range=[0, por_dia['veh'].max()*1.35])
+
+# 3c. Heatmap ocupación ruta × día
+hover_txt = [[f"{r}<br>{c}: " +
+              (f"ocup {heat.loc[r,c]:.0f}% · {heat_veh.loc[r,c]}" if pd.notna(heat.loc[r,c]) else "sin salida")
+              for c in heat.columns] for r in heat.index]
+fig_heat = go.Figure(go.Heatmap(
+    z=heat.values, x=heat.columns.tolist(), y=heat.index.tolist(),
+    colorscale=[[0,'#FF4757'],[0.5,'#FFA502'],[1,'#2ED573']],
+    zmin=0, zmax=100,
+    text=[[f"{v:.0f}%" if pd.notna(v) else "—" for v in row] for row in heat.values],
+    texttemplate="%{text}", textfont=dict(size=10),
+    customdata=hover_txt, hovertemplate='%{customdata}<extra></extra>',
+    colorbar=dict(title=dict(text="Ocup %", font=dict(color=C_TEXT)),
+                  tickfont=dict(color=C_TEXT))
+))
+fig_heat.update_layout(
+    title=dict(text="Ocupación por Ruta × Día (top 14 rutas por volumen)", font=dict(color=C_TEXT, size=16)),
+    xaxis=dict(color=C_TEXT, side='top'),
+    yaxis=dict(color=C_TEXT, tickfont=dict(size=10), autorange='reversed'),
+    paper_bgcolor=C_CARD, plot_bgcolor=C_CARD,
+    margin=dict(l=20,r=20,t=90,b=20), height=520
+)
+
 # 4. Co-load: scatter costo vs ocupacion
 fig_coload = go.Figure()
 for _, row in ocu_ruta.iterrows():
@@ -212,7 +297,24 @@ charts = {
     'sea':     fig2json(fig_sea),
     'coload':  fig2json(fig_coload),
     'orig':    fig2json(fig_orig),
+    'dia':     fig2json(fig_dia),
+    'heat':    fig2json(fig_heat),
 }
+
+# Tabla peores ruta-día
+peores_rows = "".join([
+    f'<tr><td>{r.dia_lbl}</td><td>{r.ruta}</td>'
+    f'<td style="text-align:right">{r.envios:,}</td>'
+    f'<td style="text-align:right">{r.km_final:,.0f}</td>'
+    f'<td style="text-align:right;font-family:monospace">${r.costo_real:,.0f}</td>'
+    f'<td style="text-align:right;font-family:monospace;color:{C_RED};font-weight:700">${r.costo_por_pqt:,.0f}</td></tr>'
+    for r in peores.itertuples()])
+
+# Tabla CV con/sin domingo
+cvdom_rows = "".join([
+    f'<tr><td>{ruta}</td><td style="text-align:center">{full}%</td>'
+    f'<td style="text-align:center;color:{C_GRN};font-weight:600">{part}%</td></tr>'
+    for ruta, full, part in cv_comp])
 
 # ── HTML ──────────────────────────────────────────────────────────────────────
 html = f"""<!DOCTYPE html>
@@ -265,6 +367,7 @@ html = f"""<!DOCTYPE html>
   <button onclick="showPage('coload')">Co-load & Costos</button>
   <button onclick="showPage('nom087')">NOM-087</button>
   <button onclick="showPage('estacional')">Estacionalidad</button>
+  <button onclick="showPage('diadia')">Día a Día</button>
 </nav>
 
 <!-- ═══════════════════════ RESUMEN ═══════════════════════ -->
@@ -498,6 +601,56 @@ html = f"""<!DOCTYPE html>
   </div>
 </div>
 
+<!-- ═══════════════════════ DÍA A DÍA ═══════════════════════ -->
+<div id="page-diadia" class="page">
+  <div class="kpi-row">
+    {kpi_card("Pico de flota", f"{por_dia['veh'].max()} veh", f"{por_dia.loc[por_dia['veh'].idxmax(),'dia_lbl']} · {por_dia['envios'].max():,.0f} envíos", C_ORG)}
+    {kpi_card("Valle de flota", f"{por_dia['veh'].min()} veh", f"{por_dia.loc[por_dia['veh'].idxmin(),'dia_lbl']} · {por_dia['envios'].min():,.0f} envíos", C_MELI2)}
+    {kpi_card("Oscilación intra-semana", f"{por_dia['veh'].max()/por_dia['veh'].min():.1f}x", "la flota no es constante", C_RED)}
+    {kpi_card("Peor $/pqt del día", f"${por_dia['cpp'].max():.1f}", f"{por_dia.loc[por_dia['cpp'].idxmax(),'dia_lbl']} — cae volumen, persiste la cola", C_RED)}
+  </div>
+
+  <div class="chart-box">
+    <div id="chart-dia"></div>
+  </div>
+
+  <div class="insight-box">
+    <strong>La flota oscila {por_dia['veh'].max()/por_dia['veh'].min():.1f}x dentro de la semana</strong>
+    ({por_dia['veh'].min()} → {por_dia['veh'].max()} vehículos). La planeación no puede ser por promedio:
+    se programa <strong>por día de semana</strong>. Incluso Tep→Villahermosa va de 3 trailers el domingo a 7 el martes.
+  </div>
+
+  <div class="chart-box">
+    <div id="chart-heat"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-box">
+      <div class="section-title">Peores ruta-día ($/paquete)</div>
+      <table>
+        <tr><th>Día</th><th>Ruta</th><th>Envíos</th><th>Km</th><th>Costo</th><th>$/pqt</th></tr>
+        {peores_rows}
+      </table>
+      <div class="insight-box" style="margin-top:14px">
+        El ejemplo más citables: <strong>1 paquete de Tapachula a Mérida = $44,776</strong> —
+        un torton de 14 tarimas recorriendo 1,119 km por un solo paquete. Pasó 2 veces en la semana.
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="section-title">CV troncales: efecto domingo</div>
+      <table>
+        <tr><th>Troncal</th><th>CV 7 días</th><th>CV sin domingo</th></tr>
+        {cvdom_rows}
+      </table>
+      <div class="insight-box" style="margin-top:14px">
+        El CV crudo de troncales (20–31%) está <strong>inflado por el valle del domingo</strong> (0.63x) —
+        patrón semanal predecible, no ruido. Excluyéndolo, todas quedan bajo 20%.
+        En producción, el CV se mide sobre el <strong>residual del forecast</strong>, no sobre la demanda cruda.
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const charts = {json.dumps(charts)};
 
@@ -517,6 +670,7 @@ function renderCharts(page) {{
     'flota':      [['chart-ocu','ocu']],
     'coload':     [['chart-coload','coload']],
     'estacional': [['chart-sea','sea']],
+    'diadia':     [['chart-dia','dia'],['chart-heat','heat']],
   }};
   (map[page] || []).forEach(([divId, key]) => {{
     if(!rendered.has(divId)) {{
