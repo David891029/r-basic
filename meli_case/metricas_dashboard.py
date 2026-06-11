@@ -323,6 +323,39 @@ for _, r in tran_long.iterrows():
 # 7. Resumen CV
 cv_summary = cv['riesgo'].value_counts()
 
+# ── Chart: business case de las 4 recomendaciones ────────────────────────────
+saving_coload      = costo_micro * 52
+saving_coload_real = saving_coload * 0.70
+saving_multistop   = total_costo * 0.04 * 52
+saving_cv          = total_costo * 0.05 * 52
+saving_carriers    = total_costo * 0.08 * 52
+
+recs = [
+    ("1. Co-load\n(micro-rutas → troncales)",     saving_coload_real / 1e6, "Sin inversión, solo coordinación", C_GRN, 1),
+    ("2. Multi-stop\n(Riviera Maya / Campeche)",   saving_multistop   / 1e6, "Cambio de ruteamiento",            C_GRN, 1),
+    ("3. Planeación diferenciada\npor CV",          saving_cv          / 1e6, "Proceso + herramienta",            C_ORG, 2),
+    ("4. Negociación tarifaria\n(NOM-087 + picos)", saving_carriers    / 1e6, "Contrato + datos Hot Sale",        C_ORG, 2),
+]
+rec_labels = [r[0] for r in recs]
+rec_vals   = [r[1] for r in recs]
+rec_colors = [r[3] for r in recs]
+
+fig_rec = go.Figure(go.Bar(
+    x=rec_vals[::-1], y=rec_labels[::-1], orientation='h',
+    marker_color=rec_colors[::-1],
+    text=[f"${v:.0f}M/año" for v in rec_vals[::-1]],
+    textposition='outside',
+    customdata=[[r[2], f"Ola {r[4]}"] for r in recs[::-1]],
+    hovertemplate='<b>%{y}</b><br>Ahorro: $%{x:.0f}M MXN/año<br>%{customdata[0]}<br>%{customdata[1]}<extra></extra>'
+))
+fig_rec.update_layout(
+    title=dict(text="Potencial de ahorro anual por recomendación (MXN)", font=dict(color=C_TEXT, size=16)),
+    xaxis=dict(title="Ahorro anual estimado (M MXN)", color=C_TEXT, gridcolor="#2A2A4A"),
+    yaxis=dict(color=C_TEXT, tickfont=dict(size=11)),
+    paper_bgcolor=C_CARD, plot_bgcolor=C_CARD,
+    margin=dict(l=20, r=120, t=50, b=30), height=320
+)
+
 # ── Serializar charts ─────────────────────────────────────────────────────────
 def fig2json(fig):
     return fig.to_json()
@@ -335,6 +368,7 @@ charts = {
     'orig':    fig2json(fig_orig),
     'dia':     fig2json(fig_dia),
     'heat':    fig2json(fig_heat),
+    'rec':     fig2json(fig_rec),
 }
 
 # Tabla peores ruta-día
@@ -445,6 +479,7 @@ html = f"""<!DOCTYPE html>
   <button onclick="showPage('nom087')">NOM-087</button>
   <button onclick="showPage('estacional')">Estacionalidad</button>
   <button onclick="showPage('diadia')">Día a Día</button>
+  <button onclick="showPage('recs')" style="border-color:{C_MELI};color:{C_MELI}">⚡ Recomendaciones</button>
 </nav>
 
 <!-- ═══════════════════════ RESUMEN ═══════════════════════ -->
@@ -789,6 +824,198 @@ html = f"""<!DOCTYPE html>
   </div>
 </div>
 
+<!-- ══════════════════════ RECOMENDACIONES ═══════════════════════ -->
+<div id="page-recs" class="page">
+  <div class="kpi-row">
+    {kpi_card("Ahorro total identificado", f"${(saving_coload_real+saving_multistop+saving_cv+saving_carriers)/1e6:.0f}M", "MXN/año · 4 iniciativas", C_GRN)}
+    {kpi_card("Sin inversión (Ola 1)", f"${(saving_coload_real+saving_multistop)/1e6:.0f}M", "MXN/año · co-load + multi-stop", C_MELI)}
+    {kpi_card("Costo actual/pqt", f"${costo_pqt:.2f}", "MXN · as-is", C_RED)}
+    {kpi_card("Objetivo/pqt", f"${costo_pqt*(1-(saving_coload_real+saving_multistop+saving_cv+saving_carriers)/(total_costo*52)):.2f}", "MXN · con las 4 iniciativas", C_GRN)}
+  </div>
+
+  <div class="chart-box">
+    <div id="chart-rec"></div>
+  </div>
+
+  <!-- REC 1: CO-LOAD -->
+  <div class="chart-box">
+    <div class="section-title" style="color:{C_GRN}">Recomendación 1 · Co-load (Ola 1 — 0–8 semanas)</div>
+    <div class="grid-2">
+      <div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>¿Qué?</strong> Las micro-rutas (&lt;1 pallet/día) despachan tortons casi vacíos.
+          En lugar de salida propia, el paquete espera el vehículo troncal de Tepotzotlán del mismo día
+          (<strong>cutoff 20:30 o 22:30</strong>) y viaja como carga adicional.
+          No toca el SLA de las troncales porque éstas salen con holgura del 6–17%.
+        </div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>Evidencia del modelo:</strong><br>
+          · {micro_dias['envios'].sum():,} paquetes/semana en micro-rutas = {micro_dias['envios'].sum()/total_envios:.2%} del volumen<br>
+          · Generan <strong>${costo_micro:,.0f}</strong>/semana = {costo_micro/total_costo:.1%} del costo total<br>
+          · CPP as-is: <strong>${costo_pqt:.2f}</strong> → con co-load: <strong>${cpp_coload:.2f}</strong> (−{1-cpp_coload/costo_pqt:.1%})
+        </div>
+      </div>
+      <div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>Cómo implementar:</strong><br>
+          1. Identificar paquetes con destino coincidente con troncal del mismo día<br>
+          2. Verificar espacio disponible (holgura = {(1-ocu_red/100)*100:.0f}% promedio red)<br>
+          3. Ajustar cutoff de recepción en FC para incluir esos paquetes antes de las 20:30<br>
+          4. Medir: paquetes consolidados / paquetes elegibles como KPI semanal
+        </div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>Ahorro estimado:</strong><br>
+          ${saving_coload_real/1e6:.0f}M MXN/año (captura conservadora del 70% de la oportunidad)<br>
+          <strong>Riesgo:</strong> paquetes que llegan al FC después del cutoff quedan para el día siguiente.
+          Mitigar con regla: si cutoff se pierde, se activa torton local <em>solo si hay ≥0.5 pallet</em>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REC 2: MULTI-STOP -->
+  <div class="chart-box">
+    <div class="section-title" style="color:{C_GRN}">Recomendación 2 · Multi-stop Riviera Maya (Ola 1 — 0–8 semanas)</div>
+    <div class="grid-2">
+      <div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>¿Qué?</strong> Cancún, Playa del Carmen y Chetumal están en el mismo corredor
+          (Hwy 307). Hoy salen 3 vehículos separados desde Tepotzotlán. Un trailer con
+          <strong>primer stop Cancún, segundo Playa, tercero Chetumal</strong> reduciría de 3 a 1 unidad
+          (o 2 si el volumen lo justifica).
+        </div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>Evidencia:</strong><br>
+          · Tep→Cancún: 13 veh/sem, {ocu_ruta[ocu_ruta['ruta']=='Tepotzotlan → Cancun']['ocu_pct'].values[0]:.0f}% ocup<br>
+          · Tep→Playa: 10 veh/sem, {ocu_ruta[ocu_ruta['ruta']=='Tepotzotlan → Playa']['ocu_pct'].values[0]:.0f}% ocup<br>
+          · Tep→Chetumal: 7 veh/sem, {ocu_ruta[ocu_ruta['ruta']=='Tepotzotlan → Chetumal']['ocu_pct'].values[0]:.0f}% ocup<br>
+          Volumen total Riviera Maya: {int(ocu_ruta[ocu_ruta['ruta'].isin(['Tepotzotlan → Cancun','Tepotzotlan → Playa','Tepotzotlan → Chetumal'])]['envios'].sum()):,} pqts/sem
+        </div>
+      </div>
+      <div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>Cómo implementar:</strong><br>
+          1. Secuenciar carga en el trailer: el último destino se carga primero (Chetumal abajo)<br>
+          2. Ajustar ventanas de entrega en los 3 DCs para el mismo horario de arribo<br>
+          3. Negociar con carrier la tarifa por km total de ruta multi-stop vs 3 rutas directas<br>
+          4. Monitorear tiempo de ciclo del vehículo (retorno más tarde = ¿afecta siguiente día?)
+        </div>
+        <div class="insight-box" style="border-color:{C_GRN}">
+          <strong>Ahorro estimado:</strong><br>
+          ${saving_multistop/1e6:.0f}M MXN/año (~4% del costo total)<br>
+          <strong>Restricción:</strong> si Playa llega actualmente D+2, el multi-stop <em>no empeora</em>
+          ese SLA. Cancún y Chetumal sí necesitan validación de ventana de entrega.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REC 3: CV -->
+  <div class="chart-box">
+    <div class="section-title" style="color:{C_ORG}">Recomendación 3 · Planeación diferenciada por CV (Ola 2 — 8–16 semanas)</div>
+    <div class="grid-2">
+      <div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>¿Qué?</strong> Hoy se planea flota con el mismo modelo para todas las rutas.
+          Las troncales (CV 20–31%, predecible) pueden programarse con T−48h.
+          Las rutas de cola (CV 66–99%) necesitan un modelo diferente:
+          <em>confirmar flota T−4h con umbral mínimo de consolidación</em>.
+        </div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>Evidencia:</strong><br>
+          · Troncales sin domingo: CV &lt;20% → forecast preciso, flota dedicada<br>
+          · CV del domingo infla el crudo a 20–31% → no es ruido, es patrón semanal<br>
+          · Rutas cola: CV 66–99% → 1 semana de datos no alcanza para forecast confiable
+        </div>
+      </div>
+      <div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>Cómo implementar:</strong><br>
+          1. Segmentar rutas en 3 categorías: alta frecuencia (≥6 días), media (3–5 días), esporádica<br>
+          2. Modelo 1 (troncales): SARIMA semanal con índice estacionalidad día de semana<br>
+          3. Modelo 2 (intermitentes): regresión con variables proxy (ventas D−1, promociones)<br>
+          4. Regla (cola): no despachar torton propio si &lt;0.5 pallet → co-load automático
+        </div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>Ahorro estimado:</strong><br>
+          ${saving_cv/1e6:.0f}M MXN/año (~5% costo total)<br>
+          <strong>Prerequisito:</strong> 8–12 semanas de histórico (mín.) para calibrar modelos +
+          datos de pico Hot Sale para separar tendencia de estacionalidad promotional.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REC 4: CARRIERS -->
+  <div class="chart-box">
+    <div class="section-title" style="color:{C_ORG}">Recomendación 4 · Negociación tarifaria con carriers (Ola 2 — 8–16 semanas)</div>
+    <div class="grid-2">
+      <div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>¿Qué?</strong> Con datos de NOM-087 (doble operador en 4 rutas largas),
+          volumen consolidado por co-load y comportamiento de pico Hot Sale se puede presentar
+          un caso de negociación: <em>mayor volumen garantizado + mejor previsibilidad = tarifa menor</em>.
+          Objetivo: −8–10% en troncales largas.
+        </div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>Evidencia:</strong><br>
+          · {(tran['horas_transito']>21).sum()} rutas &gt;21h requieren doble operador (costo NOM no modelado)<br>
+          · La red concentra 84% del volumen en Tepotzotlán → poder de negociación alto<br>
+          · Flota oscila {por_dia['veh'].max()/por_dia['veh'].min():.1f}x intrasemanal → carrier absorbe riesgo hoy;<br>
+            con forecast diferenciado, MELI puede ofrecer mayor predictibilidad
+        </div>
+      </div>
+      <div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>Cómo implementar:</strong><br>
+          1. Levantar datos reales de doble operador por ruta (gap actual del modelo)<br>
+          2. Conseguir histórico de Hot Sale/Buen Fin (al menos 1 ciclo) para modelar picos<br>
+          3. Preparar cuadro de volumen garantizado semanal por ruta como argumento<br>
+          4. Negociar tarifa diferenciada: troncal dedicada ($55/km) vs spot ($60/km)
+        </div>
+        <div class="insight-box" style="border-color:{C_ORG}">
+          <strong>Ahorro estimado:</strong><br>
+          ${saving_carriers/1e6:.0f}M MXN/año (~8% costo total)<br>
+          <strong>Condición:</strong> requiere datos de al menos 2 meses para argumento estadístico sólido.
+          Mientras tanto, usar 1 semana para detectar rutas con sobrecosto NOM-087 no declarado.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumen de implementación -->
+  <div class="chart-box">
+    <div class="section-title">Hoja de ruta de implementación</div>
+    <table>
+      <tr><th>#</th><th>Iniciativa</th><th>Ola</th><th>Semanas</th><th>Inversión</th><th>Ahorro/año estimado</th><th>Prerequisito</th></tr>
+      <tr>
+        <td>1</td><td>Co-load micro-rutas</td>
+        <td><span class="tag tag-grn">Ola 1</span></td><td>0–8</td><td>Sin inversión</td>
+        <td style="font-family:monospace;font-weight:700;color:{C_GRN}">${saving_coload_real/1e6:.0f}M MXN</td>
+        <td>Coordinación FC + carrier</td>
+      </tr>
+      <tr>
+        <td>2</td><td>Multi-stop Riviera Maya</td>
+        <td><span class="tag tag-grn">Ola 1</span></td><td>0–8</td><td>Acuerdo tarifario</td>
+        <td style="font-family:monospace;font-weight:700;color:{C_GRN}">${saving_multistop/1e6:.0f}M MXN</td>
+        <td>Validar ventanas de entrega DC</td>
+      </tr>
+      <tr>
+        <td>3</td><td>Planeación diferenciada por CV</td>
+        <td><span class="tag tag-org">Ola 2</span></td><td>8–16</td><td>Herramienta + proceso</td>
+        <td style="font-family:monospace;font-weight:700;color:{C_ORG}">${saving_cv/1e6:.0f}M MXN</td>
+        <td>8–12 semanas de histórico</td>
+      </tr>
+      <tr>
+        <td>4</td><td>Negociación tarifaria carriers</td>
+        <td><span class="tag tag-org">Ola 2</span></td><td>8–16</td><td>Datos Hot Sale + legal</td>
+        <td style="font-family:monospace;font-weight:700;color:{C_ORG}">${saving_carriers/1e6:.0f}M MXN</td>
+        <td>Histórico picos + datos NOM-087</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
 <script>
 const charts = {json.dumps(charts)};
 
@@ -809,6 +1036,7 @@ function renderCharts(page) {{
     'coload':     [['chart-coload','coload']],
     'estacional': [['chart-sea','sea']],
     'diadia':     [['chart-dia','dia'],['chart-heat','heat']],
+    'recs':       [['chart-rec','rec']],
   }};
   (map[page] || []).forEach(([divId, key]) => {{
     if(!rendered.has(divId)) {{
