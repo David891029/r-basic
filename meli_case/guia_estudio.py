@@ -56,6 +56,7 @@ html = """<!DOCTYPE html>
   <button class="active" onclick="show('numeros')">📊 Números clave</button>
   <button onclick="show('conceptos')">🧠 Conceptos</button>
   <button onclick="show('narrativa')">🧵 Narrativa</button>
+  <button onclick="show('diadia')">📅 Día a día</button>
   <button onclick="show('quiz')">❓ Quiz</button>
   <button onclick="show('trampas')">⚠️ Trampas</button>
 </nav>
@@ -243,6 +244,74 @@ html = """<!DOCTYPE html>
       <tr><td>Slide 4: dos regímenes (CV)</td><td>Slide 5: hallazgo</td><td>La cola caótica = la que destruye el costo</td></tr>
       <tr><td>Slide 5: co-load −19%</td><td>Slide 8: producción</td><td>El ahorro solo sobrevive si el tarifario real y los picos lo sostienen</td></tr>
     </table>
+  </div>
+</div>
+
+<!-- ══════════════ DÍA A DÍA ══════════════ -->
+<div id="sec-diadia" class="section">
+  <h2>Vista granular — por día y por ruta</h2>
+  <p style="font-size:13px;color:#888;margin-bottom:14px">El panel puede bajar al detalle: "¿cuántos trailers el martes?", "¿qué día es pico?". Estas tablas salen directo del modelo.</p>
+
+  <h3>La semana completa — volumen, flota y costo por día</h3>
+  <div class="card">
+    <table>
+      <tr><th>Día</th><th>Envíos</th><th>Vehículos</th><th>Trailers</th><th>Tortons</th><th>$/pqt</th><th>Índice</th></tr>
+      <tr><td>Dom 18</td><td>18,055</td><td><strong>21</strong></td><td>11</td><td>10</td><td>$48.9</td><td>0.63x — valle</td></tr>
+      <tr><td>Lun 19</td><td>30,089</td><td>43</td><td>18</td><td>25</td><td>$53.7</td><td>1.05x</td></tr>
+      <tr><td><strong>Mar 20</strong></td><td><strong>35,546</strong></td><td><strong>54</strong></td><td>22</td><td>32</td><td>$55.1</td><td><strong>1.24x — pico</strong></td></tr>
+      <tr><td>Mié 21</td><td>33,253</td><td>51</td><td>20</td><td>31</td><td>$53.7</td><td>1.16x</td></tr>
+      <tr><td>Jue 22</td><td>31,217</td><td>51</td><td>17</td><td>34</td><td>$53.6</td><td>1.09x</td></tr>
+      <tr><td>Vie 23</td><td>28,816</td><td>44</td><td>15</td><td>29</td><td>$51.3</td><td>1.01x</td></tr>
+      <tr><td>Sáb 24</td><td>23,328</td><td>37</td><td>13</td><td>24</td><td><strong>$58.5</strong></td><td>0.81x</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">💡 La flota oscila <strong>2.6x dentro de la semana</strong> (21→54 vehículos). El sábado tiene el peor $/pqt: el volumen cae pero las micro-rutas persisten — el costo fijo de la cola pesa más cuando hay menos paquetes que lo absorban.</p>
+  </div>
+
+  <h3>Troncales Tep — flota día a día (T=trailers, t=tortons)</h3>
+  <div class="card">
+    <table>
+      <tr><th>Ruta</th><th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th></tr>
+      <tr><td>→ Villahermosa</td><td>3T 95%</td><td>6T 93%</td><td><strong>7T 93%</strong></td><td>6T+1t 96%</td><td>6T+1t 93%</td><td>5T+1t 98%</td><td>4T 92%</td></tr>
+      <tr><td>→ Tuxtla Gtz.</td><td>3T 88%</td><td>4T 99%</td><td>5T 94%</td><td>5T 92%</td><td>4T+1t 94%</td><td>4T 93%</td><td>3T+1t 90%</td></tr>
+      <tr><td>→ Mérida</td><td>1T 61%</td><td>1T+1t 100%</td><td>2T+1t 83%</td><td>2T 82%</td><td>1T+1t 100%</td><td>1T+1t 95%</td><td>1T+1t 83%</td></tr>
+      <tr><td>→ Cancún</td><td>1T 68%</td><td>2T 77%</td><td>2T 96%</td><td>2T 84%</td><td>1T+1t 95%</td><td>1T+1t 83%</td><td>1T+1t 81%</td></tr>
+      <tr><td>→ Playa</td><td>1T 57%</td><td>1T+1t 69%</td><td>1T+1t 86%</td><td>1T+1t 76%</td><td>1T 100%</td><td>1T 100%</td><td>1T 100%</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">💡 Tep→Vhsa va de 3 trailers el domingo a 7 el martes — incluso la troncal "estable" duplica flota intra-semana. Por eso la planeación es <strong>por día de semana</strong>, no por promedio.</p>
+  </div>
+
+  <h3>El CV y el efecto domingo</h3>
+  <div class="card">
+    <table>
+      <tr><th>Troncal</th><th>CV 7 días</th><th>CV sin domingo</th></tr>
+      <tr><td>Tep → Villahermosa</td><td>24%</td><td>18%</td></tr>
+      <tr><td>Tep → Tuxtla Gtz.</td><td>20%</td><td>15%</td></tr>
+      <tr><td>Tep → Mérida</td><td>31%</td><td>18%</td></tr>
+      <tr><td>Tep → Cancún</td><td>30%</td><td>19%</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">💡 Argumento fino: el CV crudo de troncales (20–31%) está inflado por el valle del domingo, que es <strong>patrón semanal predecible, no ruido</strong>. Quitando ese efecto, todas quedan bajo 20% → flota fija con calendario por día de semana. El CV "de verdad" debería medirse sobre el residual del forecast, no sobre la demanda cruda.</p>
+  </div>
+
+  <h3>Los peores ruta-día (los ejemplos concretos para citar)</h3>
+  <div class="card">
+    <table>
+      <tr><th>Día</th><th>Ruta</th><th>Envíos</th><th>Vehículo</th><th>Costo</th><th>$/pqt</th></tr>
+      <tr><td>Lun 19 y Sáb 24</td><td>Tapachula → Mérida</td><td><strong>1</strong></td><td>1 torton · 1,119 km</td><td>$44,776</td><td><strong>$44,776</strong></td></tr>
+      <tr><td>Sáb 24</td><td>Cancún → Tuxtla Gtz.</td><td>1</td><td>1 torton · 1,101 km</td><td>$44,056</td><td>$44,056</td></tr>
+      <tr><td>Jue 22</td><td>Tuxtla → Chetumal</td><td>1</td><td>1 torton · 817 km</td><td>$32,692</td><td>$32,692</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">💡 El ejemplo asesino: <strong>1 paquete en un torton recorriendo 1,119 km cuesta $44,776</strong>. El mismo paquete co-loadeado en la troncal Tep→Mérida que ya existe costaría centavos marginales.</p>
+  </div>
+
+  <h3>Frecuencia de rutas — la red no es diaria</h3>
+  <div class="card">
+    <table>
+      <tr><th>Frecuencia</th><th>Rutas</th><th>Qué son</th></tr>
+      <tr><td>7 días (diarias)</td><td>16</td><td>Troncales Tep + radiales Mérida — la columna vertebral</td></tr>
+      <tr><td>4–6 días</td><td>19</td><td>Inter-hub intermitentes (Vhsa→Mérida, Cancún→Mérida...)</td></tr>
+      <tr><td>1–3 días</td><td>10</td><td>Esporádicas — 1 a 11 paquetes en toda la semana</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">💡 29 de 45 rutas no operan diario. Eso refuerza el co-load: una ruta que sale 2 veces por semana con 1 paquete no justifica vehículo dedicado <strong>ningún día</strong>.</p>
   </div>
 </div>
 

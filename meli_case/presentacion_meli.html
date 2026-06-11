@@ -837,7 +837,7 @@
         <div class="card">
           <div class="col-card-head">
             Troncales Tepotzotlán
-            <span>CV bajo · ocupación alta</span>
+            <span>Ocupación 84–94% · CV 20–31% (sin domingo: &lt;20%)</span>
           </div>
           <div id="chart-trunk" class="plotly-chart" style="height:215px;"></div>
           <div class="regime-label regime-green">Predecibles · Flota fija T-48h</div>
@@ -847,7 +847,7 @@
         <div class="card">
           <div class="col-card-head">
             Cola de nodos secundarios
-            <span>CV alto · ocupación promedio 7.1%</span>
+            <span>Toda la cola opera a 7.1% — 1 pallet en torton de 14</span>
           </div>
           <div id="chart-cola" class="plotly-chart" style="height:215px;"></div>
           <div class="regime-label regime-red">Caóticas · 1 paquete en torton de 14 tarimas</div>
@@ -856,9 +856,9 @@
       </div>
 
       <div class="bottom-note">
-        Ocupación global: <span class="acc-yellow">60%</span> —
-        promedio que <strong style="color:#fff;">esconde la bimodalidad</strong>.
-        La media no es accionable: el régimen importa más que el promedio.
+        El CV troncal sube a 20–31% por el <strong style="color:#fff;">valle del domingo (63% del promedio)</strong> —
+        patrón semanal predecible, no ruido. Excluyéndolo, todas las troncales quedan
+        <span class="acc-green">bajo 20%</span>. La cola, en cambio, es impredecible incluso por día.
       </div>
 
     </div>
@@ -1196,7 +1196,7 @@
       type: 'bar', orientation: 'h',
       y: ['Tep → Cancún', 'Tep → Mérida', 'Tep → Tuxtla Gtz.', 'Tep → Villahermosa'],
       x: [84.5, 87.0, 93.1, 94.3],
-      text: ['84.5% · CV 14%', '87.0% · CV 18%', '93.1% · CV 12%', '94.3% · CV 15%'],
+      text: ['84.5% · CV 30%', '87.0% · CV 31%', '93.1% · CV 20%', '94.3% · CV 24%'],
       textposition: 'outside',
       textfont: { color: '#E0E0E0', size: 10.5 },
       marker: { color: '#00C853', opacity: 0.82 },
@@ -1212,12 +1212,12 @@
     // ── Slide 4 — Cola secundaria (horizontal bars) ──
     Plotly.newPlot('chart-cola', [{
       type: 'bar', orientation: 'h',
-      y: ['Mér → Cd.Carmen', 'Vhsa → Cancún', 'Campeche → Cancún', 'Vhsa → Campeche'],
-      x: [4.2, 12.3, 5.4, 7.1],
-      text: ['4.2% · CV 87%', '12.3% · CV 66%', '5.4% · CV 94%', '7.1% · CV 99%'],
+      y: ['Vhsa → Cancún', 'Campeche → Mérida', 'Campeche → Cancún', 'Vhsa → Campeche'],
+      x: [7.1, 7.1, 7.1, 7.1],
+      text: ['7.1% · CV 66%', '7.1% · CV 75%', '7.1% · CV 94%', '7.1% · CV 99%'],
       textposition: 'outside',
       textfont: { color: '#E0E0E0', size: 10.5 },
-      marker: { color: ['#FF3D3D', '#FF9800', '#FF3D3D', '#FF3D3D'], opacity: 0.85 },
+      marker: { color: ['#FF9800', '#FF3D3D', '#FF3D3D', '#FF3D3D'], opacity: 0.85 },
       hoverinfo: 'none',
     }], Object.assign({}, DARK, {
       xaxis: { range: [0, 30], showgrid: false, zeroline: false,
