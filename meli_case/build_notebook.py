@@ -452,6 +452,9 @@ cells.append(md("## 5 · Dashboard interactivo (HTML)"))
 cells.append(code("""\
 import plotly.graph_objects as go
 import plotly.express as px
+from plotly.offline import get_plotlyjs_version
+
+PLOTLY_JS = get_plotlyjs_version()  # CDN debe coincidir con la versión que serializa los charts
 
 DIAS = {6: "Dom", 0: "Lun", 1: "Mar", 2: "Mié", 3: "Jue", 4: "Vie", 5: "Sáb"}
 AZUL, NARANJA, VERDE, ROJO = "#1a4b8c", "#f39c12", "#27ae60", "#e74c3c"
@@ -594,7 +597,7 @@ charts = "".join(
 
 html = f\"\"\"<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
 <title>Caso Media Milla — Dashboard</title>
-<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-{PLOTLY_JS}.min.js"></script>
 <style>body{{font-family:'Segoe UI',system-ui,sans-serif;background:#eef1f5;margin:0;padding:24px}}</style>
 </head><body><div style="max-width:1100px;margin:0 auto">
 <h1 style="color:#1a4b8c;margin-bottom:2px">📦 Análisis de Red — Media Milla</h1>

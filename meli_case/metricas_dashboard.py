@@ -2,8 +2,11 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from plotly.offline import get_plotlyjs_version
 import plotly.express as px
 import json, os
+
+PLOTLY_JS = get_plotlyjs_version()  # el CDN debe coincidir con la versión que serializa
 
 # ── Datos ────────────────────────────────────────────────────────────────────
 vol = pd.read_csv("/home/user/r-basic/meli_case/volumen.csv")
@@ -322,7 +325,7 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <title>Media Milla MELI – Métricas Avanzadas</title>
-<script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-{PLOTLY_JS}.min.js"></script>
 <style>
   * {{ box-sizing:border-box; margin:0; padding:0 }}
   body {{ background:{C_BG}; color:{C_TEXT}; font-family:'Segoe UI',sans-serif; }}
