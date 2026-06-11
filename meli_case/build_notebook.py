@@ -590,10 +590,19 @@ cards = "".join(
     f'box-shadow:0 2px 8px rgba(0,0,0,.08);text-align:center;min-width:150px">'
     f'<div style="font-size:12px;color:#777">{t}</div>'
     f'<div style="font-size:22px;font-weight:800;color:#1a4b8c">{v}</div></div>' for t, v in kpis)
+
+# Serializar con to_json(): plotly 6.x emite formato binario (bdata) que solo
+# Plotly.react + plotly.js 3.x decodifican bien — to_html() inline NO renderiza
+import json as _json
+chart_keys = [f"c{i}" for i in range(len(figs))]
+chart_data = {k: f.to_json() for k, f in zip(chart_keys, figs)}
 charts = "".join(
-    '<div style="background:#fff;border-radius:12px;padding:8px;margin-bottom:18px;'
-    'box-shadow:0 2px 8px rgba(0,0,0,.08)">'
-    + f.to_html(full_html=False, include_plotlyjs=False, default_height=430) + "</div>" for f in figs)
+    f'<div style="background:#fff;border-radius:12px;padding:8px;margin-bottom:18px;'
+    f'box-shadow:0 2px 8px rgba(0,0,0,.08)"><div id="{k}" style="height:450px"></div></div>'
+    for k in chart_keys)
+render_js = "\\n".join(
+    f'Plotly.react("{k}", JSON.parse(charts["{k}"]).data, JSON.parse(charts["{k}"]).layout, '
+    f'{{responsive:true, displayModeBar:false}});' for k in chart_keys)
 
 html = f\"\"\"<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
 <title>Caso Media Milla — Dashboard</title>
@@ -604,7 +613,17 @@ html = f\"\"\"<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
 <p style="color:#777;margin-top:0">Semana 18–24 jun 2023 · km reales por ruta ·
 supuestos: 60 pqts/pallet · trailer 28 tarimas ($60/km) · torton 14 ($40/km)</p>
 <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px">{cards}</div>
-{charts}</div></body></html>\"\"\"
+{charts}</div>
+<script>
+const charts = {_json.dumps(chart_data)};
+function renderAll() {{
+{render_js}
+}}
+// espera al CDN (funciona tanto abriendo el archivo como inline en Colab)
+function waitPlotly() {{ if (window.Plotly) renderAll(); else setTimeout(waitPlotly, 100); }}
+waitPlotly();
+</script>
+</body></html>\"\"\"
 
 with open("dashboard_meli.html", "w") as fh:
     fh.write(html)
@@ -620,6 +639,34 @@ subir_a_drive("dashboard_meli.html")\
 """))
 
 cells.append(md("""\
+## 6 · Recomendaciones y business case
+
+Cuatro iniciativas priorizadas en dos olas. Los ahorros se estiman con supuestos conservadores
+declarados en el código (captura del 70% en co-load; 4%, 5% y 8% del costo total para las demás).\
+"""))
+
+cells.append(code("""\
+# Business case de las 4 recomendaciones (anualizado, MXN)
+saving_coload    = c_micro * 52 * 0.70        # captura conservadora del 70% de la cola
+saving_multistop = total_costo * 0.04 * 52    # multi-stop Riviera Maya / Campeche
+saving_cv        = total_costo * 0.05 * 52    # planeación diferenciada por CV
+saving_carriers  = total_costo * 0.08 * 52    # negociación tarifaria (NOM-087 + picos)
+
+recs = pd.DataFrame([
+    ("1. Co-load micro-rutas → troncales", "Ola 1 (0–8 sem)",  "Sin inversión",          saving_coload),
+    ("2. Multi-stop Riviera Maya",          "Ola 1 (0–8 sem)",  "Acuerdo tarifario",      saving_multistop),
+    ("3. Planeación diferenciada por CV",   "Ola 2 (8–16 sem)", "Herramienta + proceso",  saving_cv),
+    ("4. Negociación tarifaria carriers",   "Ola 2 (8–16 sem)", "Datos Hot Sale + legal", saving_carriers),
+], columns=["iniciativa", "ola", "inversion", "ahorro_anual"])
+recs["ahorro_anual_M"] = (recs["ahorro_anual"] / 1e6).round(0)
+
+total_saving = recs["ahorro_anual"].sum()
+print(f"Ahorro total identificado: ${total_saving/1e6:,.0f}M MXN/año")
+print(f"Costo/pqt objetivo: ${(total_costo - total_saving/52)/total_env:.2f} (vs ${total_costo/total_env:.2f} as-is)")
+recs[["iniciativa", "ola", "inversion", "ahorro_anual_M"]]\
+"""))
+
+cells.append(md("""\
 ## Conclusiones para las slides
 
 **P1 — Vehículos y horarios:** la red despacha ~17 trailers + ~26 tortons diarios. Las troncales de Tepotzotlán salen 20:30–22:30 y llegan al sureste entre las 11:00 y las 23:30 de D+1 (Villahermosa 13:10, Tuxtla 11:19, Mérida 21:22, Cancún 23:30). **Playa del Carmen llega D+2 a las 00:30** → toda promesa D+1 en la Riviera Maya depende del inventario posicionado en el hub de Mérida, no del lineal desde CDMX.
@@ -628,12 +675,13 @@ cells.append(md("""\
 
 **P3 — Costo:** ~\\$10.8M/semana ≈ **\\$53.7 por paquete** (km reales). El hallazgo: **0.34% del volumen (micro-rutas, 682 paquetes) consume 19.4% del costo** — un torton casi vacío recorriendo 400–1,600 km diarios. Consolidando como co-load: **\\$43.3/pqt (−19%)** sin tocar el SLA de las troncales.
 
-**Palancas adicionales (orden de implementación):**
-1. Co-load inmediato de micro-rutas → −19% costo, sin inversión
-2. Multi-stop en radiales de Mérida (Campeche + Cd. del Carmen) → ~\\$50K/sem
-3. Revisión del trade-off frecuencia/ocupación en radiales si el SLA lo permite
+**Recomendaciones (orden de implementación):**
+1. **Co-load** de micro-rutas en troncales del mismo día (Ola 1, sin inversión) — el paquete espera el vehículo troncal con cutoff 20:30/22:30; regla: torton propio solo si ≥0.5 pallet
+2. **Multi-stop Riviera Maya** (Ola 1) — Cancún → Playa → Chetumal en una unidad por el corredor 307; no empeora el D+2 actual de Playa
+3. **Planeación diferenciada por CV** (Ola 2) — troncales con flota confirmada T−48h (CV <20% sin domingo); cola con confirmación T−4h y umbral de consolidación
+4. **Negociación tarifaria con carriers** (Ola 2) — usando NOM-087 (4 rutas con doble operador), 84% del volumen concentrado y mayor predictibilidad como argumentos
 
-**Qué pediría para producción:** 8–12 semanas de historia (separar estacionalidad de ruido), tarifas con componente fijo+variable, ventanas de recibo y capacidad de sortation por estación, y el calendario comercial (Hot Sale) para el forecast D+1–D+60.\
+**Qué pediría para producción:** 8–12 semanas de historia (separar estacionalidad de ruido), datos de picos comerciales (Hot Sale) para calibrar uplift, tarifas con componente fijo+variable, ventanas de recibo y capacidad de sortation por estación, y el calendario comercial para el forecast D+1–D+60.\
 """))
 
 nb = {"cells": cells,
