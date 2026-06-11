@@ -107,6 +107,39 @@ tran = pd.read_csv("/home/user/r-basic/meli_case/transito.csv")
 tran['ruta'] = tran['origen'] + " → " + tran['destino']
 tran_long = tran[tran['horas_transito'] >= 18].sort_values('horas_transito', ascending=False)
 
+# ── P1: vehículos que llegan a cada destino y horario ────────────────────────
+mod['veh_total'] = mod['trailers'] + mod['tortons']
+p1_flujos = (mod.groupby(['destino','origen','hora_salida','llegada_hora','llegada_dia'], as_index=False)
+             .agg(veh=('veh_total','sum'), dias=('fecha','count'), envios=('envios','sum')))
+p1_flujos['veh_dia'] = (p1_flujos['veh'] / p1_flujos['dias']).round(1)
+p1_diarios = p1_flujos[p1_flujos['dias'] >= 6].sort_values('veh', ascending=False)
+p1_resto = p1_flujos[p1_flujos['dias'] < 6]
+p1_dest = (mod.groupby('destino')
+           .agg(veh=('veh_total','sum'), envios=('envios','sum'))
+           .sort_values('veh', ascending=False).reset_index())
+p1_dest['veh_dia'] = (p1_dest['veh'] / 7).round(1)
+
+# ── P2: ocupación por segmento de red ─────────────────────────────────────────
+seg = mod.groupby(['origen','destino']).agg(
+    pallets=('pallets','sum'), capacidad=('capacidad','sum'),
+    envios=('envios','sum'), costo=('costo_real','sum')).reset_index()
+seg['ocu'] = seg['pallets'] / seg['capacidad'] * 100
+seg['bucket'] = pd.cut(seg['envios'], bins=[-1, 1000, 10000, 1e9],
+                       labels=["Cola / micro-rutas (<1K pqts/sem)",
+                               "Secundarias (1K–10K pqts/sem)",
+                               "Troncales (≥10K pqts/sem)"])
+p2_seg = seg.groupby('bucket', observed=True).agg(
+    rutas=('ocu','count'), ocu_min=('ocu','min'), ocu_max=('ocu','max'),
+    pallets=('pallets','sum'), capacidad=('capacidad','sum'),
+    envios=('envios','sum'), costo=('costo','sum')).reset_index()
+p2_seg['ocu_pond'] = p2_seg['pallets'] / p2_seg['capacidad'] * 100
+ocu_red = mod['pallets'].sum() / mod['capacidad'].sum() * 100
+
+# ── P3: costo total y hallazgo de la cola ─────────────────────────────────────
+micro_dias = mod[mod['envios'] < 60]          # ruta-día con menos de 1 pallet
+costo_micro = micro_dias['costo_real'].sum()
+cpp_coload = (total_costo - costo_micro) / total_envios
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # COLORES
 C_MELI = "#FFE600"
@@ -319,6 +352,47 @@ cvdom_rows = "".join([
     f'<td style="text-align:center;color:{C_GRN};font-weight:600">{part}%</td></tr>'
     for ruta, full, part in cv_comp])
 
+# Tablas P1: resumen por destino + flujos diarios
+DIA_LLEGA = {0: "mismo día", 1: "D+1", 2: "D+2"}
+p1_dest_rows = "".join([
+    f'<tr><td>{r.destino}</td>'
+    f'<td style="text-align:center;font-family:monospace;font-weight:700">{r.veh_dia:.1f}</td>'
+    f'<td style="text-align:right">{r.envios:,}</td></tr>'
+    for r in p1_dest.itertuples()])
+p1_flujo_rows = "".join([
+    f'<tr{" style=background:#3d1f2e" if r.llegada_dia == 2 else ""}>'
+    f'<td>{r.origen} → {r.destino}</td>'
+    f'<td style="text-align:center;font-family:monospace">{r.veh_dia:.1f}</td>'
+    f'<td style="text-align:center">{r.hora_salida}</td>'
+    f'<td style="text-align:center;font-weight:600">{r.llegada_hora}</td>'
+    f'<td style="text-align:center;color:{C_RED if r.llegada_dia == 2 else (C_GRN if r.llegada_dia == 0 else C_TEXT)}">'
+    f'{DIA_LLEGA[r.llegada_dia]}</td></tr>'
+    for r in p1_diarios.itertuples()])
+
+# Tabla P2: ocupación por segmento
+p2_rows = "".join([
+    f'<tr><td>{r.bucket}</td>'
+    f'<td style="text-align:center">{r.rutas}</td>'
+    f'<td style="text-align:right">{r.envios:,}</td>'
+    f'<td style="text-align:center;font-family:monospace;font-weight:700;'
+    f'color:{C_GRN if r.ocu_pond >= 70 else (C_ORG if r.ocu_pond >= 30 else C_RED)}">{r.ocu_pond:.0f}%</td>'
+    f'<td style="text-align:center">{r.ocu_min:.0f}%–{r.ocu_max:.0f}%</td>'
+    f'<td style="text-align:right;font-family:monospace">${r.costo/1e6:.2f}M</td></tr>'
+    for r in p2_seg.sort_values('envios', ascending=False).itertuples()])
+
+# Tabla P3: desglose del costo
+p3_rows = "".join([
+    f'<tr><td>{c}</td><td style="text-align:right;font-family:monospace;font-weight:600">{v}</td><td style="color:#9E9E9E">{d}</td></tr>'
+    for c, v, d in [
+        ("Envíos totales / semana", f"{total_envios:,.0f}", "7 días, 18–24 jun"),
+        ("Costo total / semana", f"${total_costo:,.0f}", "km reales × tarifa por vehículo"),
+        ("Costo por paquete (as-is)", f"${costo_pqt:.2f}", "costo total ÷ envíos"),
+        ("· del cual: micro-rutas (<1 pallet/día)", f"${costo_micro:,.0f}",
+         f"{costo_micro/total_costo:.1%} del costo con {micro_dias['envios'].sum()/total_envios:.2%} del volumen"),
+        ("Costo por paquete consolidando (co-load)", f"${cpp_coload:.2f}",
+         f"−{1-cpp_coload/costo_pqt:.1%} vs as-is, sin tocar SLA de troncales"),
+    ]])
+
 # ── HTML ──────────────────────────────────────────────────────────────────────
 html = f"""<!DOCTYPE html>
 <html lang="es">
@@ -381,6 +455,22 @@ html = f"""<!DOCTYPE html>
     {kpi_card("Costo total", f"${total_costo/1e6:.2f}M", "MXN por semana", C_ORG)}
     {kpi_card("Vehículos / semana", f"{total_veh:,}", f"{int(total_veh/7)} salidas/día prom.", C_MELI)}
     {kpi_card("Km recorridos", f"{total_km:,.0f}", "ida cargada / semana", C_RED)}
+  </div>
+
+  <div class="chart-box">
+    <div class="section-title">P3 · ¿Cuál es el costo total de la red y el costo por paquete?</div>
+    <table>
+      <tr><th>Concepto</th><th>Valor</th><th>Detalle</th></tr>
+      {p3_rows}
+    </table>
+    <div class="insight-box" style="margin-top:14px">
+      <strong>Respuesta:</strong> la red cuesta <strong>${total_costo/1e6:.2f}M MXN/semana ≈
+      ${costo_pqt:.2f} por paquete</strong> (con km reales por ruta). El hallazgo:
+      <strong>{micro_dias['envios'].sum()/total_envios:.2%} del volumen (micro-rutas) consume
+      {costo_micro/total_costo:.1%} del costo</strong> — tortons casi vacíos recorriendo 400–1,600 km.
+      Consolidando esa cola como co-load el costo baja a <strong>${cpp_coload:.2f}/pqt
+      (−{1-cpp_coload/costo_pqt:.1%})</strong>.
+    </div>
   </div>
 
   <div class="grid-2">
@@ -480,10 +570,55 @@ html = f"""<!DOCTYPE html>
     {kpi_card("Vehículos / semana", f"{total_veh:,}", f"Trailers + Tortons", C_MELI2)}
   </div>
 
+  <div class="chart-box">
+    <div class="section-title">P1 · ¿Cuántos vehículos estarían llegando al destino y en qué horario?</div>
+    <div class="grid-2">
+      <div>
+        <p style="font-weight:600;margin-bottom:10px;color:{C_TEXT}">Vehículos que recibe cada destino (promedio diario)</p>
+        <table>
+          <tr><th>Destino</th><th>Vehículos / día</th><th>Envíos / sem</th></tr>
+          {p1_dest_rows}
+        </table>
+      </div>
+      <div>
+        <p style="font-weight:600;margin-bottom:10px;color:{C_TEXT}">Flujos diarios: salida, llegada y día de arribo</p>
+        <table>
+          <tr><th>Flujo</th><th>Veh/día</th><th>Sale</th><th>Llega</th><th>Día</th></tr>
+          {p1_flujo_rows}
+        </table>
+      </div>
+    </div>
+    <div class="insight-box" style="margin-top:14px">
+      <strong>Respuesta:</strong> la red recibe <strong>~{p1_dest['veh_dia'].sum():.0f} vehículos/día</strong>
+      en 8 destinos. Las troncales de Tepotzotlán salen 20:30–22:30 y llegan al sureste en
+      <strong>D+1 entre 11:19 (Tuxtla) y 23:30 (Cancún)</strong>; las radiales de Mérida salen 22:30 y
+      llegan de madrugada. <strong>Playa del Carmen es la excepción: llega D+2 a las 00:30</strong> —
+      toda promesa D+1 en la Riviera Maya depende del inventario posicionado en el hub de Mérida.
+      Los {len(p1_resto)} flujos restantes son micro-rutas esporádicas (1 torton, 1–5 días/sem)
+      con {p1_resto['envios'].sum():,} envíos en total (&lt;0.3% del volumen).
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <div class="section-title">P2 · ¿Qué indicadores de ocupación tiene la red?</div>
+    <table>
+      <tr><th>Segmento</th><th>Rutas</th><th>Envíos / sem</th><th>Ocupación ponderada</th><th>Rango</th><th>Costo / sem</th></tr>
+      {p2_rows}
+    </table>
+    <div class="insight-box" style="margin-top:14px">
+      <strong>Respuesta:</strong> la ocupación de red ponderada es <strong>{ocu_red:.0f}%</strong>, pero el
+      promedio esconde tres realidades: <strong>troncales 83–94%</strong> (sanas, en target),
+      <strong>secundarias 24–50%</strong> (precio de mantener frecuencia diaria por SLA) y
+      <strong>cola a ~7%</strong> (1 pallet en un torton de 14 — dinero quemado).
+      La métrica accionable no es el promedio: es <em>cuántos pallets de holgura tiene cada salida</em>,
+      porque esa holgura es la capacidad disponible para co-load.
+    </div>
+  </div>
+
   <div class="insight-box">
-    <strong>¿Por qué la bimodalidad?</strong> Las rutas de Tepotzotlán (FC principal) salen con 
-    trailers llenos porque concentran el 84% del volumen. Las rutas de nodos secundarios 
-    (Cancún, Campeche, Villahermosa como origen) tienen 7.1% de ocupación — exactamente 
+    <strong>¿Por qué la bimodalidad?</strong> Las rutas de Tepotzotlán (FC principal) salen con
+    trailers llenos porque concentran el 84% del volumen. Las rutas de nodos secundarios
+    (Cancún, Campeche, Villahermosa como origen) tienen 7.1% de ocupación — exactamente
     1 pallet en un torton de 14 tarimas. Son básicamente mini-rutas de redistribución local.
   </div>
 
