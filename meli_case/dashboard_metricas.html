@@ -91,15 +91,15 @@
     <div class="section-title">P3 · ¿Cuál es el costo total de la red y el costo por paquete?</div>
     <table>
       <tr><th>Concepto</th><th>Valor</th><th>Detalle</th></tr>
-      <tr><td>Envíos totales / semana</td><td style="text-align:right;font-family:monospace;font-weight:600">200,304</td><td style="color:#9E9E9E">7 días, 18–24 jun</td></tr><tr><td>Costo total / semana</td><td style="text-align:right;font-family:monospace;font-weight:600">$10,764,758</td><td style="color:#9E9E9E">km reales × tarifa por vehículo</td></tr><tr><td>Costo por paquete (as-is)</td><td style="text-align:right;font-family:monospace;font-weight:600">$53.74</td><td style="color:#9E9E9E">costo total ÷ envíos</td></tr><tr><td>· del cual: micro-rutas (<1 pallet/día)</td><td style="text-align:right;font-family:monospace;font-weight:600">$2,096,632</td><td style="color:#9E9E9E">19.5% del costo con 0.34% del volumen</td></tr><tr><td>Costo por paquete consolidando (co-load)</td><td style="text-align:right;font-family:monospace;font-weight:600">$43.27</td><td style="color:#9E9E9E">−19.5% vs as-is, sin tocar SLA de troncales</td></tr>
+      <tr><td>Envíos totales / semana</td><td style="text-align:right;font-family:monospace;font-weight:600">200,304</td><td style="color:#9E9E9E">7 días, 18–24 jun</td></tr><tr><td>Costo total / semana</td><td style="text-align:right;font-family:monospace;font-weight:600">$10,764,758</td><td style="color:#9E9E9E">km reales × tarifa por vehículo</td></tr><tr><td>Costo por paquete (as-is)</td><td style="text-align:right;font-family:monospace;font-weight:600">$53.74</td><td style="color:#9E9E9E">costo total ÷ envíos</td></tr><tr><td>· del cual: micro-rutas (<1 pallet/día)</td><td style="text-align:right;font-family:monospace;font-weight:600">$2,096,632</td><td style="color:#9E9E9E">19.5% del costo con 0.34% del volumen</td></tr><tr><td>CPP co-load (100% captura, techo teórico)</td><td style="text-align:right;font-family:monospace;font-weight:600">$43.27</td><td style="color:#9E9E9E">−19.5% vs as-is · escenario conservador 70%: $46.42</td></tr>
     </table>
     <div class="insight-box" style="margin-top:14px">
       <strong>Respuesta:</strong> la red cuesta <strong>$10.76M MXN/semana ≈
       $53.74 por paquete</strong> (con km reales por ruta). El hallazgo:
       <strong>0.34% del volumen (micro-rutas) consume
       19.5% del costo</strong> — tortons casi vacíos recorriendo 400–1,600 km.
-      Consolidando esa cola como co-load el costo baja a <strong>$43.27/pqt
-      (−19.5%)</strong>.
+      Consolidando esa cola como co-load el costo baja a <strong>$43.27/pqt al 100% de captura
+      (−19.5%)</strong> — techo teórico; con captura conservadora del 70%: $46.42/pqt.
     </div>
   </div>
 
@@ -622,11 +622,12 @@
     <div id="chart-puente"></div>
     <div class="insight-box" style="margin-top:14px">
       <strong>Cómo leerlo:</strong> partimos de <strong>$53.74/pqt as-is</strong>. El co-load aporta
-      la reducción más grande (−$7.33, directo del modelo). Las otras tres palancas son estimaciones de orden
+      la reducción más grande (−$7.33/pqt, directo del modelo). Las otras tres palancas son estimaciones de orden
       de magnitud. Aterrizando las 4 iniciativas el costo objetivo es
-      <strong>$37.28/pqt (−31%)</strong>.
-      Nota: el $43.27 que mencionamos en P3 es solo co-load al 100% de captura — este puente usa
-      el 70% conservador, por eso los números difieren.
+      <strong>$37.28/pqt (−31%)</strong>.<br>
+      <span style="color:#FFA502">⚠ <strong>¿Por qué el co-load llega a $46.42 aquí y a $43.27 en P3?</strong>
+      Este waterfall usa <strong>70% de captura conservador</strong> (no todos los paquetes de micro-rutas llegarán
+      antes del cutoff). P3 muestra el <strong>techo teórico al 100%</strong>. Ambos números son correctos en su contexto.</span>
     </div>
   </div>
 
@@ -645,7 +646,9 @@
           <strong>Evidencia del modelo:</strong><br>
           · 682 paquetes/semana en micro-rutas = 0.34% del volumen<br>
           · Generan <strong>$2,096,632</strong>/semana = 19.5% del costo total<br>
-          · CPP as-is: <strong>$53.74</strong> → con co-load: <strong>$43.27</strong> (−19.5%)
+          · CPP as-is: <strong>$53.74</strong><br>
+          · Con co-load <em>(70% captura, conservador)</em>: <strong style="color:#2ED573">$46.42</strong> (−13.6%) ← usado en el waterfall<br>
+          · Techo teórico (100% captura): <strong>$43.27</strong> (−19.5%) ← usado en P3
         </div>
       </div>
       <div>

@@ -138,7 +138,8 @@ ocu_red = mod['pallets'].sum() / mod['capacidad'].sum() * 100
 # ── P3: costo total y hallazgo de la cola ─────────────────────────────────────
 micro_dias = mod[mod['envios'] < 60]          # ruta-día con menos de 1 pallet
 costo_micro = micro_dias['costo_real'].sum()
-cpp_coload = (total_costo - costo_micro) / total_envios
+cpp_coload    = (total_costo - costo_micro) / total_envios           # 100 % captura — techo teórico
+cpp_coload_70 = costo_pqt - costo_micro * 0.70 / total_envios       # 70 % captura — escenario conservador (= $46.42)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # COLORES
@@ -546,8 +547,8 @@ p3_rows = "".join([
         ("Costo por paquete (as-is)", f"${costo_pqt:.2f}", "costo total ÷ envíos"),
         ("· del cual: micro-rutas (<1 pallet/día)", f"${costo_micro:,.0f}",
          f"{costo_micro/total_costo:.1%} del costo con {micro_dias['envios'].sum()/total_envios:.2%} del volumen"),
-        ("Costo por paquete consolidando (co-load)", f"${cpp_coload:.2f}",
-         f"−{1-cpp_coload/costo_pqt:.1%} vs as-is, sin tocar SLA de troncales"),
+        ("CPP co-load (100% captura, techo teórico)", f"${cpp_coload:.2f}",
+         f"−{1-cpp_coload/costo_pqt:.1%} vs as-is · escenario conservador 70%: ${cpp_coload_70:.2f}"),
     ]])
 
 # ── HTML ──────────────────────────────────────────────────────────────────────
@@ -626,8 +627,8 @@ html = f"""<!DOCTYPE html>
       ${costo_pqt:.2f} por paquete</strong> (con km reales por ruta). El hallazgo:
       <strong>{micro_dias['envios'].sum()/total_envios:.2%} del volumen (micro-rutas) consume
       {costo_micro/total_costo:.1%} del costo</strong> — tortons casi vacíos recorriendo 400–1,600 km.
-      Consolidando esa cola como co-load el costo baja a <strong>${cpp_coload:.2f}/pqt
-      (−{1-cpp_coload/costo_pqt:.1%})</strong>.
+      Consolidando esa cola como co-load el costo baja a <strong>${cpp_coload:.2f}/pqt al 100% de captura
+      (−{1-cpp_coload/costo_pqt:.1%})</strong> — techo teórico; con captura conservadora del 70%: ${cpp_coload_70:.2f}/pqt.
     </div>
   </div>
 
@@ -975,11 +976,12 @@ html = f"""<!DOCTYPE html>
     <div id="chart-puente"></div>
     <div class="insight-box" style="margin-top:14px">
       <strong>Cómo leerlo:</strong> partimos de <strong>${costo_pqt:.2f}/pqt as-is</strong>. El co-load aporta
-      la reducción más grande (−$7.33, directo del modelo). Las otras tres palancas son estimaciones de orden
+      la reducción más grande (−${costo_micro*0.70/total_envios:.2f}/pqt, directo del modelo). Las otras tres palancas son estimaciones de orden
       de magnitud. Aterrizando las 4 iniciativas el costo objetivo es
-      <strong>${costo_pqt*(1-(saving_coload_real+saving_multistop+saving_cv+saving_carriers)/(total_costo*52)):.2f}/pqt (−31%)</strong>.
-      Nota: el ${cpp_coload:.2f} que mencionamos en P3 es solo co-load al 100% de captura — este puente usa
-      el 70% conservador, por eso los números difieren.
+      <strong>${costo_pqt*(1-(saving_coload_real+saving_multistop+saving_cv+saving_carriers)/(total_costo*52)):.2f}/pqt (−31%)</strong>.<br>
+      <span style="color:{C_ORG}">⚠ <strong>¿Por qué el co-load llega a ${cpp_coload_70:.2f} aquí y a ${cpp_coload:.2f} en P3?</strong>
+      Este waterfall usa <strong>70% de captura conservador</strong> (no todos los paquetes de micro-rutas llegarán
+      antes del cutoff). P3 muestra el <strong>techo teórico al 100%</strong>. Ambos números son correctos en su contexto.</span>
     </div>
   </div>
 
@@ -998,7 +1000,9 @@ html = f"""<!DOCTYPE html>
           <strong>Evidencia del modelo:</strong><br>
           · {micro_dias['envios'].sum():,} paquetes/semana en micro-rutas = {micro_dias['envios'].sum()/total_envios:.2%} del volumen<br>
           · Generan <strong>${costo_micro:,.0f}</strong>/semana = {costo_micro/total_costo:.1%} del costo total<br>
-          · CPP as-is: <strong>${costo_pqt:.2f}</strong> → con co-load: <strong>${cpp_coload:.2f}</strong> (−{1-cpp_coload/costo_pqt:.1%})
+          · CPP as-is: <strong>${costo_pqt:.2f}</strong><br>
+          · Con co-load <em>(70% captura, conservador)</em>: <strong style="color:{C_GRN}">${cpp_coload_70:.2f}</strong> (−{1-cpp_coload_70/costo_pqt:.1%}) ← usado en el waterfall<br>
+          · Techo teórico (100% captura): <strong>${cpp_coload:.2f}</strong> (−{1-cpp_coload/costo_pqt:.1%}) ← usado en P3
         </div>
       </div>
       <div>
