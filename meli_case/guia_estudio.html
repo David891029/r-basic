@@ -205,14 +205,14 @@
 
 <!-- ══════════════ NARRATIVA ══════════════ -->
 <div id="sec-narrativa" class="section">
-  <h2>La narrativa: hilo conductor y slide por slide</h2>
+  <h2>La narrativa: presentación con el dashboard</h2>
 
   <div class="thread">
     "La red tiene dos regímenes de demanda. La cola caótica es justo la que destruye el costo. Pero no puedo matarla porque el SLA depende de ella — así que la consolido sin romper la promesa."
   </div>
 
   <div class="card" style="border-left:4px solid #2ED573">
-    <h3>🎤 Guión de apertura (90 segundos — memorízalo)</h3>
+    <h3>🎤 Guión de apertura (90 segundos — dilo de memoria ANTES de abrir el dashboard)</h3>
     <p style="font-size:14px;line-height:2">
     "Analicé una semana de la red de media milla: <strong>200 mil envíos, 8 destinos del sureste, $10.8 millones de costo — $53.74 por paquete</strong>.<br>
     Lo primero que encontré es que no es una red: <strong>son dos</strong>. Una troncal sana — Tepotzotlán concentra 84% del volumen con ocupaciones de 83 a 94% — y una cola de micro-rutas que es donde está el problema:
@@ -222,101 +222,110 @@
     Mi propuesta es consolidarlas como <strong>co-load</strong> en las salidas troncales que ya existen: mismo SLA, cero vehículos extra, <strong>−19% del costo por paquete</strong>.
     Y a partir de ahí, tres palancas más que en conjunto valen <strong>~$171M al año</strong>."
     </p>
-    <p style="font-size:12px;color:#888;margin-top:6px">Esto cubre: dimensión de la red ✓ hallazgo ✓ ejemplo memorable ✓ tensión ✓ solución ✓ tamaño del premio ✓ — en minuto y medio. Después de esto, el resto de la presentación es evidencia.</p>
+    <p style="font-size:12px;color:#888;margin-top:6px">Dilo mirando a los ojos, sin abrir nada todavía. Al terminar di: "Les voy a mostrar la evidencia." <em>Luego</em> abre el dashboard. La apertura de memoria impacta más que cualquier gráfica.</p>
   </div>
 
   <div class="card">
-    <h3>El arco en una línea (si te pierdes, regresa aquí)</h3>
+    <h3>El arco en una línea (si te pierdes durante el Q&A, regresa aquí)</h3>
     <p style="font-size:14px;line-height:2;font-family:monospace">
-    CONTEXTO (qué red es) → DIAGNÓSTICO (dos regímenes) → HALLAZGO (la cola quema 19.5%) → TENSIÓN (no puedo cancelarla) → SOLUCIÓN (co-load −19%) → ROADMAP ($171M en 2 olas) → HUMILDAD (qué pediría para producción)
+    CONTEXTO → DOS REGÍMENES → HALLAZGO → TENSIÓN → SOLUCIÓN → ROADMAP → HUMILDAD
     </p>
     <p style="font-size:12px;color:#888">Cada vez que el panel te desvíe con una pregunta, contesta y reconecta: "...y por eso la recomendación central sigue siendo consolidar sin romper la promesa."</p>
   </div>
 
-  <div class="two-col">
-    <div>
-      <div class="card">
-        <h3>Slide 1 — Resumen ejecutivo</h3>
-        <p style="font-size:13px;line-height:1.8">200K pqts/sem a <strong>$53.74</strong>. 84% sale eficiente de Tepotzotlán. Pero 0.34% del volumen consume 19% del costo → co-load lo baja −19%.</p>
-        <p style="font-size:13px;color:#777;margin-top:6px"><em>Activa los 3 mensajes en una frase.</em></p>
-      </div>
-      <div class="card">
-        <h3>Slide 2 — Datos y método</h3>
-        <p style="font-size:13px;line-height:1.8">Supuestos declarados. Gaps honestos. Genera credibilidad antes de mostrar resultados.</p>
-      </div>
-      <div class="card">
-        <h3>Slide 3 — P1: Vehículos y horarios</h3>
-        <p style="font-size:13px;line-height:1.8">~43 veh/día. Tabla de llegadas. <strong>Siembras aquí: Playa llega D+2.</strong> El panel ya tiene el dato cuando llegues a la slide 6.</p>
-      </div>
-      <div class="card">
-        <h3>Slide 4 — P2: Dos regímenes</h3>
-        <p style="font-size:13px;line-height:1.8">Troncales 67–94% (CV bajo) vs. cola 7.1% (CV alto). <strong>Esta slide prepara el clímax.</strong> Primero muestras que hay dos mundos.</p>
-      </div>
-    </div>
-    <div>
-      <div class="card">
-        <h3>Slide 5 — P3: El hallazgo (clímax)</h3>
-        <p style="font-size:13px;line-height:1.8">Esa cola de CV alto de la slide anterior = 0.34% del volumen pero 19% del costo. <strong>La misma cola, el mismo problema.</strong></p>
-      </div>
-      <div class="card">
-        <h3>Slide 6 — La tensión</h3>
-        <p style="font-size:13px;line-height:1.8">¿Por qué no cancelar? Devoluciones, saturación de hubs, inventario distribuido. <strong>Playa D+2 paga aquí</strong> (la sembraste en slide 3). Solución: co-load.</p>
-      </div>
-      <div class="card">
-        <h3>Slide 7 — Recomendaciones (con business case)</h3>
-        <p style="font-size:13px;line-height:1.8"><strong>Ola 1 (0–8 sem, sin inversión):</strong> 1) Co-load $76M/año · 2) Multi-stop Riviera Maya $22M/año.<br><strong>Ola 2 (8–16 sem):</strong> 3) Planeación por CV $28M/año · 4) Negociación carriers $45M/año.<br>Total <strong>~$171M/año</strong> → $/pqt objetivo $37.28.</p>
-      </div>
-      <div class="card">
-        <h3>Slide 8 — Para producción</h3>
-        <p style="font-size:13px;line-height:1.8">Tarifario real · 8-12 sem con Hot Sale · Promesa a nivel paquete · Ventanas de recibo · Calendario comercial.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:8px">
-    <h3>La conexión entre slides que el panel nota</h3>
+  <div class="card" style="border-left:4px solid #FFE600">
+    <h3>🗺️ Ruta de navegación por el dashboard — el orden importa</h3>
     <table>
-      <tr><th>Siembras en</th><th>Pagas en</th><th>El link</th></tr>
-      <tr><td>Slide 3: Playa llega D+2</td><td>Slide 6: tensión</td><td>No puedes cancelar micro-rutas sin perder la promesa en Riviera Maya</td></tr>
-      <tr><td>Slide 4: dos regímenes (CV)</td><td>Slide 5: hallazgo</td><td>La cola caótica = la que destruye el costo</td></tr>
-      <tr><td>Slide 5: co-load −19%</td><td>Slide 8: producción</td><td>El ahorro solo sobrevive si el tarifario real y los picos lo sostienen</td></tr>
+      <tr><th>#</th><th>Pestaña</th><th>Qué señalas</th><th>Qué dices al entrar</th><th>Siembras / pagas</th></tr>
+      <tr>
+        <td style="font-weight:700;color:#3483FA">1</td>
+        <td><strong>Resumen Ejecutivo</strong></td>
+        <td>KPIs de arriba → tabla P3 → tabla de rutas de abajo</td>
+        <td>"Aquí están los números de la red: $10.8M, $53.74/pqt. Y aquí está el hallazgo: esta línea —" (señala fila de micro-rutas en tabla P3)</td>
+        <td>🌱 Siembras: "0.34% del volumen, 19.5% del costo"</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:#3483FA">2</td>
+        <td><strong>Forecast (CV)</strong></td>
+        <td>El mapa primero — luego la barra de CV</td>
+        <td>"Para entender por qué pasa eso, necesito mostrarles cómo se ve la red visualmente." (dejas que el mapa cargue un segundo — tiene efecto)</td>
+        <td>🌱 Siembras: "las líneas rojas punteadas = los tortons vacíos de la tabla anterior"</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:#3483FA">3</td>
+        <td><strong>Utilización Flota</strong></td>
+        <td>Tabla P1 (arribo) → resalta fila Playa D+2 → tabla P2 (ocupación por segmento)</td>
+        <td>"¿A qué hora llegan esos vehículos? Y más importante: ¿llegan todos a tiempo?"</td>
+        <td>🌱 Siembras Playa D+2 → la pagas en el paso 5</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:#3483FA">4</td>
+        <td><strong>Día a Día</strong></td>
+        <td>Gráfica dual (flota oscila 2.6x) → tabla peores ruta-día</td>
+        <td>"La semana no es plana. La flota va de 21 a 54 vehículos — 2.6x dentro de la misma semana." Luego: "Y aquí está el ejemplo más extremo que encontré."</td>
+        <td>💰 Pagas el hallazgo: $44,776 / 1 paquete / Tapachula→Mérida</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:#3483FA">5</td>
+        <td><strong>Co-load & Costos</strong></td>
+        <td>Gráfica scatter (costo vs ocupación) → tabla de candidatas</td>
+        <td>"La reacción natural es cancelar esas rutas. No se puede — son el flujo de devoluciones. Pero sí se pueden consolidar." (aquí pagas Playa D+2) "Si cancelo la micro-ruta de Playa, ¿cómo muevo el inventario de Mérida a Playa para la promesa D+1?"</td>
+        <td>💰 Pagas Playa D+2: "la troncal Mérida→Playa ya existe, el co-load no rompe nada"</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:#3483FA">6</td>
+        <td><strong>⚡ Recomendaciones</strong></td>
+        <td>KPIs de ahorro → gráfica de barras → hoja de ruta</td>
+        <td>"Entonces, ¿qué haría yo en los primeros 90 días?" (señala la gráfica) "Dos cosas sin inversión, dos con datos adicionales."</td>
+        <td>🎯 El cierre de la narrativa</td>
+      </tr>
     </table>
   </div>
 
   <div class="card">
-    <h3>🌉 Puentes verbales entre slides (las frases de transición)</h3>
+    <h3>🌉 Frases de transición entre pestañas (di esto mientras haces clic)</h3>
     <table>
-      <tr><th>De → A</th><th>Di exactamente</th></tr>
-      <tr><td>1 → 2</td><td>"Antes de los resultados, los supuestos — porque el costo cambia según lo que asumas."</td></tr>
-      <tr><td>2 → 3</td><td>"Con eso, primero lo operativo: cuántos vehículos llegan a cada destino y cuándo."</td></tr>
-      <tr><td>3 → 4</td><td>"Esos vehículos no viajan igual de llenos. Y aquí aparece la primera señal del problema."</td></tr>
-      <tr><td>4 → 5</td><td>"¿Y cuánto cuesta esa cola medio vacía? Esta es la slide más importante del análisis."</td></tr>
-      <tr><td>5 → 6</td><td>"La reacción natural es: cancela esas rutas. Déjenme explicar por qué sería un error."</td></tr>
-      <tr><td>6 → 7</td><td>"Entonces, ¿qué haría yo en los primeros 90 días? Cuatro cosas, en este orden."</td></tr>
-      <tr><td>7 → 8</td><td>"Todo esto sale de una semana de datos. Para sostenerlo en producción, esto es lo que pediría."</td></tr>
+      <tr><th>De → A</th><th>Di exactamente mientras cambias de pestaña</th></tr>
+      <tr><td>Apertura → Resumen</td><td>"Les voy a mostrar la evidencia. Empecemos por los números de la red."</td></tr>
+      <tr><td>Resumen → Forecast</td><td>"Para entender de dónde viene ese 19.5%, primero hay que ver cómo se ve la red."</td></tr>
+      <tr><td>Forecast → Flota</td><td>"Esas líneas rojas no son un problema de volumen — son un problema de ocupación. Y de horarios."</td></tr>
+      <tr><td>Flota → Día a Día</td><td>"Y esa ocupación no es pareja en la semana. La flota respira mucho más de lo que parece."</td></tr>
+      <tr><td>Día a Día → Co-load</td><td>"Entonces la pregunta es: ¿por qué no simplemente cancelamos esas rutas?"</td></tr>
+      <tr><td>Co-load → Recs</td><td>"La solución no es cancelar. Es consolidar. Aquí está el plan completo."</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">💡 Haz clic <em>mientras hablas</em>, no después. La transición verbal y el clic visual deben ser simultáneos — si primero clicas y luego buscas qué decir, hay un silencio incómodo.</p>
+  </div>
+
+  <div class="card">
+    <h3>🔍 Pestañas que NO formas parte del flujo principal — úsalas solo si el panel pregunta</h3>
+    <table>
+      <tr><th>Pestaña</th><th>Cuándo ir ahí</th><th>Qué tiene</th></tr>
+      <tr><td><strong>Estacionalidad</strong></td><td>"¿Cómo cambia la demanda durante la semana?"</td><td>Índice martes 1.24x / domingo 0.63x — la flota no puede ser plana</td></tr>
+      <tr><td><strong>NOM-087</strong></td><td>"¿Consideraste el costo del doble operador?"</td><td>4 rutas &gt;21h — "lo detecté pero no lo modelé; es el primer dato que pediría al carrier"</td></tr>
+      <tr><td><strong>Forecast (CV) — barra</strong></td><td>"¿Cuáles son las rutas más difíciles de planear?"</td><td>Barra horizontal con los 20 CV más altos — señala la telaraña roja del mapa</td></tr>
     </table>
   </div>
 
   <div class="card" style="border-left:4px solid #3483FA">
-    <h3>🎬 Cierre (30 segundos)</h3>
+    <h3>🎬 Cierre (30 segundos — última cosa que dices, estás en ⚡ Recomendaciones)</h3>
     <p style="font-size:14px;line-height:2">
     "En resumen: la red troncal está sana — el problema está en la cola, y es un problema de <strong>proceso, no de demanda</strong>.
     Con co-load capturo −19% en semanas, sin inversión y sin tocar la promesa al cliente.
     Las cuatro palancas juntas valen ~$171M al año.
-    Y lo que más me interesa validar con más datos es el comportamiento en picos como Hot Sale — porque un plan que solo funciona en semanas normales no es un plan."
+    Y lo que más me interesa validar con más datos es el comportamiento en picos como Hot Sale — porque <strong>un plan que solo funciona en semanas normales no es un plan</strong>."
     </p>
   </div>
 
   <div class="card">
-    <h3>📊 Qué visual usar para cada momento (si presentas con el dashboard)</h3>
+    <h3>⚡ Si el panel te interrumpe en cualquier punto</h3>
     <table>
-      <tr><th>Momento</th><th>Pestaña del dashboard</th><th>Qué señalar</th></tr>
-      <tr><td>Dimensión de la red</td><td>Resumen Ejecutivo</td><td>KPIs de arriba + tabla P3 (el desglose del costo)</td></tr>
-      <tr><td>Dos regímenes</td><td>Forecast (CV) — <strong>el mapa</strong></td><td>"Las troncales gruesas y estables vs la telaraña roja del sureste" — el caso en una imagen</td></tr>
-      <tr><td>Horarios / P1</td><td>Utilización Flota</td><td>Tabla de llegadas — fila roja de Playa D+2</td></tr>
-      <tr><td>La flota respira</td><td>Día a Día</td><td>21→54 vehículos; heatmap: "la troncal respira, la cola nunca despega"</td></tr>
-      <tr><td>El hallazgo</td><td>Día a Día</td><td>Tabla peores ruta-día: Tapachula→Mérida $44,776</td></tr>
-      <tr><td>El plan</td><td>⚡ Recomendaciones</td><td>Gráfica de ahorros + hoja de ruta con olas</td></tr>
+      <tr><th>Te preguntan sobre</th><th>Dónde ir en el dashboard</th><th>Qué mostrar</th></tr>
+      <tr><td>"¿Cuántos camiones el martes?"</td><td>Día a Día</td><td>Gráfica dual: 54 vehículos el martes vs 21 el domingo</td></tr>
+      <tr><td>"¿Qué es el CV exactamente?"</td><td>Forecast (CV)</td><td>Mapa + explicación visual: "las líneas rojas son las que no puedo predecir"</td></tr>
+      <tr><td>"¿Por qué no cancelas?"</td><td>Co-load</td><td>Scatter de candidatas + argumento de hubs y devoluciones</td></tr>
+      <tr><td>"¿De dónde sale el $171M?"</td><td>⚡ Recomendaciones</td><td>Tabla hoja de ruta — muestra cuál es directo del modelo (co-load) y cuáles son orden de magnitud</td></tr>
+      <tr><td>"¿Qué pasa en Hot Sale?"</td><td>Estacionalidad</td><td>"No tengo esos datos — eso es exactamente lo que pediría primero"</td></tr>
+      <tr><td>"¿Cuánto cuesta Playa?"</td><td>Flota → P1 tabla</td><td>Tep→Playa: 1.4 veh/día, llega D+2 a las 00:30. Luego Co-load: solución vía Mérida</td></tr>
     </table>
   </div>
 </div>
