@@ -356,6 +356,37 @@ fig_rec.update_layout(
     margin=dict(l=20, r=120, t=50, b=30), height=320
 )
 
+# ── Waterfall: puente del costo por paquete $53.74 → $37.28 ───────────────────
+cpp_drops = [
+    ("Co-load",        -saving_coload_real / 52 / total_envios),
+    ("Multi-stop",     -saving_multistop   / 52 / total_envios),
+    ("Plan. por CV",   -saving_cv          / 52 / total_envios),
+    ("Negoc. carriers",-saving_carriers    / 52 / total_envios),
+]
+cpp_final = costo_pqt + sum(d for _, d in cpp_drops)
+fig_puente = go.Figure(go.Waterfall(
+    orientation="v",
+    measure=["absolute"] + ["relative"] * len(cpp_drops) + ["total"],
+    x=["CPP as-is"] + [n for n, _ in cpp_drops] + ["CPP objetivo"],
+    y=[costo_pqt] + [d for _, d in cpp_drops] + [0],
+    text=[f"${costo_pqt:.2f}"] + [f"−${-d:.2f}" for _, d in cpp_drops] + [f"${cpp_final:.2f}"],
+    textposition="outside", textfont=dict(color=C_TEXT, size=13),
+    connector=dict(line=dict(color="#2A2A4A")),
+    decreasing=dict(marker=dict(color=C_GRN)),
+    totals=dict(marker=dict(color=C_MELI2)),
+    increasing=dict(marker=dict(color=C_RED)),
+    hovertemplate='<b>%{x}</b><br>$%{y:.2f}/pqt<extra></extra>'
+))
+fig_puente.update_layout(
+    title=dict(text=f"Puente de costo por paquete: ${costo_pqt:.2f} → ${cpp_final:.2f} (−{1-cpp_final/costo_pqt:.0%})",
+               font=dict(color=C_TEXT, size=16)),
+    xaxis=dict(color=C_TEXT),
+    yaxis=dict(title="$/paquete (MXN)", color=C_TEXT, gridcolor="#2A2A4A",
+               range=[0, costo_pqt * 1.2]),
+    paper_bgcolor=C_CARD, plot_bgcolor=C_CARD, showlegend=False,
+    margin=dict(l=50, r=30, t=50, b=30), height=380
+)
+
 # ── Mapa de red: rutas por CV y rutas críticas ────────────────────────────────
 COORDS = {
     "Tepotzotlan":       (19.716, -99.224),
@@ -460,6 +491,7 @@ charts = {
     'heat':    fig2json(fig_heat),
     'rec':     fig2json(fig_rec),
     'map':     fig2json(fig_map),
+    'puente':  fig2json(fig_puente),
 }
 
 # Tabla peores ruta-día
@@ -939,6 +971,18 @@ html = f"""<!DOCTYPE html>
     <div id="chart-rec"></div>
   </div>
 
+  <div class="chart-box">
+    <div id="chart-puente"></div>
+    <div class="insight-box" style="margin-top:14px">
+      <strong>Cómo leerlo:</strong> partimos de <strong>${costo_pqt:.2f}/pqt as-is</strong>. El co-load aporta
+      la reducción más grande (−$7.33, directo del modelo). Las otras tres palancas son estimaciones de orden
+      de magnitud. Aterrizando las 4 iniciativas el costo objetivo es
+      <strong>${costo_pqt*(1-(saving_coload_real+saving_multistop+saving_cv+saving_carriers)/(total_costo*52)):.2f}/pqt (−31%)</strong>.
+      Nota: el ${cpp_coload:.2f} que mencionamos en P3 es solo co-load al 100% de captura — este puente usa
+      el 70% conservador, por eso los números difieren.
+    </div>
+  </div>
+
   <!-- REC 1: CO-LOAD -->
   <div class="chart-box">
     <div class="section-title" style="color:{C_GRN}">Recomendación 1 · Co-load (Ola 1 — 0–8 semanas)</div>
@@ -1138,7 +1182,7 @@ function renderCharts(page) {{
     'coload':     [['chart-coload','coload']],
     'estacional': [['chart-sea','sea']],
     'diadia':     [['chart-dia','dia'],['chart-heat','heat']],
-    'recs':       [['chart-rec','rec']],
+    'recs':       [['chart-rec','rec'],['chart-puente','puente']],
   }};
   (map[page] || []).forEach(([divId, key]) => {{
     if(!rendered.has(divId)) {{
