@@ -74,6 +74,21 @@ html = """<!DOCTYPE html>
     <div class="kpi red"><div class="val">0.34%</div><div class="lbl">Volumen en micro-rutas</div><div class="sub">682 paqutes</div></div>
     <div class="kpi red"><div class="val">19.5%</div><div class="lbl">Costo de micro-rutas</div><div class="sub">$2.10M/sem</div></div>
     <div class="kpi"><div class="val">60%</div><div class="lbl">Ocupación global</div><div class="sub">3,500 pal / 5,838 cap</div></div>
+    <div class="kpi green"><div class="val">$171M</div><div class="lbl">Ahorro anual identificado</div><div class="sub">4 iniciativas, supuestos conservadores</div></div>
+    <div class="kpi green"><div class="val">$98M</div><div class="lbl">Sin inversión (Ola 1)</div><div class="sub">co-load $76M + multi-stop $22M</div></div>
+    <div class="kpi yellow"><div class="val">$37.28</div><div class="lbl">$/pqt objetivo</div><div class="sub">con las 4 iniciativas (vs $53.74)</div></div>
+  </div>
+
+  <h3>Business case — las 4 recomendaciones (anualizado)</h3>
+  <div class="card">
+    <table>
+      <tr><th>#</th><th>Iniciativa</th><th>Ola</th><th>Ahorro/año</th><th>Supuesto del cálculo</th></tr>
+      <tr><td>1</td><td>Co-load micro-rutas → troncales</td><td><span class="tag tag-green">Ola 1 (0–8 sem)</span></td><td><strong>$76M</strong></td><td>captura del 70% de los $2.1M/sem de la cola</td></tr>
+      <tr><td>2</td><td>Multi-stop Riviera Maya (Cancún→Playa→Chetumal)</td><td><span class="tag tag-green">Ola 1 (0–8 sem)</span></td><td><strong>$22M</strong></td><td>~4% del costo total de red</td></tr>
+      <tr><td>3</td><td>Planeación diferenciada por CV</td><td><span class="tag tag-orange">Ola 2 (8–16 sem)</span></td><td><strong>$28M</strong></td><td>~5% del costo; requiere 8–12 sem de histórico</td></tr>
+      <tr><td>4</td><td>Negociación tarifaria carriers (NOM-087 + picos)</td><td><span class="tag tag-orange">Ola 2 (8–16 sem)</span></td><td><strong>$45M</strong></td><td>~8% del costo; requiere datos Hot Sale</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">💡 Si te aprietan: "los porcentajes de las iniciativas 2–4 son estimaciones de orden de magnitud para dimensionar la oportunidad — el único calculado directo del modelo es el co-load. Por eso es mi #1: es el único que puedo defender con los datos de una semana."</p>
   </div>
 
   <h3>Estructura de la red</h3>
@@ -196,6 +211,28 @@ html = """<!DOCTYPE html>
     "La red tiene dos regímenes de demanda. La cola caótica es justo la que destruye el costo. Pero no puedo matarla porque el SLA depende de ella — así que la consolido sin romper la promesa."
   </div>
 
+  <div class="card" style="border-left:4px solid #2ED573">
+    <h3>🎤 Guión de apertura (90 segundos — memorízalo)</h3>
+    <p style="font-size:14px;line-height:2">
+    "Analicé una semana de la red de media milla: <strong>200 mil envíos, 8 destinos del sureste, $10.8 millones de costo — $53.74 por paquete</strong>.<br>
+    Lo primero que encontré es que no es una red: <strong>son dos</strong>. Una troncal sana — Tepotzotlán concentra 84% del volumen con ocupaciones de 83 a 94% — y una cola de micro-rutas que es donde está el problema:
+    <strong>0.34% del volumen consume 19.5% del costo</strong>.<br>
+    El ejemplo extremo: un paquete, un torton, 1,119 km, <strong>$44,776 por un solo paquete</strong>. Y pasó dos veces en la semana.<br>
+    La tentación es cancelar esas rutas — pero no se puede, porque mueven devoluciones e inventario que mantienen los hubs operando.
+    Mi propuesta es consolidarlas como <strong>co-load</strong> en las salidas troncales que ya existen: mismo SLA, cero vehículos extra, <strong>−19% del costo por paquete</strong>.
+    Y a partir de ahí, tres palancas más que en conjunto valen <strong>~$171M al año</strong>."
+    </p>
+    <p style="font-size:12px;color:#888;margin-top:6px">Esto cubre: dimensión de la red ✓ hallazgo ✓ ejemplo memorable ✓ tensión ✓ solución ✓ tamaño del premio ✓ — en minuto y medio. Después de esto, el resto de la presentación es evidencia.</p>
+  </div>
+
+  <div class="card">
+    <h3>El arco en una línea (si te pierdes, regresa aquí)</h3>
+    <p style="font-size:14px;line-height:2;font-family:monospace">
+    CONTEXTO (qué red es) → DIAGNÓSTICO (dos regímenes) → HALLAZGO (la cola quema 19.5%) → TENSIÓN (no puedo cancelarla) → SOLUCIÓN (co-load −19%) → ROADMAP ($171M en 2 olas) → HUMILDAD (qué pediría para producción)
+    </p>
+    <p style="font-size:12px;color:#888">Cada vez que el panel te desvíe con una pregunta, contesta y reconecta: "...y por eso la recomendación central sigue siendo consolidar sin romper la promesa."</p>
+  </div>
+
   <div class="two-col">
     <div>
       <div class="card">
@@ -226,8 +263,8 @@ html = """<!DOCTYPE html>
         <p style="font-size:13px;line-height:1.8">¿Por qué no cancelar? Devoluciones, saturación de hubs, inventario distribuido. <strong>Playa D+2 paga aquí</strong> (la sembraste en slide 3). Solución: co-load.</p>
       </div>
       <div class="card">
-        <h3>Slide 7 — Recomendaciones</h3>
-        <p style="font-size:13px;line-height:1.8">1) Co-load −19% inmediato · 2) Multi-stop Mérida ~$50K/sem · 3) Planeación por CV · 4) Tarifas reales con NOM-087.</p>
+        <h3>Slide 7 — Recomendaciones (con business case)</h3>
+        <p style="font-size:13px;line-height:1.8"><strong>Ola 1 (0–8 sem, sin inversión):</strong> 1) Co-load $76M/año · 2) Multi-stop Riviera Maya $22M/año.<br><strong>Ola 2 (8–16 sem):</strong> 3) Planeación por CV $28M/año · 4) Negociación carriers $45M/año.<br>Total <strong>~$171M/año</strong> → $/pqt objetivo $37.28.</p>
       </div>
       <div class="card">
         <h3>Slide 8 — Para producción</h3>
@@ -243,6 +280,43 @@ html = """<!DOCTYPE html>
       <tr><td>Slide 3: Playa llega D+2</td><td>Slide 6: tensión</td><td>No puedes cancelar micro-rutas sin perder la promesa en Riviera Maya</td></tr>
       <tr><td>Slide 4: dos regímenes (CV)</td><td>Slide 5: hallazgo</td><td>La cola caótica = la que destruye el costo</td></tr>
       <tr><td>Slide 5: co-load −19%</td><td>Slide 8: producción</td><td>El ahorro solo sobrevive si el tarifario real y los picos lo sostienen</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>🌉 Puentes verbales entre slides (las frases de transición)</h3>
+    <table>
+      <tr><th>De → A</th><th>Di exactamente</th></tr>
+      <tr><td>1 → 2</td><td>"Antes de los resultados, los supuestos — porque el costo cambia según lo que asumas."</td></tr>
+      <tr><td>2 → 3</td><td>"Con eso, primero lo operativo: cuántos vehículos llegan a cada destino y cuándo."</td></tr>
+      <tr><td>3 → 4</td><td>"Esos vehículos no viajan igual de llenos. Y aquí aparece la primera señal del problema."</td></tr>
+      <tr><td>4 → 5</td><td>"¿Y cuánto cuesta esa cola medio vacía? Esta es la slide más importante del análisis."</td></tr>
+      <tr><td>5 → 6</td><td>"La reacción natural es: cancela esas rutas. Déjenme explicar por qué sería un error."</td></tr>
+      <tr><td>6 → 7</td><td>"Entonces, ¿qué haría yo en los primeros 90 días? Cuatro cosas, en este orden."</td></tr>
+      <tr><td>7 → 8</td><td>"Todo esto sale de una semana de datos. Para sostenerlo en producción, esto es lo que pediría."</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="border-left:4px solid #3483FA">
+    <h3>🎬 Cierre (30 segundos)</h3>
+    <p style="font-size:14px;line-height:2">
+    "En resumen: la red troncal está sana — el problema está en la cola, y es un problema de <strong>proceso, no de demanda</strong>.
+    Con co-load capturo −19% en semanas, sin inversión y sin tocar la promesa al cliente.
+    Las cuatro palancas juntas valen ~$171M al año.
+    Y lo que más me interesa validar con más datos es el comportamiento en picos como Hot Sale — porque un plan que solo funciona en semanas normales no es un plan."
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>📊 Qué visual usar para cada momento (si presentas con el dashboard)</h3>
+    <table>
+      <tr><th>Momento</th><th>Pestaña del dashboard</th><th>Qué señalar</th></tr>
+      <tr><td>Dimensión de la red</td><td>Resumen Ejecutivo</td><td>KPIs de arriba + tabla P3 (el desglose del costo)</td></tr>
+      <tr><td>Dos regímenes</td><td>Forecast (CV) — <strong>el mapa</strong></td><td>"Las troncales gruesas y estables vs la telaraña roja del sureste" — el caso en una imagen</td></tr>
+      <tr><td>Horarios / P1</td><td>Utilización Flota</td><td>Tabla de llegadas — fila roja de Playa D+2</td></tr>
+      <tr><td>La flota respira</td><td>Día a Día</td><td>21→54 vehículos; heatmap: "la troncal respira, la cola nunca despega"</td></tr>
+      <tr><td>El hallazgo</td><td>Día a Día</td><td>Tabla peores ruta-día: Tapachula→Mérida $44,776</td></tr>
+      <tr><td>El plan</td><td>⚡ Recomendaciones</td><td>Gráfica de ahorros + hoja de ruta con olas</td></tr>
     </table>
   </div>
 </div>
@@ -352,6 +426,16 @@ html = """<!DOCTYPE html>
   <div class="qa">
     <div class="q">¿Por qué Playa del Carmen no puede tener promesa D+1 desde CDMX?</div>
     <div class="a">El camión Tepotzotlán→Playa sale a las 20:30 y tarda 28 horas — llega a las 00:30 del D+2. Cualquier pedido generado hoy llega pasado mañana viniendo lineal desde el FC. Para cumplir D+1, el artículo debe estar posicionado en el hub de Mérida antes de que se genere el pedido: Mérida→Playa son 7 horas, salida 22:30, llegada 05:30 D+1. Eso requiere que yo como Demand Planner anticipe la demanda por SKU en destino final, no solo por FC de origen.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Dices $171M de ahorro al año. ¿De dónde sale ese número y qué tan duro es?</div>
+    <div class="a"><strong>Una parte es cálculo, el resto es dimensionamiento — y lo digo así de claro.</strong> El co-load ($76M) sale directo del modelo: la cola cuesta $2.1M/sem, anualizado por 52 y castigado a 70% de captura porque no todo paquete coincide con cutoff de troncal. Las otras tres son estimaciones de orden de magnitud (4%, 5% y 8% del costo total) para dimensionar la oportunidad, no compromisos: multi-stop $22M, planeación por CV $28M, negociación con carriers $45M. Si el panel quiere comprometer un número, comprometo solo el co-load — el resto se valida con 8–12 semanas de datos.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">En tu mapa de red, ¿por qué hay rutas rojas (CV alto) que también son punteadas (críticas)?</div>
+    <div class="a">Porque son las mismas: <strong>el CV alto y la ocupación baja son dos síntomas del mismo fenómeno</strong> — volúmenes de 1-2 pallets que aparecen y desaparecen día a día. De 40 rutas del mapa, 28 están bajo 30% de ocupación y 9 tienen CV &gt;50%, y se traslapan casi por completo. Eso es justo lo que valida la estrategia: la zona caótica del mapa (la telaraña del sureste) no necesita mejor forecast — necesita dejar de despachar vehículos propios y montarse en el corredor troncal. CV es el diagnóstico, co-load es el tratamiento.</div>
   </div>
 </div>
 
